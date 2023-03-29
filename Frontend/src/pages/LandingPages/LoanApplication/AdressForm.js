@@ -19,6 +19,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup'; 
 import FormLabel from '@mui/material/FormLabel';  
+import Axios from 'axios'
 
 const currencies = [
     {
@@ -47,21 +48,37 @@ const currencies = [
     },
   ];
   
+export default function AddressForm({ onFormSubmit }) {
+  const [formData, setFormData] = React.useState({
+    loan_intent:"",
+    loan_amnt:"",
+    loan_duration:"",
+    loan_percent_income:"",
+    loan_int_rate:"",
+    person_income:"",
+  });
+  const handleInputChange = (e) => {
+    const newdata={...formData}
+    newdata[e.target.name]=e.target.value
+    setFormData(newdata)
+    onFormSubmit(newdata);
+    //console.log(newdata)
+  };
 
-export default function AddressForm() {
   return (
     <React.Fragment>
-      
-      
+       
       
       <Grid container spacing={3}>  
       
         <Grid item xs={12} sm={10} > 
           <TextField
+           name='loan_intent'
+           value={formData.loan_intent}
+           onChange={(e)=>handleInputChange(e)}
             id="outlined-select-currency"
             select
             label="Type of Loan"
-            defaultValue="EUR"
             helperText="Please select your Loan Type"
           >
           {currencies.map((option) => (
@@ -76,6 +93,9 @@ export default function AddressForm() {
         <FormControl fullWidth sx={{ m: 1 }}>
           <InputLabel htmlFor="outlined-adornment-amount">Loan Amount</InputLabel>
           <OutlinedInput
+            name='loan_amnt'
+           value={formData.loan_amnt}
+            onChange={(e)=>handleInputChange(e)}
             id="outlined-adornment-amount"
             startAdornment={<InputAdornment position="start">$</InputAdornment>}
             label="Amount"
@@ -90,12 +110,14 @@ export default function AddressForm() {
              <RadioGroup
               row
               aria-labelledby="demo-row-radio-buttons-group-label"
-              name="row-radio-buttons-group"
+              name="loan_duration"
+              value={(e)=>formData.loan_duration(e)}
+              onChange={handleInputChange}
              >
-             <FormControlLabel value="female" control={<Radio />} label="12 months" />
-             <FormControlLabel value="male" control={<Radio />} label="24 months" /> 
-             <FormControlLabel value="male" control={<Radio />} label="36 months" /> 
-             <FormControlLabel value="male" control={<Radio />} label="48 months" /> 
+             <FormControlLabel value="12m" control={<Radio />} label="12 months" />
+             <FormControlLabel value="24m" control={<Radio />} label="24 months" /> 
+             <FormControlLabel value="36m" control={<Radio />} label="36 months" /> 
+             <FormControlLabel value="48m" control={<Radio />} label="48 months" /> 
              </RadioGroup>
             </FormControl>
         </Grid>
@@ -103,6 +125,9 @@ export default function AddressForm() {
           <FormControl fullWidth sx={{ m: 1 }}>
             <InputLabel htmlFor="outlined-adornment-amount">Loan Percent Income</InputLabel>
             <OutlinedInput
+              name="loan_percent_income"
+             value={formData.loan_percent_income}
+              onChange={(e)=>handleInputChange(e)}
               id="outlined-adornment-amount"
               startAdornment={<InputAdornment position="start">%</InputAdornment>}
               label="Amount"
@@ -113,6 +138,9 @@ export default function AddressForm() {
         <FormControl fullWidth sx={{ m: 1 }}>
    <InputLabel htmlFor="outlined-adornment-amount">Interest Rate</InputLabel>
    <OutlinedInput
+    name="loan_int_rate"
+    value={formData.loan_int_rate}
+    onChange={(e)=>handleInputChange(e)}
      id="outlined-adornment-amount"
      startAdornment={<InputAdornment position="start">%</InputAdornment>}
      label="Amount"
@@ -122,7 +150,26 @@ export default function AddressForm() {
         
         
         
-        </Grid>                                                                                                                                                                                               
+        </Grid>  
+
+        <Grid item xs={12} sm={6}>
+        <FormControl fullWidth sx={{ m: 1 }}>
+   <InputLabel htmlFor="outlined-adornment-amount">Person Income</InputLabel>
+   <OutlinedInput
+    name="person_income"
+    value={formData.person_income}
+    onChange={(e)=>handleInputChange(e)}
+     id="outlined-adornment-amount"
+     startAdornment={<InputAdornment position="start">TND</InputAdornment>}
+     label="Amount"
+   /> 
+   
+ </FormControl>
+        
+        
+        
+        </Grid> 
+
       </Grid>
     </React.Fragment>
   );
