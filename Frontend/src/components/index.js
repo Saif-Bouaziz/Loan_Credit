@@ -11,10 +11,10 @@ import DocsExample from './DocsExample'
 export {
   AppBreadcrumb,
   AppContent,
- AppHeader,
+  AppHeader,
   AppHeaderDropdown,
   AppSidebar,
- DocsCallout,
+  DocsCallout,
   DocsLink,
   DocsExample,
 }

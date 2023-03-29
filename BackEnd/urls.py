@@ -12,5 +12,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     #re_path(r'^',include('Credit.urls')), 
     path('auth/user/', include('user.urls')),
+    path('credit/', include('credit.urls')),
     
 ]
