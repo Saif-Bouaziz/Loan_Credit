@@ -41,18 +41,23 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'Credit.apps.CreditConfig', 
     'user', 
+    'credit',
 ]
 
-CORS_ORIGIN_ALLOW_ALL= True
+#CORS_ORIGIN_ALLOW_ALL= True
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000',
+]
+CORS_ALLOW_CREDENTIALS = True
+
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -93,11 +98,19 @@ DATABASES = {
         'PASSWORD': 'PFH#23kgrw9',
         'HOST' : 'pcd.mysql.database.azure.com',
         'PORT': '3306',
-    },   
+    },
+    'credit': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'credit',
+        'USER': 'skander',
+        'PASSWORD': 'PFH#23kgrw9',
+        'HOST' : 'pcd.mysql.database.azure.com',
+        'PORT': '3306',
+    },     
  
 }
 
-DATABASE_ROUTERS = ['user.router.AuthRouter',]
+DATABASE_ROUTERS = ['user.router.AuthRouter','credit.router.CreditRouter']
 
 
 # Password validation

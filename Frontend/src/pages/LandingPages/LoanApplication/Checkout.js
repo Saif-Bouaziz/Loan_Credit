@@ -14,26 +14,20 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AddressForm from './AdressForm';
 import PaymentForm from './PaymentForm';
 import Review from './Review'; 
+import axios from 'axios'
 
 const steps = ['Loan Details', 'Personal Details', 'Documents Upload'];
 
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <PaymentForm />;
-    case 1:
-      return <AddressForm/>;
-    case 2:
-      return <Review />;
-    default:
-      throw new Error('Unknown step');
-  }
-}
+
 
 const theme = createTheme();
 
 export default function Checkout() {
   const [activeStep, setActiveStep] = React.useState(0);
+  const [addressFormData, setAddressFormData] = React.useState({});
+  const [paymentFormData, setPaymentFormData] = React.useState({});
+  const [prediction, setPrediction] = React.useState(null);
+
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -42,6 +36,51 @@ export default function Checkout() {
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
+  const handleAddressFormSubmit = (data) => {
+    setAddressFormData(data);
+    //formDataList.push(data);
+  };
+  const handlePaymentFormSubmit = (data) => {
+    setPaymentFormData(data);
+    //formDataList.push(data);
+  };
+  function getStepContent(step) {
+    switch (step) {
+      case 0:
+        return <PaymentForm  onFormSubmit={handlePaymentFormSubmit} />;
+      case 1:
+        return <AddressForm onFormSubmit={handleAddressFormSubmit}/>;
+      case 2:
+        return <Review />;
+      default:
+        throw new Error('Unknown step');
+    }
+  }
+
+  const data = {
+    addressFormData: addressFormData,
+    paymentFormData: paymentFormData
+  };
+  const handleFormSubmit = () => { 
+    axios.post('http://127.0.0.1:8000/credit/create_demande/', data)
+    .then(response => {
+      console.log(response.data);
+    })
+    .catch(error => {
+      console.error(error);
+    });
+  };
+
+  function handlePrediction(event) {
+    event.preventDefault();
+    axios.get('http://127.0.0.1:8000/credit/predict/')
+      .then(response => {
+        setPrediction(response.data.prediction);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -91,11 +130,20 @@ export default function Checkout() {
 
                 <Button
                   variant="contained"
-                  onClick={handleNext}
+                  //onClick={handleNext}
+                  onClick={activeStep === steps.length - 1 ? handleFormSubmit : handleNext}
                   sx={{ mt: 3, ml: 1 }}
                 >
                   {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
                 </Button>
+                {activeStep === steps.length - 1 && (
+                  <Button onClick={handlePrediction} sx={{ mt: 3, ml: 1 }}>
+                    Predict
+                  </Button>
+                   
+                )}
+                <p>The prediction is: {prediction}</p>
+
               </Box>
             </React.Fragment>
           )}

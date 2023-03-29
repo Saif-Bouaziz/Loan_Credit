@@ -22,13 +22,16 @@ import reportWebVitals from '../src/pages/LandingPages/Banquier/reportWebVitals'
 import { Provider } from 'react-redux'
 import store from '../src/pages/LandingPages/Banquier/store'
 
+
 ReactDOM.render(
   <Provider store={store}>
   <BrowserRouter>
-    <App />
+    <App  />
   </BrowserRouter>
   </Provider>,
   document.getElementById("root")
+  
+ 
 );
 
 reportWebVitals()
