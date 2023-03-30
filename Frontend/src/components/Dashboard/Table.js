@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const Table = ({ employees, handleEdit }) => {
+const Table = ({ demandes, handleEdit }) => {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [filterTerm, setFilterTerm] = useState("");
@@ -19,10 +19,6 @@ const Table = ({ employees, handleEdit }) => {
     setSearchTerm(value);
   }
 
-  const handleFilterTerm = (e) => {
-    let value = e.target.value;
-    setFilterTerm(value);
-  }
   const [active1, setActive1] = useState(false);
   const one = (e) => {
     let value = e.target.value;
@@ -112,35 +108,35 @@ const Table = ({ employees, handleEdit }) => {
               <th>Last Name</th>
               <th>Email</th>
               <th>Salary</th>
-              <th>Date</th>
-              <th>Type</th>
+              <th>loan_intent</th>
+              <th>loan_amnt</th>
               <th colSpan={2} className="text-center">
                 Actions
               </th>
             </tr>
           </thead>
           <tbody>
-            {employees.length > 0 ? (
-              employees.filter(
+            {demandes.length > 0 ? (
+              demandes.filter(
                 (val) => {
-                  return val.type.toLowerCase().includes(filterTerm.toLowerCase());
+                  return val.first_name.toLowerCase().includes(filterTerm.toLowerCase());
                 }
               ).filter(
                 (val) => {
-                  return val.lastName.toLowerCase().includes(searchTerm.toLowerCase());
+                  return val.last_name.toLowerCase().includes(searchTerm.toLowerCase());
                 }
               ).map((val, i) => (
-                <tr key={val.id}>
-                  <td>{val.id}</td>
-                  <td>{val.firstName}</td>
-                  <td>{val.lastName}</td>
+                <tr key={val.DemandeId}>
+                  <td>{val.DemandeId}</td>
+                  <td>{val.first_name}</td>
+                  <td>{val.last_name}</td>
                   <td>{val.email}</td>
-                  <td>{formatter.format(val.salary)}</td>
-                  <td>{val.date} </td>
-                  <td>{val.type} </td>
+                  <td>{formatter.format(val.person_income)}</td>
+                  <td>{val.loan_intent} </td>
+                  <td>{val.loan_amnt} </td>
                   <td className="text-right">
                     <button
-                      onClick={() => handleEdit(val.id)}
+                      onClick={() => handleEdit(val.DemandeId)}
                       className="button muted-button"
                     >
                       View
@@ -150,7 +146,7 @@ const Table = ({ employees, handleEdit }) => {
               ))
             ) : (
               <tr>
-                <td colSpan={7}>No Employees</td>
+                <td colSpan={7}>Pas de Demandes</td>
               </tr>
             )}
           </tbody>

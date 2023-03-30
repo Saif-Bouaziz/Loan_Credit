@@ -1,16 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import Table from './Table';
 import Edit from './Edit';
-import { employeesData } from '../../data';
+import Axios from 'axios'
 
 const Dashboard = () => {
-  const [selectedEmployee, setSelectedEmployee] = useState(null);
+  const [datas, setDatas] = React.useState([]);
+  const [selectedDemande, setSelectedDemande] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
+  useEffect(() => {
+    Axios.get('http://127.0.0.1:8000/credit/demande').then((response) => {
+      console.log(response.data)
+      setDatas(response.data)
+    });
 
+  });
 
   const handleEdit = id => {
-    const [employee] = employeesData.filter(employee => employee.id === id);
-    setSelectedEmployee(employee);
+    const [demande] = datas.filter(demande => demande.DemandeId === id);
+    setSelectedDemande(demande);
     setIsEditing(true);
   };
 
@@ -20,9 +27,10 @@ const Dashboard = () => {
         <div>
           <br />
           <h2>Skander Abid</h2>
+
           <br />
           <Table
-            employees={employeesData}
+            demandes={datas}
             handleEdit={handleEdit}
           />
         </div>
@@ -30,7 +38,7 @@ const Dashboard = () => {
 
       {isEditing && (
         <Edit
-          selectedEmployee={selectedEmployee}
+          selectedDemande={selectedDemande}
           setIsEditing={setIsEditing}
         />
       )}

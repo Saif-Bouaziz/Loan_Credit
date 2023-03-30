@@ -1,41 +1,67 @@
 from django.shortcuts import render
-
+from rest_framework.parsers import JSONParser
 from django.http import JsonResponse,HttpResponse
+from credit.serializers import DemandeSerializer
+
 from .models import Demande
+
 import numpy as np
 import pickle
 import json
+from rest_framework.views import APIView
+
+
+with open('final_XGBmodel.pkl', 'rb') as f:
+    model = pickle.load(f)
+
 
 # Create your views here.
+def demandeApi(request,id=0):
+        if request.method=='GET':
+            demande=Demande.objects.all()
+            demande_serializer=DemandeSerializer(demande,many=True)
+            return JsonResponse(demande_serializer.data, safe=False )
+        elif request.method=='PATCH':
+            demande=Demande.objects.get(DemandeId=id)
+            demande_serializer=DemandeSerializer(demande,data=JSONParser().parse(request),partial=True)
+            if demande_serializer.is_valid():
+                demande_serializer.save()
+                return JsonResponse("Updated Successfully!", safe=False)
+            return JsonResponse("Failed to Update", safe=False)
 
-def create_demande(request):
-    if request.method == 'POST':
-        data = json.loads(request.body)
-        address_form_data = data['addressFormData']
-        payment_form_data = data['paymentFormData']
-        ClientId=1
-        first_name=payment_form_data.get('first_name')
-        last_name=payment_form_data.get('last_name')
-        email=payment_form_data.get('email')
-        person_age=payment_form_data.get('person_age')
-        cin=payment_form_data.get('cin')
-        num_tel=payment_form_data.get('num_tel')
-        marriage_status=payment_form_data.get('marriage_status')
-        job=payment_form_data.get('job')
-        person_emp_length=payment_form_data.get('person_emp_length')
-        adress=payment_form_data.get('adress')
-        person_home_ownership=payment_form_data.get('person_home_ownership')
-        region=payment_form_data.get('region')
-        city=payment_form_data.get('city')
-        cod_postal=payment_form_data.get('code_postal')
-        loan_intent=address_form_data.get('loan_intent')
-        loan_amnt=address_form_data.get('loan_amnt')
-        loan_duration=address_form_data.get('loan_duration')
-        loan_percent_income=address_form_data.get('loan_percent_income')
-        loan_int_rate=address_form_data.get('loan_int_rate')
-        loan_grade="A"
-        person_income=address_form_data.get('person_income')
-        demande=Demande.objects.using('credit').create(
+
+
+class ManageDemande(APIView):
+    
+    
+    def create_demande(request):
+        if request.method == 'POST':
+            data = json.loads(request.body)
+            address_form_data = data['addressFormData']
+            payment_form_data = data['paymentFormData']
+            ClientId=1
+            first_name=payment_form_data.get('first_name')
+            last_name=payment_form_data.get('last_name')
+            email=payment_form_data.get('email')
+            person_age=payment_form_data.get('person_age')
+            cin=payment_form_data.get('cin')
+            num_tel=payment_form_data.get('num_tel')
+            marriage_status=payment_form_data.get('marriage_status')
+            job=payment_form_data.get('job')
+            person_emp_length=payment_form_data.get('person_emp_length')
+            adress=payment_form_data.get('adress')
+            person_home_ownership=payment_form_data.get('person_home_ownership')
+            region=payment_form_data.get('region')
+            city=payment_form_data.get('city')
+            cod_postal=payment_form_data.get('code_postal')
+            loan_intent=address_form_data.get('loan_intent')
+            loan_amnt=address_form_data.get('loan_amnt')
+            loan_duration=address_form_data.get('loan_duration')
+            loan_percent_income=address_form_data.get('loan_percent_income')
+            loan_int_rate=address_form_data.get('loan_int_rate')
+            loan_grade="A"
+            person_income=address_form_data.get('person_income')
+            demande=Demande.objects.using('credit').create(
                         ClientId=ClientId, first_name=first_name, last_name=last_name,
                         email=email, person_age=person_age, cin=cin, num_tel=num_tel,
                         marriage_status=marriage_status,job=job,person_emp_length=person_emp_length,
@@ -45,11 +71,10 @@ def create_demande(request):
                         loan_int_rate=loan_int_rate,loan_grade=loan_grade,person_income=person_income
                      )
         
-        return JsonResponse({'success': True})
-    return JsonResponse({'error': 'Invalid request method'})
+            return JsonResponse({'success': True})
+        return JsonResponse({'error': 'Invalid request method'})
 
-with open('final_XGBmodel.pkl', 'rb') as f:
-    model = pickle.load(f)
+    
   
 def prediction(request):
     demande_data = Demande.objects.using('credit').all().values('person_age','person_income', 'person_home_ownership',

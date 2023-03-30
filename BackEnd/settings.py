@@ -90,7 +90,12 @@ WSGI_APPLICATION = 'BackEnd.wsgi.application'
 import pymysql
 pymysql.install_as_MySQLdb()
 DATABASES = {
-    'default': {}, 
+    'default': {'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'credit',
+        'USER': 'skander',
+        'PASSWORD': 'PFH#23kgrw9',
+        'HOST' : 'pcd.mysql.database.azure.com',
+        'PORT': '3306',}, 
     'users': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'users',
