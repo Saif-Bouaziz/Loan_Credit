@@ -1,8 +1,8 @@
 from django.urls import path
-from . import views
+from .views import ManageDemande
 
 urlpatterns = [
-    path('create_demande/', views.create_demande, name='create_demande'),
-    path('predict/', views.prediction, name='prediction'),
+    path('manage', ManageDemande.as_view(), name='manage_demande'),
+    #path('predict/', views.prediction, name='prediction'),
     
 ]
