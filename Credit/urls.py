@@ -1,8 +1,9 @@
 from django.urls import path
-from . import views
+from .views import ManageDemande
+from credit import views
 
 urlpatterns = [
-    path('create_demande/', views.create_demande, name='create_demande'),
-    path('predict/', views.prediction, name='prediction'),
+    path('manage', ManageDemande.as_view(), name='manage_demande'),
+    path('banker/<int:identifiant>/', views.decision_demande, name='banker_methods'),
     
 ]

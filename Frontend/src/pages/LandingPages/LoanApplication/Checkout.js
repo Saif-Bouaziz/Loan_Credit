@@ -134,7 +134,7 @@ export default function Checkout() {
                   onClick={activeStep === steps.length - 1 ? handleFormSubmit : handleNext}
                   sx={{ mt: 3, ml: 1 }}
                 >
-                  {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+                  {activeStep === steps.length - 1 ? 'Place' : 'Next'}
                 </Button>
                 {activeStep === steps.length - 1 && (
                   <Button onClick={handlePrediction} sx={{ mt: 3, ml: 1 }}>

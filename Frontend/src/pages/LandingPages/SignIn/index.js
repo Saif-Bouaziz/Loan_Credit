@@ -1,22 +1,12 @@
-/**
-=========================================================
-* Material Kit 2 React - v2.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-kit-react
-* Copyright 2021 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
 
 import { useState } from "react";
 
 // react-router-dom components
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"; 
+import { connect } from "react-redux"; 
+import { login } from "actions/auth"; 
+import { Navigate } from 'react-router-dom';
+
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -37,7 +27,6 @@ import MKButton from "components/MKButton";
 
 // Material Kit 2 React example components
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
-import SimpleFooter from "examples/Footers/SimpleFooter";
 
 // Material Kit 2 React page layout routes
 import routes from "routes";
@@ -45,21 +34,28 @@ import routes from "routes";
 // Images
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 
-function SignInBasic() {
-  const [rememberMe, setRememberMe] = useState(false);
+function SignInBasic({login,isAuthenticated}) { 
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '' 
+});
 
-  const handleSetRememberMe = () => setRememberMe(!rememberMe);
+const { email, password } = formData;
 
+const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+const onSubmit = e => {
+    e.preventDefault();
+
+    login(email, password);
+}; 
+if (isAuthenticated) {
+  return <Navigate to='/' />
+}
   return (
     <>
       <DefaultNavbar
         routes={routes}
-        action={{
-          type: "external",
-          route: "https://www.creative-tim.com/product/material-kit-react",
-          label: "free download",
-          color: "info",
-        }}
         transparent
         light
       />
@@ -118,56 +114,61 @@ function SignInBasic() {
                 </Grid>
               </MKBox>
               <MKBox pt={4} pb={3} px={3}>
-                <MKBox component="form" role="form">
+                <MKBox component="form" role="form" onSubmit={e => onSubmit(e)}> 
                   <MKBox mb={2}>
-                    <MKInput type="email" label="Email" fullWidth />
-                  </MKBox>
+                    <MKInput type="email" label="Email" fullWidth name='email' value={email}
+                    onChange={e => onChange(e)}
+                    required/>
+                    
+                     
+                  </MKBox> 
                   <MKBox mb={2}>
-                    <MKInput type="password" label="Password" fullWidth />
-                  </MKBox>
-                  <MKBox display="flex" alignItems="center" ml={-1}>
-                    <Switch checked={rememberMe} onChange={handleSetRememberMe} />
-                    <MKTypography
-                      variant="button"
-                      fontWeight="regular"
-                      color="text"
-                      onClick={handleSetRememberMe}
-                      sx={{ cursor: "pointer", userSelect: "none", ml: -1 }}
-                    >
-                      &nbsp;&nbsp;Remember me
-                    </MKTypography>
-                  </MKBox>
+                    <MKInput type="password" label="Password" fullWidth name="password" value={password}
+                        onChange={e => onChange(e)}
+                        required/>
+                  </MKBox> 
                   <MKBox mt={4} mb={1}>
-                    <MKButton variant="gradient" color="info" fullWidth>
+                    <MKButton variant="gradient" color="info" fullWidth type='submit' >
                       sign in
                     </MKButton>
                   </MKBox>
                   <MKBox mt={3} mb={1} textAlign="center">
                     <MKTypography variant="button" color="text">
-                      Don&apos;t have an account?{" "}
+                      dont have an account?{" "}
                       <MKTypography
                         component={Link}
-                        to="/authentication/sign-up/cover"
+                        to="/SignUp"
                         variant="button"
                         color="info"
                         fontWeight="medium"
                         textGradient
                       >
                         Sign up
-                      </MKTypography>
+                      </MKTypography> 
+                    </MKTypography>  
+                    </MKBox> 
+                  <MKBox mt={3} mb={1} textAlign="center" >
+                    <MKTypography  color="text">
+                      Forgot Your Password ??{" "} 
+                      <Link to='/reset-password' >Reset Password</Link>
                     </MKTypography>
                   </MKBox>
+                  
                 </MKBox>
               </MKBox>
             </Card>
           </Grid>
         </Grid>
       </MKBox>
-      <MKBox width="100%" position="absolute" zIndex={2} bottom="1.625rem">
-        <SimpleFooter light />
-      </MKBox>
+      
+      
+      
     </>
   );
-}
+};
 
-export default SignInBasic;
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+}); 
+
+export default connect(mapStateToProps,{login}) (SignInBasic);
