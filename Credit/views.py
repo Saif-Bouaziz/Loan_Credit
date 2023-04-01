@@ -1,7 +1,12 @@
 from rest_framework.views import APIView
 from django.shortcuts import render
 #from user.models import UserAccount
-from django.http import JsonResponse,HttpResponse
+from django.http import JsonResponse,HttpResponse,HttpResponseBadRequest
+#from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+
+
+
 from rest_framework import status, permissions
 from rest_framework.response import Response
 from user.models import UserAccount
@@ -153,67 +158,56 @@ class ManageDemande(APIView):
                      )
         
         return Response( {'success': 'demande created successfully'})
+
+
+#class BankerMethods():#LoginRequiredMixin
+#@login_required
+def decision_demande(request,identifiant):
+
+        #user=request.user
+        #if not user.is_authenticated:
+        #return JsonResponse({'error': 'You should login first'})
     
-class BankerMethods(APIView):
-    
-    def decision_demande(request):
-        demande_data = Demande.objects.using('credit').all().values('person_age','person_income', 'person_home_ownership',
+        #user_account = UserAccount.objects.get(email=user.email)
+
+        #if user_account.is_banquier:
+    demande_data = Demande.objects.using('credit').get(DemandeId=identifiant).values('person_age','person_income', 'person_home_ownership',
                                                                 'person_emp_length','loan_intent', 'loan_grade', 'loan_amnt',
                                                                 'loan_int_rate','loan_percent_income'
-                                                                )
-        for obj in demande_data:
-            person_age=float(obj['person_age'])
-            person_income=float(obj['person_income'])
-            home=obj['person_home_ownership']
-            person_emp_length=float(obj['person_emp_length'])
-            intent=obj['loan_intent']
-            grade=obj['loan_grade']
-            loan_amnt=float(obj['loan_amnt'])
-            loan_int_rate=float(obj['loan_int_rate'])
-            loan_percent_income=float(obj['loan_percent_income'])
-        if home=="RENT":
-            person_home_ownership =0
-            person_home_ownership=float(person_home_ownership)
-        elif home=="OWN":
-            person_home_ownership =1
-            person_home_ownership=float(person_home_ownership)
-        elif home=="MORTGAGE":
-            person_home_ownership =2
-            person_home_ownership=float(person_home_ownership)
-        else:
-            person_home_ownership =3
-            person_home_ownership=float(person_home_ownership)
-        
-        if  intent=="PERSONAL":
-            loan_intent=0
-            loan_intent=float(loan_intent)
-        elif intent=="EDUCATION":
-            loan_intent=1
-            loan_intent=float(loan_intent)
-        elif intent=="MEDICAL":
-            loan_intent=2
-            loan_intent=float(loan_intent)
-        elif intent=="VENTURE":
-            loan_intent=3
-            loan_intent=float(loan_intent)
-        elif intent=="HOMEIMPROVEMENT":
-            loan_intent=4
-            loan_intent=float(loan_intent)
-        else:
-            loan_intent=5 
-            loan_intent=float(loan_intent)
-    
-        if grade=="A":
-            loan_grade=0
-            loan_grade=float(loan_grade)
+                                                            )
+    data_list = []
+    for obj in demande_data:
+        data_dict = {}
+        data_dict['person_age']=float(obj['person_age'])
+        data_dict['person_income']=float(obj['person_income'])
+        data_dict['person_emp_length']=float(obj['person_emp_length'])
+        data_dict['loan_amnt']=float(obj['loan_amnt'])
+        data_dict['loan_int_rate']=float(obj['loan_int_rate'])
+        data_dict['loan_percent_income']=float(obj['loan_percent_income'])
 
+        home_ownership_map = {"RENT": 0, "OWN": 1, "MORTGAGE": 2}
+        data_dict['person_home_ownership'] = home_ownership_map.get(obj['person_home_ownership'], 3)
+        loan_intent_map = {
+                "PERSONAL": 0, "EDUCATION": 1, "MEDICAL": 2, "VENTURE": 3,
+                "HOMEIMPROVEMENT": 4, "other": 5
+                        }
+        data_dict['loan_intent'] = loan_intent_map.get(obj['loan_intent'], 5)
+        data_list.append(data_dict)
         
-        data = np.array([[person_age, person_income, person_home_ownership, person_emp_length, loan_intent, loan_grade,
+        
+    if not data_list:
+        return HttpResponseBadRequest("No data found for the user")
+        
+        
+    data = np.array([[person_age, person_income, person_home_ownership, person_emp_length, loan_intent, loan_grade,
                       loan_amnt, loan_int_rate, loan_percent_income]])
-        pred = model.predict(data)
-        prediction= pred.tolist()
+    pred = model.predict(data)
+    prediction= pred.tolist()
+
     
-        return HttpResponse(json.dumps(prediction), content_type='application/json')
+    return Response({"predictions": prediction})
+        #return JsonResponse({'error': 'Invalid request method'})
+        
         
                 
         
