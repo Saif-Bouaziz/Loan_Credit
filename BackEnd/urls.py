@@ -1,7 +1,9 @@
 from django.contrib import admin
 from django.urls import path
 from django.urls import re_path,include 
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView 
+from django.views.generic import TemplateView
+
 
 from . import views
 
@@ -12,6 +14,13 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     #re_path(r'^',include('Credit.urls')), 
     path('auth/user/', include('user.urls')),
-    path('credit/', include('credit.urls')),
+    path('credit/', include('credit.urls')), 
+    #ajout
+    path('auth/', include('djoser.urls')), 
+    path('auth/', include('djoser.urls.jwt')),
+    #path('auth/', include('djoser.social.urls')),
     
-]
+] 
+#ajout
+#urlpatterns += [re_path(r'^.*', TemplateView.as_view(template_name=''))]
+

@@ -44,6 +44,7 @@ class UserAccountManager(BaseUserManager):
 
 
 class UserAccount(AbstractBaseUser, PermissionsMixin):
+   
     email = models.EmailField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
     
@@ -58,6 +59,10 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['name']
     
-    
+    def get_full_name(self):
+        return self.first_name
+
+    def get_short_name(self):
+        return self.first_name
     def __str__(self):
         return self.email
