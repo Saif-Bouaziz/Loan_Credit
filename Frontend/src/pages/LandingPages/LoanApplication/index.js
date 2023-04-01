@@ -17,7 +17,13 @@ import Checkout from "./Checkout";
 import routes from "routes";
 
 // Images
-import bgImage from "assets/images/loancredit.jpg";
+import bgImage from "assets/images/loancredit.jpg"; 
+import { useHistory } from 'react-router-dom';
+
+function handleClick() {
+  window.location.href = '/register';
+}
+
 
 function LoanApplication() {
   return (
@@ -74,7 +80,7 @@ function LoanApplication() {
               Loan Details {'>'} Personal Details {' >'} Documents Upload
               
             </MKTypography>
-            <MKButton color="default" sx={{ color: ({ palette: { dark } }) => dark.main }}>
+            <MKButton color="default" sx={{ color: ({ palette: { dark } }) => dark.main }} onClick={handleClick}>
               Register Now
             </MKButton>
           </Grid>

@@ -2,10 +2,9 @@
 import { useState } from "react";
 
 // react-router-dom components
-import { Link } from "react-router-dom"; 
 import { connect } from "react-redux"; 
-import { login } from "actions/auth"; 
-import { Navigate } from 'react-router-dom';
+import { reset_password } from "actions/auth"; 
+import { Navigate } from 'react-router-dom'; 
 
 
 // @mui material components
@@ -34,22 +33,23 @@ import routes from "routes";
 // Images
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 
-function SignInBasic({login,isAuthenticated}) { 
+const ResetPassword = ({reset_password}) => {  
+   const [requestSent,SetRequestSent]= useState(false);
   const [formData, setFormData] = useState({
     email: '',
-    password: '' 
 });
 
-const { email, password } = formData;
+const { email} = formData;
 
 const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
 const onSubmit = e => {
     e.preventDefault();
 
-    login(email, password);
+    reset_password(email); 
+    SetRequestSent(true);
 }; 
-if (isAuthenticated) {
+if (requestSent) {
   return <Navigate to='/' />
 }
   return (
@@ -93,7 +93,7 @@ if (isAuthenticated) {
                 textAlign="center"
               >
                 <MKTypography variant="h4" fontWeight="medium" color="white" mt={1}>
-                  Sign in
+                  Reset Password
                 </MKTypography>
                 <Grid container spacing={3} justifyContent="center" sx={{ mt: 1, mb: 2 }}>
                   <Grid item xs={2}>
@@ -122,38 +122,11 @@ if (isAuthenticated) {
                     
                      
                   </MKBox> 
-                  <MKBox mb={2}>
-                    <MKInput type="password" label="Password" fullWidth name="password" value={password}
-                        onChange={e => onChange(e)}
-                        required/>
-                  </MKBox> 
                   <MKBox mt={4} mb={1}>
                     <MKButton variant="gradient" color="info" fullWidth type='submit' >
-                      sign in
+                      Reset Password
                     </MKButton>
-                  </MKBox>
-                  <MKBox mt={3} mb={1} textAlign="center">
-                    <MKTypography variant="button" color="text">
-                      dont have an account?{" "}
-                      <MKTypography
-                        component={Link}
-                        to="/SignUp"
-                        variant="button"
-                        color="info"
-                        fontWeight="medium"
-                        textGradient
-                      >
-                        Sign up
-                      </MKTypography> 
-                    </MKTypography>  
-                    </MKBox> 
-                  <MKBox mt={3} mb={1} textAlign="center" >
-                    <MKTypography  color="text">
-                      Forgot Your Password ??{" "} 
-                      <Link to='/reset-password' >Reset Password</Link>
-                    </MKTypography>
-                  </MKBox>
-                  
+                  </MKBox>             
                 </MKBox>
               </MKBox>
             </Card>
@@ -167,8 +140,5 @@ if (isAuthenticated) {
   );
 };
 
-const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
-}); 
 
-export default connect(mapStateToProps,{login}) (SignInBasic);
+export default connect(null,{reset_password}) (ResetPassword);
