@@ -104,3 +104,6 @@ class AllBankersView(View):
         all_users = User.objects.all().values()
         bankers = all_users.filter(is_banquier=1).values()
         return JsonResponse(list(bankers), safe=False)  
+
+
+
