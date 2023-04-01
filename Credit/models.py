@@ -1,4 +1,7 @@
 from django.db import models
+from user.models import UserAccount
+
+
 # Create your models here.
 class Demande(models.Model):
     MARRIAGE_STATUS_CHOICES = (
@@ -38,10 +41,10 @@ class Demande(models.Model):
     city=models.CharField(max_length=50)
     code_postal=models.IntegerField()
     loan_intent=models.CharField(max_length=50)
-    loan_amnt=models.IntegerField()
+    loan_amnt=models.FloatField()
     loan_duration=models.CharField(max_length=50, choices=LOAN_DURATION_CHOICES)
     loan_percent_income=models.FloatField()
     loan_int_rate=models.FloatField()   
     loan_grade=models.CharField(max_length=50,null=True)
     person_income=models.FloatField()
-    
+    verified=models.CharField(max_length=50,null=True)
