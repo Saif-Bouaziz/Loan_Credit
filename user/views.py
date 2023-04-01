@@ -11,7 +11,6 @@ class RegisterView(APIView):
     def post(self, request):
         try:
             data = request.data
-
             name = data['name']
             email = data['email']
             email = email.lower()
@@ -19,10 +18,10 @@ class RegisterView(APIView):
             re_password = data['re_password']
             is_banquier = data['is_banquier'] 
 
-            if is_banquier == 'True':
-                is_banquier = True
+            if is_banquier == 'False':
+                is_banquier = False
             else:
-                is_banquier = False 
+                is_banquier = True 
 
             if password == re_password:
                 if len(password) >= 8:

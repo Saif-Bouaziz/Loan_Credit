@@ -108,7 +108,7 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     name = models.CharField(max_length=30)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
-    is_banquier = models.BooleanField(default=False)
+    is_banquier = models.BooleanField(default=True)
     is_agent=models.BooleanField(default=False) 
     objects = BanquierManager()
     objects= ClientManager()

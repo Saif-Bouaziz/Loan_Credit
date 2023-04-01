@@ -6,7 +6,7 @@ const Edit = ({ selectedDemande, setIsEditing }) => {
 
   const handleClick1 = async () => {
     const response = await axios
-      .patch(`http://127.0.0.1:8000/credit/demande/${selectedDemande.DemandeId}`, { "first_name": "Accepted" })
+      .patch(`http://127.0.0.1:8000/credit/demande/${selectedDemande.DemandeId}`, { "decision": "Accepted" })
       .catch((error) => console.log('Error: ', error));
     if (response && response.data) {
       console.log(response);
@@ -25,7 +25,7 @@ const Edit = ({ selectedDemande, setIsEditing }) => {
 
   const handleClick2 = async () => {
     const response = await axios
-      .patch(`http://127.0.0.1:8000/credit/demande/${selectedDemande.DemandeId}`, { "first_name": "Refused" })
+      .patch(`http://127.0.0.1:8000/credit/demande/${selectedDemande.DemandeId}`, { "decision": "Refused" })
       .catch((error) => console.log('Error: ', error));
     if (response && response.data) {
       console.log(response);
@@ -46,7 +46,7 @@ const Edit = ({ selectedDemande, setIsEditing }) => {
     <div className="small-container">
       <div >
         <br />
-        <h1>Employee Details</h1>
+        <h1>Details de Demande</h1>
         <br />
         <h4>First Name</h4>
         {selectedDemande.first_name}
@@ -92,6 +92,8 @@ const Edit = ({ selectedDemande, setIsEditing }) => {
         {selectedDemande.loan_grade}
         <h4>person_income</h4>
         {selectedDemande.person_income}
+        <h4>decision</h4>
+        {selectedDemande.decision}
         <div style={{ marginTop: '30px' }}>
           <button
             style={{ backgroundColor: "#BBD6B8" }}

@@ -26,9 +26,6 @@ const Dashboard = () => {
       {!isEditing && (
         <div>
           <br />
-          <h2>Skander Abid</h2>
-
-          <br />
           <Table
             demandes={datas}
             handleEdit={handleEdit}
