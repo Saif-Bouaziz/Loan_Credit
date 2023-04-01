@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'corsheaders',
+    'corsheaders', 
+    'djoser',
     'user', 
     'credit',
 ]
@@ -68,14 +69,16 @@ ROOT_URLCONF = 'BackEnd.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'front/build')],
+        'DIRS': [os.path.join(BASE_DIR, 'build')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+                'django.contrib.messages.context_processors.messages', 
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect'
             ],
         },
     },
@@ -89,16 +92,23 @@ WSGI_APPLICATION = 'BackEnd.wsgi.application'
 
 import pymysql
 pymysql.install_as_MySQLdb()
+
 DATABASES = {
     'default': {}, 
-    'users': {
+    'users':{ 
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'users',
         'USER': 'skander',
         'PASSWORD': 'PFH#23kgrw9',
         'HOST' : 'pcd.mysql.database.azure.com',
+<<<<<<< HEAD
         'PORT': '3306'
     },
+=======
+        'PORT': '3306',
+    },  
+
+>>>>>>> master
     'credit': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'credit',
@@ -112,6 +122,12 @@ DATABASES = {
 
 DATABASE_ROUTERS = ['user.router.AuthRouter','credit.router.CreditRouter']
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'loan.credit.pcd@gmail.com'
+EMAIL_HOST_PASSWORD = 'rbtnajvrsazlwkso'
+EMAIL_USE_TLS = True
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -150,19 +166,20 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS=[
-    os.path.join(BASE_DIR, 'front/build/static')
+    os.path.join(BASE_DIR, 'build/static')
 ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL='/media/' 
 MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 
 REST_FRAMEWORK={  
-    'DEFAULT_PERMISSION_CLASSES': [
+    'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
-    ],
-    'DEFAULT_AUTHENTICATION_CLASSES': [
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ]
+    )
 } 
 
 
@@ -172,8 +189,29 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('Bearer', ), 
     'ROTATE_REFRESH_TOKENS': False,  
     'BLACKLIST_AFTER_ROTATION': False,
-    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken', )
-} 
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken', ), 
+}    
+
+DJOSER = {
+    'LOGIN_FIELD': 'email',
+    'USER_CREATE_PASSWORD_RETYPE': True,
+    'USERNAME_CHANGED_EMAIL_CONFIRMATION': True,
+    'PASSWORD_CHANGED_EMAIL_CONFIRMATION': True,
+    'SEND_CONFIRMATION_EMAIL': True,
+    'SET_USERNAME_RETYPE': True,
+    'SET_PASSWORD_RETYPE': True,
+    'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{uid}/{token}',
+    'USERNAME_RESET_CONFIRM_URL': 'email/reset/confirm/{uid}/{token}',
+    'ACTIVATION_URL': 'activate/{uid}/{token}',
+    'SEND_ACTIVATION_EMAIL': True,
+    
+    'SERIALIZERS': {
+        'user_create': 'user.serializers.UserSerializer',
+        'user': 'user.serializers.UserSerializer',
+        'current_user': 'user.serializers.UserSerializer',
+        'user_delete': 'djoser.serializers.UserDeleteSerializer',
+    }
+}
 
 
 # Default primary key field type
