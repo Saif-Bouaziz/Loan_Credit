@@ -59,7 +59,7 @@ def create_demande(request):
 =======
 with open('final_XGBmodel.pkl', 'rb') as f:
     model = pickle.load(f)
-    
+        
 class ManageDemande(APIView):
     
     def create_demande(request):
@@ -93,7 +93,10 @@ class ManageDemande(APIView):
             loan_grade="A"
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
+=======
             verified="en_cours"
+>>>>>>> master
 >>>>>>> master
             person_income=address_form_data.get('person_income')
             demande=Demande.objects.using('credit').create(
@@ -169,7 +172,6 @@ def prediction(request):
     demande_data = Demande.objects.using('credit').all().values('person_age','person_income', 'person_home_ownership',
 =======
                         loan_int_rate=loan_int_rate,loan_grade=loan_grade,person_income=person_income,
-                        verfied=verified
                      )
         
             return JsonResponse({'success': True})
@@ -255,7 +257,6 @@ def prediction(request):
         loan_int_rate=data['loan_int_rate']
         loan_grade=data['loan_grade']
         person_income=data['person_income']
-        verified=data['verified']
         demande=Demande.objects.using('credit').create(
                         ClientId=user_id, first_name=first_name, last_name=last_name,
                         email=email, person_age=person_age, cin=cin, num_tel=num_tel,
@@ -264,22 +265,19 @@ def prediction(request):
                         city=city,code_postal=code_postal,loan_intent=loan_intent,loan_amnt=loan_amnt,
                         loan_duration=loan_duration,loan_percent_income=loan_percent_income,
                         loan_int_rate=loan_int_rate,loan_grade=loan_grade,person_income=person_income,
-                        verified=verified
                      )
         
         return Response( {'success': 'demande created successfully'})
 
 
-#class BankerMethods():#LoginRequiredMixin
-#@login_required
 def decision_demande(request,identifiant):
-
-        #user=request.user
-        #if not user.is_authenticated:
-        #return JsonResponse({'error': 'You should login first'})
     
-        #user_account = UserAccount.objects.get(email=user.email)
+    #if not request.user.is_authenticated or not request.user.is_banquier:
+       # return JsonResponse({'error': 'Unauthorized access'}, status=401)
 
+<<<<<<< HEAD
+    demande_data = Demande.objects.using('credit').get(DemandeId=identifiant)
+=======
         #if user_account.is_banquier:
     demande_data = Demande.objects.using('credit').get(DemandeId=identifiant).values('person_age','person_income', 'person_home_ownership',
 >>>>>>> master
@@ -295,29 +293,82 @@ def decision_demande(request,identifiant):
         data_dict['loan_amnt']=float(obj['loan_amnt'])
         data_dict['loan_int_rate']=float(obj['loan_int_rate'])
         data_dict['loan_percent_income']=float(obj['loan_percent_income'])
+>>>>>>> master
 
-        home_ownership_map = {"RENT": 0, "OWN": 1, "MORTGAGE": 2}
-        data_dict['person_home_ownership'] = home_ownership_map.get(obj['person_home_ownership'], 3)
-        loan_intent_map = {
+    person_age=float(demande_data.person_age)
+    person_income=float(demande_data.person_income)
+    person_emp_length=float(demande_data.person_emp_length)
+    loan_amnt=float(demande_data.loan_amnt)
+    loan_int_rate=float(demande_data.loan_int_rate)
+    loan_percent_income=float(demande_data.loan_percent_income)
+
+    home_ownership_map = {"RENT": 0, "OWN": 1, "MORTGAGE": 2, "OTHER":3}
+    person_home_ownership = home_ownership_map.get(demande_data.person_home_ownership, 3)
+    
+    loan_intent_map = {
                 "PERSONAL": 0, "EDUCATION": 1, "MEDICAL": 2, "VENTURE": 3,
-                "HOMEIMPROVEMENT": 4, "other": 5
+                "HOMEIMPROVEMENT": 4, "DEBTCONSOLIDATION":5
                         }
-        data_dict['loan_intent'] = loan_intent_map.get(obj['loan_intent'], 5)
-        data_list.append(data_dict)
-        
-        
-    if not data_list:
-        return HttpResponseBadRequest("No data found for the user")
-        
-        
+    loan_intent = loan_intent_map.get(demande_data.loan_intent, 5)
+    
+    loan_grade_map = {"A": 0, "B": 1, "C": 2, "D":3, "E": 4, "F": 5, "G":6}
+    loan_grade = loan_grade_map.get(demande_data.loan_grade, 6)
+            
     data = np.array([[person_age, person_income, person_home_ownership, person_emp_length, loan_intent, loan_grade,
                       loan_amnt, loan_int_rate, loan_percent_income]])
-    pred = model.predict(data)
-    prediction= pred.tolist()
+
+    prediction = int(model.predict(data)[0])
+    
+    response_data = str(prediction)
+
+    return HttpResponse(response_data, content_type='text/plain')
+
 
     
-    return Response({"predictions": prediction})
-        #return JsonResponse({'error': 'Invalid request method'})
+def get_demande(request):
+    data = Demande.objects.values("DemandeId", "ClientId","first_name","last_name","person_age",
+                                  "person_emp_length","person_home_ownership","loan_intent",
+                                  "loan_amnt","loan_percent_income","loan_int_rate",
+                                  "loan_grade","person_income")
+    return JsonResponse(list(data), safe=False)
+
+
+def delete_demande(request, demande_id):
+    try:
+        demande = Demande.objects.get(DemandeId=demande_id)
+        demande.delete()
+        return JsonResponse({'success': True})
+    except Demande.DoesNotExist:
+        return JsonResponse({'success': False, 'message': 'Demande not found'})
+
+       
+
+def add_agent(request): 
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        name=data['name']
+        email=data['email']
+        password=data['password']
+        is_agent=data['is_agent']
+        agent=UserAccount.objects.using('users').create(name=name, email=email,password=password)
+        agent.is_agent=is_agent
+        agent.save()
+        return JsonResponse({'success': True})
+    return JsonResponse({'error': 'Invalid request method'})
+
+def get_agent(request):
+    agents=UserAccount.objects.using('users').filter(is_agent=True).values()
+    return JsonResponse(list(agents), safe=False)
+
+def delete_agent(request, id_agent):
+    try:
+        agent = UserAccount.objects.using('users').get(id=id_agent)
+        agent.delete()
+        return JsonResponse({'success': True})
+    except Demande.DoesNotExist:
+        return JsonResponse({'success': False, 'message': 'Demande not found'})
+
+
         
         
                 
