@@ -47,3 +47,13 @@ class Demande(models.Model):
     loan_int_rate=models.FloatField()   
     loan_grade=models.CharField(max_length=50,null=True)
     person_income=models.FloatField()
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    decision=models.CharField(max_length=50,null=True,default="NotYet")
+
+    
+=======
+    verified=models.CharField(max_length=50,null=True)
+>>>>>>> master
+>>>>>>> master
