@@ -18,13 +18,12 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import App from "App";
-import reportWebVitals from '../src/pages/LandingPages/Banquier/reportWebVitals'
 import { Provider } from 'react-redux'
-import store from '../src/pages/LandingPages/Banquier/store'
+import store from './store';
 
 
 ReactDOM.render(
-  <Provider store={store}>
+  <Provider store={store} >
   <BrowserRouter>
     <App  />
   </BrowserRouter>
@@ -34,4 +33,4 @@ ReactDOM.render(
  
 );
 
-reportWebVitals()
+
