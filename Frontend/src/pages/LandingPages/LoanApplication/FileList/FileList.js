@@ -3,11 +3,6 @@ import React from 'react'
 import FileItem from 'pages/LandingPages/LoanApplication/FileItem/FileItem'
 
 const FileList = ({ files }) => {
-   
-   
-   
-   
-   
     return (
         <ul className="file-list">
             {
