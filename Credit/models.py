@@ -1,7 +1,9 @@
 from django.db import models
 from user.models import UserAccount
+from django.utils.translation import gettext_lazy as _
 
-
+def upload_to(instance,filename):
+    return 'demande/{filename}'.format(filename=filename)
 # Create your models here.
 class Demande(models.Model):
     MARRIAGE_STATUS_CHOICES = (
@@ -48,6 +50,10 @@ class Demande(models.Model):
     loan_grade=models.CharField(max_length=50,null=True)
     person_income=models.FloatField()
 <<<<<<< HEAD
+    decision=models.CharField(max_length=50,default="notyet")
+    image = models.ImageField(_("image"),upload_to=upload_to,null=True)
+=======
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
     decision=models.CharField(max_length=50,null=True,default="NotYet")
@@ -55,5 +61,6 @@ class Demande(models.Model):
     
 =======
     verified=models.CharField(max_length=50,null=True)
+>>>>>>> master
 >>>>>>> master
 >>>>>>> master

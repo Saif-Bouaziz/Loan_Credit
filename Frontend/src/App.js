@@ -27,18 +27,36 @@ import CssBaseline from "@mui/material/CssBaseline";
 // Material Kit 2 React themes
 import theme from "assets/theme";
 
+<<<<<<< HEAD
+import Presentation from "layouts/pages/presentation";
+import ListeClients from 'views/clients/ListeClients';
+import Dashboard from 'views/dashboard/Dashboard';
+import PretsAccordes from 'views/prets/PretsAccordes';
+import PretsNonAccordes from 'views/prets/PretsNonAccordes';
+import CompteMails from 'views/compte/CompteMails';
+import ModifierCompte from 'views/compte/ModifierCompte';
+import ComptesBancaire from 'views/clients/ComptesBancaire';
+import DemandesCours from 'views/clients/DemandesCours';
+import HistoriqueClients from 'views/clients/HistoriqueClients';
+import AgentVerification from 'views/agents/AgentVerification';
+import SignInPage from "layouts/pages/authentication/sign-in";
+import Activate from "components/containers/Activate";
+import ResetPassword from "components/containers/ResetPassword";
+import ResetPasswordConfirm from "components/containers/ResetPasswordConfirm";
+=======
 import Presentation from "layouts/pages/presentation"; 
 
 import SignInPage from "layouts/pages/authentication/sign-in"; 
 import Activate from "components/containers/Activate"; 
 import ResetPassword from "components/containers/ResetPassword"; 
 import ResetPasswordConfirm from "components/containers/ResetPasswordConfirm"; 
+>>>>>>> master
 import SignUp from "pages/LandingPages/SignUp";
-import store from "./store"; 
+import store from "./store";
 import Layout from "Layout";
 
 
-import { Provider } from "react-redux"; 
+import { Provider } from "react-redux";
 
 
 // Material Kit 2 React routes
@@ -75,6 +93,39 @@ export default function App() {
       return null;
     });
 
+<<<<<<< HEAD
+  return (
+    <Provider store={store} >
+      <ThemeProvider theme={theme}>
+
+        <CssBaseline />
+        <Layout>
+
+          <Routes>
+            {getRoutes(routes)}
+            <Route path="*" element={<Navigate to="/presentation" />} />
+            <Route path="/presentation" element={<Presentation />} />
+            <Route path="/pages/LandingPages/Banquier/client/liste" element={<ListeClients />} />
+            <Route path="/pages/LandingPages/Banquier/client/historique" element={<HistoriqueClients />} />
+            <Route path="/pages/LandingPages/Banquier/client/comptes" element={<ComptesBancaire />} />
+            <Route path="/pages/LandingPages/Banquier/client/demandes" element={<DemandesCours />} />
+            <Route path="/pages/LandingPages/Banquier/dashboard" element={<Dashboard />} />
+            <Route path="/pages/LandingPages/Banquier/prets/accordes" element={<PretsAccordes />} />
+            <Route path="/pages/LandingPages/Banquier/prets/non-accordes" element={<PretsNonAccordes />} />
+            <Route path="/pages/LandingPages/Banquier/agents" element={<AgentVerification />} />
+            <Route path="/pages/LandingPages/Banquier/compte/modifier" element={<ModifierCompte />} />
+            <Route path="/pages/LandingPages/Banquier/compte/mail" element={<CompteMails />} />
+
+
+            <Route path="/register" element={<SignInPage />} />
+            <Route path="/SignUp" element={<SignUp />} />
+
+            <Route exact path='/reset-password' element={<ResetPassword />} />
+            <Route exact path='/password/reset/confirm/:uid/:token' element={<ResetPasswordConfirm />} />
+            <Route exact path='/activate/:uid/:token' element={<Activate />} />
+
+
+=======
   return ( 
     
     <Provider store={store} >
@@ -100,10 +151,16 @@ export default function App() {
           <Route path="/line" element={<Line />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/geography" element={<Geography />} />
+>>>>>>> master
 
-        </Routes> 
+          </Routes>
         </Layout>
+<<<<<<< HEAD
+
+      </ThemeProvider>
+=======
       </ThemeProvider> 
+>>>>>>> master
     </Provider>
   );
 }

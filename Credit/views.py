@@ -1,8 +1,4 @@
 from rest_framework.views import APIView
-<<<<<<< HEAD
-from rest_framework.response import Response
-from rest_framework import status
-=======
 from django.shortcuts import render
 #from user.models import UserAccount
 from django.http import JsonResponse,HttpResponse,HttpResponseBadRequest
@@ -14,14 +10,11 @@ from django.contrib.auth.decorators import login_required
 from rest_framework import status, permissions
 from rest_framework.response import Response
 from user.models import UserAccount
->>>>>>> master
 from .models import Demande
 from .serializers import DemandeSerializer
 
 
-from django.shortcuts import render
 from rest_framework.parsers import JSONParser
-from django.http import JsonResponse,HttpResponse
 
 
 import numpy as np
@@ -34,34 +27,24 @@ with open('final_XGBmodel.pkl', 'rb') as f:
 
 
 # Create your views here.
-<<<<<<< HEAD
 def demandeApi(request,id=0):
-        if request.method=='GET':
-            demande=Demande.objects.all()
-            demande_serializer=DemandeSerializer(demande,many=True)
-            return JsonResponse(demande_serializer.data, safe=False )
-        elif request.method=='PATCH':
-            demande=Demande.objects.get(DemandeId=id)
-            demande_serializer=DemandeSerializer(demande,data=JSONParser().parse(request),partial=True)
-            if demande_serializer.is_valid():
-                demande_serializer.save()
-                return JsonResponse("Updated Successfully!", safe=False)
-            return JsonResponse("Failed to Update", safe=False)
+            if request.method=='GET':
+                demande=Demande.objects.all()
+                demande_serializer=DemandeSerializer(demande,many=True)
+                return JsonResponse(demande_serializer.data, safe=False )
+            elif request.method=='PATCH':
+                demande=Demande.objects.get(DemandeId=id)
+                demande_serializer=DemandeSerializer(demande,data=JSONParser().parse(request),partial=True)
+                if demande_serializer.is_valid():
+                    demande_serializer.save()
+                    return JsonResponse("Updated Successfully!", safe=False)
+                return JsonResponse("Failed to Update", safe=False)
 
 
-
-def create_demande(request):
-        if request.method == 'POST':
-            data = json.loads(request.body)
-            address_form_data = data['addressFormData']
-            payment_form_data = data['paymentFormData']
-            ClientId=1
-=======
 with open('final_XGBmodel.pkl', 'rb') as f:
     model = pickle.load(f)
         
 class ManageDemande(APIView):
-    
     def create_demande(request):
         if request.method == 'POST':
             #user= request.user
@@ -70,7 +53,6 @@ class ManageDemande(APIView):
             data = json.loads(request.body)
             address_form_data = data['addressFormData']
             payment_form_data = data['paymentFormData']
->>>>>>> master
             first_name=payment_form_data.get('first_name')
             last_name=payment_form_data.get('last_name')
             email=payment_form_data.get('email')
@@ -95,7 +77,10 @@ class ManageDemande(APIView):
 =======
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
+=======
             verified="en_cours"
+>>>>>>> master
 >>>>>>> master
 >>>>>>> master
             person_income=address_form_data.get('person_income')
@@ -106,11 +91,13 @@ class ManageDemande(APIView):
                         adress=adress,person_home_ownership=person_home_ownership,region=region,
                         city=city,code_postal=cod_postal,loan_intent=loan_intent,loan_amnt=loan_amnt,
                         loan_duration=loan_duration,loan_percent_income=loan_percent_income,
-<<<<<<< HEAD
                         loan_int_rate=loan_int_rate,loan_grade=loan_grade,person_income=person_income
                      )
         
             return JsonResponse({'success': True})
+<<<<<<< HEAD
+        return JsonResponse({'error': 'Invalid request method'})
+=======
         return JsonResponse({'error': 'Invalid request method'})
 
 
@@ -377,3 +364,4 @@ def delete_agent(request, id_agent):
      
 
 
+>>>>>>> master
