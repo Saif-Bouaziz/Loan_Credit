@@ -26,8 +26,6 @@ export default function Checkout() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [addressFormData, setAddressFormData] = React.useState({});
   const [paymentFormData, setPaymentFormData] = React.useState({});
-  const [prediction, setPrediction] = React.useState(null);
-
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -71,16 +69,6 @@ export default function Checkout() {
     });
   };
 
-  function handlePrediction(event) {
-    event.preventDefault();
-    axios.get('http://127.0.0.1:8000/credit/predict/')
-      .then(response => {
-        setPrediction(response.data.prediction);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -136,13 +124,6 @@ export default function Checkout() {
                 >
                   {activeStep === steps.length - 1 ? 'Place' : 'Next'}
                 </Button>
-                {activeStep === steps.length - 1 && (
-                  <Button onClick={handlePrediction} sx={{ mt: 3, ml: 1 }}>
-                    Predict
-                  </Button>
-                   
-                )}
-                <p>The prediction is: {prediction}</p>
 
               </Box>
             </React.Fragment>
