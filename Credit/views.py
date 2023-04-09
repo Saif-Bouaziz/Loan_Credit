@@ -1,5 +1,9 @@
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view, permission_classes
+<<<<<<< HEAD
+
+=======
+>>>>>>> master
 from django.shortcuts import render
 from django.http import JsonResponse,HttpResponse,HttpResponseBadRequest
 from django.contrib.auth.decorators import login_required
@@ -13,9 +17,12 @@ from user.models import UserAccount
 from .models import Demande
 from .serializers import DemandeSerializer
 
+<<<<<<< HEAD
+=======
 
 
 from django.shortcuts import render
+>>>>>>> master
 from rest_framework.parsers import JSONParser
 
 
@@ -45,6 +52,12 @@ def demandeApi(request,id=0):
                 return JsonResponse("Failed to Update", safe=False)
 
 
+<<<<<<< HEAD
+with open('final_XGBmodel.pkl', 'rb') as f:
+    model = pickle.load(f)
+            
+def create_demande(request):
+=======
 
 <<<<<<< HEAD
 =======
@@ -60,6 +73,7 @@ def create_demande(request):
         
 class ManageDemande(APIView):
     def create_demande(request):
+>>>>>>> master
         if request.method == 'POST':
             #user= request.user
             #ClientId=user.id
@@ -103,6 +117,9 @@ class ManageDemande(APIView):
         return JsonResponse({'error': 'Invalid request method'})
 
 
+<<<<<<< HEAD
+from rest_framework.permissions import BasePermission
+=======
 def create_demande(request):
         if request.method == 'POST':
             #user= request.user
@@ -162,6 +179,7 @@ def create_demande(request):
 
 
 from rest_framework.permissions import BasePermission, IsAuthenticated
+>>>>>>> master
 
 =======
 >>>>>>> master
@@ -340,6 +358,12 @@ def delete_user(request, id_user):
                 
         
     
+<<<<<<< HEAD
+     
+
+
+=======
 =======
                 
+>>>>>>> master
 >>>>>>> master

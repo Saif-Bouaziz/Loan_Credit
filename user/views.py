@@ -27,6 +27,10 @@ class RegisterView(APIView):
             if is_banquier == 'True':
                 is_banquier = True
             else:
+<<<<<<< HEAD
+
+=======
+>>>>>>> master
                 is_banquier = False  
             
             if is_agent == 'True':

@@ -1,4 +1,8 @@
 from django.contrib import admin
+<<<<<<< HEAD
+
+=======
+>>>>>>> master
 from django.urls import path,include,re_path
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 from django.views.generic import TemplateView
@@ -17,9 +21,14 @@ urlpatterns = [
 <<<<<<< HEAD
     path('credit/', include('credit.urls')),
     
+=======
+<<<<<<< HEAD
+    path('credit/', include('credit.urls')),
+    
     
 =======
     path('credit/', include('credit.urls')),    
+>>>>>>> master
 >>>>>>> master
     #ajout
     path('auth/', include('djoser.urls')), 
@@ -33,5 +42,8 @@ urlpatterns = [
 #urlpatterns += [re_path(r'^.*', TemplateView.as_view(template_name=''))]
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
+=======
 
+>>>>>>> master
 >>>>>>> master

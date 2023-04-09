@@ -1,16 +1,26 @@
 from django.urls import path
 <<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+
 from .views import ManageDemande
 from credit import views
 
 =======
+>>>>>>> master
 from credit import views
 
 >>>>>>> master
 urlpatterns = [
     path('create_demande', views.create_demande, name='create_demande'),
     path('banker/<int:identifiant>/', views.decision_demande, name='banker_methods'),
+<<<<<<< HEAD
+
+    path('demande',views.demandeApi),
+    path('demande/<int:id>',views.demandeApi),
+    path('create_demande/',views.create_demande),
+=======
     path('demandeApi',views.demandeApi),
     path('demandeApi/<int:id>',views.demandeApi),
 <<<<<<< HEAD
@@ -21,6 +31,7 @@ urlpatterns = [
 =======
     path('demande',views.demandeApi),
     path('demande/<int:id>',views.demandeApi),
+>>>>>>> master
 >>>>>>> master
     path('demande', views.get_demande,name='get_demande' ),
     path('status_counts', views.status_counts,name='status_counts' ),
@@ -36,10 +47,14 @@ urlpatterns = [
     path('demande_count/', views.demande_count, name='demande_count'),
 
     path('delete_agent/<int:id_agent>/', views.delete_agent,name='delete_agent' ),
+<<<<<<< HEAD
+    
+=======
     path('CreatedemandeApi',views.create_demande),
 <<<<<<< HEAD
 =======
 
+>>>>>>> master
     
 
 

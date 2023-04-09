@@ -53,6 +53,10 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
 <<<<<<< HEAD
 
 =======
+<<<<<<< HEAD
+
+=======
+>>>>>>> master
 >>>>>>> master
     is_banquier = models.BooleanField(default=False)
     is_agent=models.BooleanField(default=False) 
