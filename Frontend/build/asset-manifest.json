@@ -1,0 +1,33 @@
+{
+  "files": {
+    "main.css": "/material-kit-react/static/css/main.9237d4e9.chunk.css",
+    "main.js": "/material-kit-react/static/js/main.1458845a.chunk.js",
+    "main.js.map": "/material-kit-react/static/js/main.1458845a.chunk.js.map",
+    "runtime-main.js": "/material-kit-react/static/js/runtime-main.80299c6c.js",
+    "runtime-main.js.map": "/material-kit-react/static/js/runtime-main.80299c6c.js.map",
+    "static/css/2.7d31e46d.chunk.css": "/material-kit-react/static/css/2.7d31e46d.chunk.css",
+    "static/js/2.9bbf15e3.chunk.js": "/material-kit-react/static/js/2.9bbf15e3.chunk.js",
+    "static/js/2.9bbf15e3.chunk.js.map": "/material-kit-react/static/js/2.9bbf15e3.chunk.js.map",
+    "index.html": "/material-kit-react/index.html",
+    "static/css/2.7d31e46d.chunk.css.map": "/material-kit-react/static/css/2.7d31e46d.chunk.css.map",
+    "static/css/main.9237d4e9.chunk.css.map": "/material-kit-react/static/css/main.9237d4e9.chunk.css.map",
+    "static/js/2.9bbf15e3.chunk.js.LICENSE.txt": "/material-kit-react/static/js/2.9bbf15e3.chunk.js.LICENSE.txt",
+    "static/media/4.47f5e440.png": "/material-kit-react/static/media/4.47f5e440.png",
+    "static/media/background.fa083559.jpg": "/material-kit-react/static/media/background.fa083559.jpg",
+    "static/media/bg-sign-in-basic.f327db1d.jpeg": "/material-kit-react/static/media/bg-sign-in-basic.f327db1d.jpeg",
+    "static/media/freelance-tab.16621de4.png": "/material-kit-react/static/media/freelance-tab.16621de4.png",
+    "static/media/illustration-reset.c5f36c0c.jpg": "/material-kit-react/static/media/illustration-reset.c5f36c0c.jpg",
+    "static/media/loancredit.eaab8f0c.jpg": "/material-kit-react/static/media/loancredit.eaab8f0c.jpg",
+    "static/media/manage-cash-img.20544b6b.png": "/material-kit-react/static/media/manage-cash-img.20544b6b.png",
+    "static/media/rotating-card-bg-back.183088de.jpeg": "/material-kit-react/static/media/rotating-card-bg-back.183088de.jpeg",
+    "static/media/rotating-card-bg-front.bdcdfadc.jpeg": "/material-kit-react/static/media/rotating-card-bg-front.bdcdfadc.jpeg",
+    "static/media/waves-white.dcb2ce85.svg": "/material-kit-react/static/media/waves-white.dcb2ce85.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.80299c6c.js",
+    "static/css/2.7d31e46d.chunk.css",
+    "static/js/2.9bbf15e3.chunk.js",
+    "static/css/main.9237d4e9.chunk.css",
+    "static/js/main.1458845a.chunk.js"
+  ]
+}
