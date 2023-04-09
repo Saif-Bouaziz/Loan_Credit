@@ -5,27 +5,27 @@ import { useNavigate } from 'react-router-dom';
 
 
 const AgentIndex = () => {
- // const [selectedDemande, setSelectedDemande] = useState(null);
+  // const [selectedDemande, setSelectedDemande] = useState(null);
   //const [isEditing, setIsEditing] = useState(false);
   const [agentsData, setAgentsData] = useState([]);
 
 
-useEffect(() => {
-  fetch('http://localhost:8000/credit/get_agent')
-  .then(response => response.json())
-  .then(data => {
-    console.log(data); // Process the data returned by the API
-    setAgentsData(data)
-  })
-  .catch(error => {
-    console.error(error); // Handle any errors that occurred during the request
+  useEffect(() => {
+    fetch('http://localhost:8000/credit/get_agent')
+      .then(response => response.json())
+      .then(data => {
+        console.log(data); // Process the data returned by the API
+        setAgentsData(data)
+      })
+      .catch(error => {
+        console.error(error); // Handle any errors that occurred during the request
+      });
   });
-}, []);
 
 
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  const handleAdd = ()=> {
+  const handleAdd = () => {
     navigate("/ajout_agent");
   };
 
@@ -34,16 +34,16 @@ const navigate = useNavigate();
 
   return (
     <div className="container">
-    
-           
-                <AgentTable
-                agents={agentsData}
-                handleAdd={handleAdd}
-                />
-           
-      
+
+
+      <AgentTable
+        agents={agentsData}
+        handleAdd={handleAdd}
+      />
+
+
     </div>
-      
+
   );
 };
 

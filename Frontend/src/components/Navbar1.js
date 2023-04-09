@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { useState, useEffect } from 'react';
+
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -12,6 +14,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import axios from "axios"
 
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Déconnecter'];
@@ -34,6 +37,24 @@ function ResponsiveAppBar() {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+
+    const [agent, setAgent] = React.useState(false);
+    useEffect(() => {
+
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer  ${localStorage.getItem('access')}`,
+                'Accept': 'application/json'
+            }
+        };
+        axios.get('http://127.0.0.1:8000/auth/users/me', config).then((response) => {
+            console.log(response.data)
+            setAgent(response.data)
+        });
+
+    });
 
     return (
         <AppBar position="static">
@@ -98,7 +119,7 @@ function ResponsiveAppBar() {
 
                     </Box>
                     <h4>
-                        Skander Abid
+                        {agent.name}
                     </h4>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

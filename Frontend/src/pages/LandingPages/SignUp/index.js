@@ -5,7 +5,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom"; 
 import { connect } from "react-redux"; 
 import { signup } from "actions/auth"; 
-import { Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom'; 
+import axios from "axios";
 
 
 // @mui material components
@@ -34,35 +35,45 @@ import routes from "routes";
 // Images
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 
-function SignUp({signup,isAuthenticated}) { 
+function SignUp({isAuthenticated}) { 
   
-  const [accountCreated,setAccountCreated]=useState(false);
-  const [formData, setFormData] = useState({
-    name:'',
-    email: '',
-    password: '', 
-    re_password:''
-    
 
+const initialFormData = Object.freeze({
+  email: '',
+  name: '',
+  password: '',
 });
 
-const { name,email, password,re_password } = formData;
+const [formData, updateFormData] = useState(initialFormData);
 
-const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+const handleChange = (e) => {
+  updateFormData({
+    ...formData,
+    // Trimming any whitespace
+    [e.target.name]: e.target.value.trim(),
+  });
+};
 
-const onSubmit = e => {
-    e.preventDefault();
-    if (password ==re_password ) {
-    signup(name, email, password, re_password);  
-    setAccountCreated(true);
-    }
-}; 
+const handleSubmit = (e) => {
+  e.preventDefault();
+  console.log(formData);
+
+  axios
+    .post(`http://127.0.0.1:8000/auth/user/register`, {
+      email: formData.email,
+      name: formData.name,
+      password: formData.password,
+    })
+    .then((res) => {
+      console.log(res);
+      console.log(res.data);
+    });
+};
+
+
 if (isAuthenticated) {
   return <Navigate to='/' />
 } 
-if (accountCreated) { 
-   return <Navigate to ='/register' /> 
-}
   return (
     <>
       <DefaultNavbar
@@ -125,10 +136,10 @@ if (accountCreated) {
                 </Grid>
               </MKBox>
               <MKBox pt={4} pb={3} px={3}>
-                <MKBox component="form" role="form" onSubmit={e => onSubmit(e)}> 
+                <MKBox component="form" role="form" > 
                 <MKBox mb={2}>
-                  <MKInput type="text" label="name" fullWidth name='name' value={name}
-                  onChange={e => onChange(e)}
+                  <MKInput type="text" label="name" fullWidth name='name' onChange={handleChange}
+
                   required/>
 
 
@@ -137,25 +148,22 @@ if (accountCreated) {
                   
                   
                   <MKBox mb={2}>
-                    <MKInput type="email" label="Email" fullWidth name='email' value={email}
-                    onChange={e => onChange(e)}
+                    <MKInput type="email" label="Email" fullWidth name='email' 
+                    						onChange={handleChange}
+
                     required/>
                     
                      
                   </MKBox> 
                   <MKBox mb={2}>
-                    <MKInput type="password" label="Password" fullWidth name="password" value={password}
-                        onChange={e => onChange(e)}
+                    <MKInput type="password" label="Password" fullWidth name="password" 
+                        						onChange={handleChange}
+                                  
                         required/>
                   </MKBox>  
 
-                  <MKBox mb={2}>
-                     <MKInput type="password" label="Re_Password" fullWidth name="re_password" value={re_password}
-                         onChange={e => onChange(e)}
-                         required/>
-                   </MKBox> 
                   <MKBox mt={4} mb={1}>
-                    <MKButton variant="gradient" color="info" fullWidth type='submit' >
+                    <MKButton variant="gradient" color="info" fullWidth onClick={handleSubmit} >
                       sign Up
                     </MKButton>
                   </MKBox>
@@ -192,4 +200,4 @@ const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated
 }); 
 
-export default connect(mapStateToProps,{signup}) (SignUp);
+export default connect(mapStateToProps,null) (SignUp);
