@@ -85,7 +85,14 @@ export default function App() {
             <Route path="/presentation" element={<Presentation />} />
             <Route path="/register" element={<SignInPage />} />
             <Route path="/SignUp" element={<SignUp />} />
+<<<<<<< HEAD
+            <Route exact path='/reset-password' element={<ResetPassword />} />
+            <Route exact path='/password/reset/confirm/:uid/:token' element={<ResetPasswordConfirm />} />
+            <Route exact path='/activate/:uid/:token' element={<Activate />} />
+            <Route path="/Dashboard" element={<BanquierIndex />} />
+=======
             <Route path="/Dashboard" element={<BanquierIndex />} /> 
+>>>>>>> master
             <Route path="/Liste_utilisateurs" element={<BanquierTeam />} />
             <Route path="/Demandes" element={<Demandes />} />
             <Route path="/Liste_agents" element={<ListeAgents/>} />
@@ -96,8 +103,11 @@ export default function App() {
             <Route path="/faq" element={<FAQ />} />
             <Route path="/geography" element={<Geography />} />
 
+<<<<<<< HEAD
+=======
 
 
+>>>>>>> master
           </Routes>
         </Layout>
 
