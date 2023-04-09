@@ -1,5 +1,6 @@
 from django.urls import path
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 <<<<<<< HEAD
@@ -9,6 +10,10 @@ from credit import views
 
 =======
 >>>>>>> master
+from credit import views
+
+>>>>>>> master
+=======
 from credit import views
 
 >>>>>>> master
@@ -23,15 +28,16 @@ urlpatterns = [
 =======
     path('demandeApi',views.demandeApi),
     path('demandeApi/<int:id>',views.demandeApi),
-<<<<<<< HEAD
-
     path('demande',views.demandeApi),
     path('demande/<int:id>',views.demandeApi),
+<<<<<<< HEAD
 
 =======
     path('demande',views.demandeApi),
     path('demande/<int:id>',views.demandeApi),
 >>>>>>> master
+>>>>>>> master
+=======
 >>>>>>> master
     path('demande', views.get_demande,name='get_demande' ),
     path('status_counts', views.status_counts,name='status_counts' ),
@@ -51,8 +57,6 @@ urlpatterns = [
     
 =======
     path('CreatedemandeApi',views.create_demande),
-<<<<<<< HEAD
-=======
 
 >>>>>>> master
     
@@ -62,5 +66,4 @@ urlpatterns = [
 
 
 
->>>>>>> master
 ]
