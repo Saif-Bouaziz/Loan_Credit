@@ -40,9 +40,6 @@ import DemandesCours from 'views/clients/DemandesCours';
 import HistoriqueClients from 'views/clients/HistoriqueClients';
 import AgentVerification from 'views/agents/AgentVerification'; 
 import SignInPage from "layouts/pages/authentication/sign-in"; 
-import Activate from "components/containers/Activate"; 
-import ResetPassword from "components/containers/ResetPassword"; 
-import ResetPasswordConfirm from "components/containers/ResetPasswordConfirm"; 
 import SignUp from "pages/LandingPages/SignUp";
 import store from "./store"; 
 import Layout from "Layout";
@@ -100,9 +97,6 @@ export default function App() {
           <Route path="/register" element={<SignInPage />} />    
           <Route path="/SignUp" element={<SignUp />} />   
 
-          <Route exact path='/reset-password' element={<ResetPassword />} />
-          <Route exact path='/password/reset/confirm/:uid/:token' element={<ResetPasswordConfirm />} />
-          <Route exact path='/activate/:uid/:token' element={<Activate />} />
 
 
 

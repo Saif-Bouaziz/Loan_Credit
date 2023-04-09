@@ -8,14 +8,8 @@ import {
     AUTHENTICATED_SUCCESS, 
     AUTHENTICATED_FAIL, 
     LOGOUT, 
-    PASSWORD_RESET_FAIL,
-    PASSWORD_RESET_SUCCESS ,
-    PASSWORD_RESET_CONFIRM_FAIL ,
-    PASSWORD_RESET_CONFIRM_SUCCESS , 
     SIGNUP_SUCCESS ,
     SIGNUP_FAIL ,
-    ACTIVATION_SUCCESS,
-    ACTIVATION_FAIL ,
 } from './types'  
 
 export const load_user = () => async dispatch => {
@@ -97,27 +91,6 @@ export const signup = (name, email, password, re_password) => async dispatch => 
 }; 
 
 
-export const verify = (uid, token) => async dispatch => {
-    const config = {
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    };
-
-    const body = JSON.stringify({ uid, token });
-
-    try {
-        await axios.post(`http://127.0.0.1:8000/auth/users/activation/`, body, config);
-
-        dispatch({
-            type: ACTIVATION_SUCCESS,
-        });
-    } catch (err) {
-        dispatch({
-            type: ACTIVATION_FAIL
-        })
-    }
-};
 
 export const checkAuthenticated = () => async dispatch => {
     if (localStorage.getItem('access')) {
@@ -155,52 +128,6 @@ export const checkAuthenticated = () => async dispatch => {
     }
 };
 
-
-export const reset_password = (email) => async dispatch => {
-    const config = {
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    };
-
-    const body = JSON.stringify({ email });
-
-    try {
-        await axios.post('http://127.0.0.1:8000/auth/users/reset_password/', body, config);
-
-        dispatch({
-            type: PASSWORD_RESET_SUCCESS
-        });
-    } catch (err) { 
-        console.log('non')
-        dispatch({
-            type: PASSWORD_RESET_FAIL
-        });
-    }
-}; 
-
-
-export const reset_password_confirm = (uid, token, new_password, re_new_password) => async dispatch => {
-    const config = {
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    };
-
-    const body = JSON.stringify({ uid, token, new_password, re_new_password });
-
-    try {
-        await axios.post(`http://127.0.0.1:8000/auth/users/reset_password_confirm/`, body, config);
-
-        dispatch({
-            type: PASSWORD_RESET_CONFIRM_SUCCESS
-        });
-    } catch (err) {
-        dispatch({
-            type: PASSWORD_RESET_CONFIRM_FAIL
-        });
-    }
-};
 
 
 export const logout = () => dispatch => {
