@@ -54,6 +54,7 @@ import BanquierTeam from "pages/LandingPages/Banquier/BanquierTeam";
 import Demandes from "pages/LandingPages/Banquier/Demandes";
 import ListeAgents from "pages/LandingPages/Banquier/ListeAgents";
 import AjoutAgent from "pages/LandingPages/Banquier/AjoutAgent";
+import Chart from "components/BarChart";
 
 export default function App() {
   const { pathname } = useLocation();
@@ -90,6 +91,7 @@ export default function App() {
             <Route exact path='/reset-password' element={<ResetPassword />} />
             <Route exact path='/password/reset/confirm/:uid/:token' element={<ResetPasswordConfirm />} />
             <Route exact path='/activate/:uid/:token' element={<Activate />} />
+<<<<<<< HEAD
             <Route path="/Dashboard" element={<BanquierIndex />} />
             <Route path="/Liste_utilisateurs" element={<BanquierTeam />} />
             <Route path="/Demandes" element={<Demandes />} />
@@ -100,6 +102,38 @@ export default function App() {
             <Route path="/line" element={<Line />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/geography" element={<Geography />} />
+=======
+
+
+=======
+  return ( 
+    
+    <Provider store={store} >
+      <ThemeProvider theme={theme}>   
+        <CssBaseline /> 
+        <Layout>
+        <Routes> 
+          {getRoutes(routes)}
+          <Route path="*" element={<Navigate to="/presentation" />} />
+          <Route path="/presentation" element={<Presentation />} />
+          <Route path="/register" element={<SignInPage />} />    
+          <Route path="/SignUp" element={<SignUp />} />   
+          <Route exact path='/reset-password' element={<ResetPassword />} />
+          <Route exact path='/password/reset/confirm/:uid/:token' element={<ResetPasswordConfirm />} />
+          <Route exact path='/activate/:uid/:token' element={<Activate />} />
+          <Route path="/Dashboard" element={<BanquierIndex />} /> 
+          <Route path="/Liste_utilisateurs" element={<BanquierTeam />} />
+          <Route path="/Demandes" element={<Demandes />} />
+          <Route path="/Liste_agents" element={<ListeAgents/>} />
+          <Route path="/ajout_agent" element={<AjoutAgent />} />
+          <Route path="/bar" element={<Chart />} />
+          <Route path="/pie" element={<Pie />} />
+          <Route path="/line" element={<Line />} />
+          <Route path="/faq" element={<FAQ />} />
+          <Route path="/geography" element={<Geography />} />
+>>>>>>> master
+
+>>>>>>> master
           </Routes>
         </Layout>
 

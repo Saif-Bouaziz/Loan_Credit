@@ -1,11 +1,11 @@
 import React from 'react'
 import { useState } from "react";
-import Team from 'scenes/team'
 import Sidebar from 'scenes/global/Sidebar';
 import Topbar from 'scenes/global/Topbar';
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "../../../theme";
 import './BanquierIndex.css'
+import UsersIndex from 'scenes/team/UsersIndex';
 
 
 export default function BanquierTeam() {
@@ -20,7 +20,7 @@ export default function BanquierTeam() {
               <Sidebar isSidebar={isSidebar} />
               <main className="content">
                 <Topbar setIsSidebar={setIsSidebar} />
-                <Team />
+                <UsersIndex />
               </main>
           </div>
         </ThemeProvider>

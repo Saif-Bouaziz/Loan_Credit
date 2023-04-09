@@ -49,6 +49,7 @@ class Demande(models.Model):
     loan_int_rate=models.FloatField()   
     loan_grade=models.CharField(max_length=50,null=True)
     person_income=models.FloatField()
+<<<<<<< HEAD
     decision=models.CharField(max_length=50,default="notyet")
     image3 = models.BinaryField(null=True)
     image4 = models.TextField(null=True)
@@ -60,3 +61,29 @@ class Demande(models.Model):
 
     
     
+=======
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    decision=models.CharField(max_length=50,default="notyet")
+    image = models.ImageField(_("image"),upload_to=upload_to,null=True)
+=======
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> master
+    decision=models.CharField(max_length=50,null=True,default="NotYet")
+    #verified=models.CharField(max_length=50,null=True)
+    status=models.CharField(max_length=50,null=True,default="En cours")
+
+    
+<<<<<<< HEAD
+
+=======
+=======
+    verified=models.CharField(max_length=50,null=True)
+>>>>>>> master
+>>>>>>> master
+>>>>>>> master
+>>>>>>> master
+>>>>>>> master

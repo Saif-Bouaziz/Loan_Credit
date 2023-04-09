@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const ClientTable = ({ agents, handleAdd}) => {
+const AgentTable = ({ agents, handleAdd}) => {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [filterTerm, setFilterTerm] = useState("");
@@ -76,28 +76,15 @@ const ClientTable = ({ agents, handleAdd}) => {
   return (
     <div>
       <div className='filterBar'>
-        <button className="button muted-button" value={""} onClick={four} style={{ backgroundColor: active4 ? "#ccc" : null }}>
-          Tous
-        </button>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <button onClick={() => handleAdd()} className="button muted-button">
                      Ajouter
         </button>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-        <button className="button muted-button" value={"accepted"} onClick={one} style={{ backgroundColor: active1 ? "#ccc" : null }}>
-          Acceptées
-        </button>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <button className="button muted-button" value={"refused"} onClick={two} style={{ backgroundColor: active2 ? "#ccc" : null }}>
-          Refusées
-        </button>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <button className="button muted-button" value={"notyet"} onClick={three} style={{ backgroundColor: active3 ? "#ccc" : null }}>
-          En cours
-        </button>
-
-
+        <button onClick={() => handleDelete(val.id)}
+                      className="button muted-button"
+                    >
+                     Supprimer
+                    </button>
       </div>
       <div style={{display: "flex", justifyContent: "center"}}>
       <div className="contain-table">
@@ -138,14 +125,7 @@ const ClientTable = ({ agents, handleAdd}) => {
                   <td>{val.name}</td>
                   <td>{val.email}</td>
                   <td>{val.password}</td>
-                  <td className="text-left">
-                    <button
-                      onClick={() => handleDelete(val.id)}
-                      className="button muted-button"
-                    >
-                     Supprimer
-                    </button>
-                  </td>
+                  
                 </tr>
               ))
             ) : (
@@ -164,4 +144,4 @@ const ClientTable = ({ agents, handleAdd}) => {
   );
 };
 
-export default ClientTable;
+export default AgentTable;
