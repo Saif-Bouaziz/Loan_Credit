@@ -1,39 +1,65 @@
 import React, { useState, useEffect } from 'react';
 import Table from './Table';
 import Edit from './Edit';
-import { employeesData } from '../../data';
+import Axios from 'axios'
 
 const Dashboard = () => {
-  const [selectedEmployee, setSelectedEmployee] = useState(null);
+  const [datas, setDatas] = React.useState([]);
+  const [agent, setAgent] = React.useState(false);
+
+  const [selectedDemande, setSelectedDemande] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
+  useEffect(() => {
+
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer  ${localStorage.getItem('access')}`,
+        'Accept': 'application/json'
+      }
+    };
+    Axios.get('http://127.0.0.1:8000/auth/users/me', config).then((response) => {
+      console.log(response.data.is_agent)
+      setAgent(response.data.is_agent)
+    });
+    Axios.get('http://127.0.0.1:8000/credit/demandeApi').then((response) => {
+      console.log(response.data)
+      setDatas(response.data)
+
+    });
+
+  });
 
 
   const handleEdit = id => {
-    const [employee] = employeesData.filter(employee => employee.id === id);
-    setSelectedEmployee(employee);
+    const [demande] = datas.filter(demande => demande.DemandeId === id);
+    setSelectedDemande(demande);
     setIsEditing(true);
   };
 
   return (
     <div className="container">
+
+
+
       {!isEditing && (
         <div>
           <br />
-          <h2>Skander Abid</h2>
-          <br />
           <Table
-            employees={employeesData}
+            demandes={datas}
             handleEdit={handleEdit}
           />
+          <br /><br /><br /><br /><br /><br /><br />
         </div>
       )}
 
       {isEditing && (
         <Edit
-          selectedEmployee={selectedEmployee}
+          selectedDemande={selectedDemande}
           setIsEditing={setIsEditing}
-        />
-      )}
+        />)}
+
     </div>
   );
 };

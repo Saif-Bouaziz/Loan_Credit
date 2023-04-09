@@ -13,6 +13,14 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import os 
 from datetime import timedelta
+import django
+
+
+from urllib.parse import quote
+django.utils.http.urlquote = quote
+from django.utils.encoding import force_str
+django.utils.encoding.force_text = force_str
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -69,7 +77,7 @@ ROOT_URLCONF = 'BackEnd.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'build')],
+        'DIRS': [os.path.join(BASE_DIR, 'frontend/build')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -101,17 +109,22 @@ DATABASES = {
         'USER': 'skander',
         'PASSWORD': 'PFH#23kgrw9',
         'HOST' : 'pcd.mysql.database.azure.com',
+<<<<<<< HEAD
         'PORT': '3306',
     },  
 
+=======
+        'PORT': '3306'
+    },
+>>>>>>> master
     'credit': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'credit',
         'USER': 'skander',
         'PASSWORD': 'PFH#23kgrw9',
         'HOST' : 'pcd.mysql.database.azure.com',
-        'PORT': '3306',
-    },     
+        'PORT': '3306'
+    }   
  
 }
 
@@ -155,15 +168,15 @@ USE_I18N = True
 USE_TZ = True
 
 
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
-
-STATICFILES_DIRS=[
-    os.path.join(BASE_DIR, 'build/static')
-]
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "frontend/build/static")
+]
 
 MEDIA_URL='/media/' 
 MEDIA_ROOT=os.path.join(BASE_DIR,'media')
@@ -179,7 +192,7 @@ REST_FRAMEWORK={
 
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=120),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'AUTH_HEADER_TYPES': ('Bearer', ), 
     'ROTATE_REFRESH_TOKENS': False,  

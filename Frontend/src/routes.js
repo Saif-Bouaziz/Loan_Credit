@@ -2,7 +2,6 @@
 // @mui material components
 import Icon from "@mui/material/Icon";
 
-import Dashboard from "./views/dashboard/Dashboard";
 // Pages
 
 import ContactUs from "layouts/pages/landing-pages/contact-us";
@@ -10,9 +9,7 @@ import Agent from "./pages/LandingPages/Agent/index"
 import SignIn from "layouts/pages/authentication/sign-in";
 import LoanApplication from "./pages/LandingPages/LoanApplication/index"
 
-import Banquier from "./pages/LandingPages/Banquier/index";
-
-
+import BanquierIndex from "pages/LandingPages/Banquier/BanquierIndex";
 
 // Sections
 // import PageHeaders from "layouts/sections/page-sections/page-headers";
@@ -181,8 +178,8 @@ const routes = [
       },
       {
         name: "Banquier",
-        route: "/pages/LandingPages/Banquier", 
-        component: <Banquier />,
+        route: "/Dashboard", 
+        component: <BanquierIndex />,
       },
     ],
   },

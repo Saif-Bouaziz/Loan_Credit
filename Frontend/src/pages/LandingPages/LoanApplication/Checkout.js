@@ -13,7 +13,7 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AddressForm from './AdressForm';
 import PaymentForm from './PaymentForm';
-import Review from './Review'; 
+import Review from './Review';
 import axios from 'axios'
 
 const steps = ['Loan Details', 'Personal Details', 'Documents Upload'];
@@ -26,8 +26,6 @@ export default function Checkout() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [addressFormData, setAddressFormData] = React.useState({});
   const [paymentFormData, setPaymentFormData] = React.useState({});
-  const [prediction, setPrediction] = React.useState(null);
-
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -47,9 +45,9 @@ export default function Checkout() {
   function getStepContent(step) {
     switch (step) {
       case 0:
-        return <PaymentForm  onFormSubmit={handlePaymentFormSubmit} />;
+        return <PaymentForm onFormSubmit={handlePaymentFormSubmit} />;
       case 1:
-        return <AddressForm onFormSubmit={handleAddressFormSubmit}/>;
+        return <AddressForm onFormSubmit={handleAddressFormSubmit} />;
       case 2:
         return <Review />;
       default:
@@ -61,26 +59,27 @@ export default function Checkout() {
     addressFormData: addressFormData,
     paymentFormData: paymentFormData
   };
+<<<<<<< HEAD
+  const handleFormSubmit = () => {
+    axios.post('http://127.0.0.1:8000/credit/CreatedemandeApi', data)
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+=======
   const handleFormSubmit = () => { 
-    axios.post('http://127.0.0.1:8000/credit/create_demande/', data)
+    axios.post('http://127.0.0.1:8000/credit/create_demande', data)
     .then(response => {
       console.log(response.data);
     })
     .catch(error => {
       console.error(error);
     });
+>>>>>>> master
   };
 
-  function handlePrediction(event) {
-    event.preventDefault();
-    axios.get('http://127.0.0.1:8000/credit/predict/')
-      .then(response => {
-        setPrediction(response.data.prediction);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -98,7 +97,7 @@ export default function Checkout() {
       <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
           <Typography component="h1" variant="h5" align="center">
-            Thank you for filling this form 
+            Thank you for filling this form
           </Typography>
           <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
             {steps.map((label) => (
@@ -113,7 +112,7 @@ export default function Checkout() {
                 Thank you for your order.
               </Typography>
               <Typography variant="subtitle1">
-                 We have emailed your order
+                We have emailed your order
                 confirmation, and will send you an update when your order has
                 shipped.
               </Typography>
@@ -136,19 +135,12 @@ export default function Checkout() {
                 >
                   {activeStep === steps.length - 1 ? 'Place' : 'Next'}
                 </Button>
-                {activeStep === steps.length - 1 && (
-                  <Button onClick={handlePrediction} sx={{ mt: 3, ml: 1 }}>
-                    Predict
-                  </Button>
-                   
-                )}
-                <p>The prediction is: {prediction}</p>
 
               </Box>
             </React.Fragment>
           )}
         </Paper>
-        
+
       </Container>
     </ThemeProvider>
   );

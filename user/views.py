@@ -16,7 +16,6 @@ class RegisterView(APIView):
     def post(self, request):
         try:
             data = request.data
-
             name = data['name']
             email = data['email']
             email = email.lower()
@@ -28,7 +27,12 @@ class RegisterView(APIView):
             if is_banquier == 'True':
                 is_banquier = True
             else:
+<<<<<<< HEAD
+
+                is_banquier = True  
+=======
                 is_banquier = False  
+>>>>>>> master
             
             if is_agent == 'True':
                 is_agent = True
