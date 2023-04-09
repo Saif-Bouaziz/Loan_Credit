@@ -38,7 +38,6 @@ class Migration(migrations.Migration):
                 ('loan_int_rate', models.FloatField()),
                 ('loan_grade', models.CharField(max_length=50, null=True)),
                 ('person_income', models.FloatField()),
-                ('verified', models.CharField(max_length=50, null=True)),
                 ('ClientId', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),

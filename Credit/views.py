@@ -20,13 +20,15 @@ from rest_framework.parsers import JSONParser
 import numpy as np
 import pickle
 import json
+import requests
+
+import base64
 
 
 with open('final_XGBmodel.pkl', 'rb') as f:
     model = pickle.load(f)
 
 
-# Create your views here.
 def demandeApi(request,id=0):
             if request.method=='GET':
                 demande=Demande.objects.all()
@@ -73,17 +75,8 @@ class ManageDemande(APIView):
             loan_percent_income=address_form_data.get('loan_percent_income')
             loan_int_rate=address_form_data.get('loan_int_rate')
             loan_grade="A"
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-            verified="en_cours"
->>>>>>> master
->>>>>>> master
->>>>>>> master
             person_income=address_form_data.get('person_income')
+            image2=address_form_data.get('image2')
             demande=Demande.objects.using('credit').create(
                         ClientId=ClientId, first_name=first_name, last_name=last_name,
                         email=email, person_age=person_age, cin=cin, num_tel=num_tel,
@@ -91,170 +84,62 @@ class ManageDemande(APIView):
                         adress=adress,person_home_ownership=person_home_ownership,region=region,
                         city=city,code_postal=cod_postal,loan_intent=loan_intent,loan_amnt=loan_amnt,
                         loan_duration=loan_duration,loan_percent_income=loan_percent_income,
-                        loan_int_rate=loan_int_rate,loan_grade=loan_grade,person_income=person_income
-                     )
-        
-            return JsonResponse({'success': True})
-<<<<<<< HEAD
-        return JsonResponse({'error': 'Invalid request method'})
-=======
-        return JsonResponse({'error': 'Invalid request method'})
-
-
-"""
-class ManageDemande(APIView):
-    def get(request,id=0):
-        demande=Demande.objects.all()
-        demande_serializer=DemandeSerializer(demande,many=True)
-        return JsonResponse(demande_serializer.data, safe=False )
-
-
-    def patch(request,id=0):
-        demande=Demande.objects.get(DemandeId=id)
-        demande_serializer=DemandeSerializer(demande,data=JSONParser().parse(request),partial=True)
-        if demande_serializer.is_valid():
-            demande_serializer.save()
-            return JsonResponse("Updated Successfully!", safe=False)
-        return JsonResponse("Failed to Update", safe=False)
-
-    def post(request):
-        data = json.loads(request.body)
-        address_form_data = data['addressFormData']
-        payment_form_data = data['paymentFormData']
-        ClientId=1
-        first_name=payment_form_data.get('first_name')
-        last_name=payment_form_data.get('last_name')
-        email=payment_form_data.get('email')
-        person_age=payment_form_data.get('person_age')
-        cin=payment_form_data.get('cin')
-        num_tel=payment_form_data.get('num_tel')
-        marriage_status=payment_form_data.get('marriage_status')
-        job=payment_form_data.get('job')
-        person_emp_length=payment_form_data.get('person_emp_length')
-        adress=payment_form_data.get('adress')
-        person_home_ownership=payment_form_data.get('person_home_ownership')
-        region=payment_form_data.get('region')
-        city=payment_form_data.get('city')
-        cod_postal=payment_form_data.get('code_postal')
-        loan_intent=address_form_data.get('loan_intent')
-        loan_amnt=address_form_data.get('loan_amnt')
-        loan_duration=address_form_data.get('loan_duration')
-        loan_percent_income=address_form_data.get('loan_percent_income')
-        loan_int_rate=address_form_data.get('loan_int_rate')
-        loan_grade="A"
-        person_income=address_form_data.get('person_income')
-        demande=Demande.objects.using('credit').create(
-                    ClientId=ClientId, first_name=first_name, last_name=last_name,
-                    email=email, person_age=person_age, cin=cin, num_tel=num_tel,
-                    marriage_status=marriage_status,job=job,person_emp_length=person_emp_length,
-                    adress=adress,person_home_ownership=person_home_ownership,region=region,
-                    city=city,code_postal=cod_postal,loan_intent=loan_intent,loan_amnt=loan_amnt,
-                    loan_duration=loan_duration,loan_percent_income=loan_percent_income,
-                    loan_int_rate=loan_int_rate,loan_grade=loan_grade,person_income=person_income
-                )
-        
-        return JsonResponse({'success': True})
-"""
-def prediction(request):
-    demande_data = Demande.objects.using('credit').all().values('person_age','person_income', 'person_home_ownership',
-=======
-                        loan_int_rate=loan_int_rate,loan_grade=loan_grade,person_income=person_income,
+                        loan_int_rate=loan_int_rate,loan_grade=loan_grade,person_income=person_income,image2=image2
                      )
         
             return JsonResponse({'success': True})
         return JsonResponse({'error': 'Invalid request method'})
-    
-    def retrieve_values(self, data):
 
-        first_name=data['first_name']
-        last_name=data['last_name']
-        email=data['email']
-        person_age=data['person_age']
-        cin=data['cin']
-        num_tel=data['num_tel']
-        marriage_status=data['marriage_status']
-        job=data['job']
-        person_emp_length=data['person_emp_length']
-        adress=data['adress']
-        person_home_ownership=data['person_home_ownership']
-        region=data['region']
-        city=data['city']
-        code_postal=data['code_postal']
-        loan_intent=data['loan_intent']
-        loan_amnt=data['loan_amnt']
-        loan_duration=data['loan_duration']
-        loan_percent_income=data['loan_percent_income']
-        loan_int_rate=data['loan_int_rate']
-        loan_grade=data['loan_grade']
-        person_income=data['person_income']
-        verified="en_cours"
-        
-        data={
-           'first_name':first_name,
-           'last_name':last_name,
-           'email':email,
-           'person_age':person_age,
-           'cin':cin, 
-           'num_tel':num_tel,
-           'marriage_status':marriage_status,
-           'job':job,
-           'person_emp_length':person_emp_length,
-           'adress':adress,
-           'person_home_ownership':person_home_ownership,
-           'region':region,
-           'city':city,
-           'code_postal':code_postal,
-           'loan_intent':loan_intent,
-           'loan_amnt':loan_amnt,
-           'loan_duration':loan_duration,
-           'loan_percent_income':loan_percent_income,
-           'loan_int_rate':loan_int_rate,
-           'loan_grade':loan_grade,
-           'person_income':person_income,
-           'verified':verified
-        }
-        return data
 
-    def post(self, request):
-        
-        user=request.user
-        user_mail=UserAccount.objects.get(email=user.email)
-        user_id=user_mail.id
-        data = request.data
-        data = self.retrieve_values(data)
-
-        first_name=data['first_name']
-        last_name=data['last_name']
-        email=data['email']
-        person_age=data['person_age']
-        cin=data['cin']
-        num_tel=data['num_tel']
-        marriage_status=data['marriage_status']
-        job=data['job']
-        person_emp_length=data['person_emp_length']
-        adress=data['adress']
-        person_home_ownership=data['person_home_ownership']
-        region=data['region']
-        city=data['city']
-        code_postal=data['code_postal']
-        loan_intent=data['loan_intent']
-        loan_amnt=data['loan_amnt']
-        loan_duration=data['loan_duration']
-        loan_percent_income=data['loan_percent_income']
-        loan_int_rate=data['loan_int_rate']
-        loan_grade=data['loan_grade']
-        person_income=data['person_income']
-        demande=Demande.objects.using('credit').create(
-                        ClientId=user_id, first_name=first_name, last_name=last_name,
+def create_demande(request):
+        if request.method == 'POST':
+            #user= request.user
+            #ClientId=user.id
+            ClientId=1
+            data = json.loads(request.body)
+            address_form_data = data['addressFormData']
+            payment_form_data = data['paymentFormData']
+            first_name=payment_form_data.get('first_name')
+            last_name=payment_form_data.get('last_name')
+            email=payment_form_data.get('email')
+            person_age=payment_form_data.get('person_age')
+            cin=payment_form_data.get('cin')
+            num_tel=payment_form_data.get('num_tel')
+            marriage_status=payment_form_data.get('marriage_status')
+            job=payment_form_data.get('job')
+            person_emp_length=payment_form_data.get('person_emp_length')
+            adress=payment_form_data.get('adress')
+            person_home_ownership=payment_form_data.get('person_home_ownership')
+            region=payment_form_data.get('region')
+            city=payment_form_data.get('city')
+            cod_postal=payment_form_data.get('code_postal')
+            loan_intent=address_form_data.get('loan_intent')
+            loan_amnt=address_form_data.get('loan_amnt')
+            loan_duration=address_form_data.get('loan_duration')
+            loan_percent_income=address_form_data.get('loan_percent_income')
+            loan_int_rate=address_form_data.get('loan_int_rate')
+            loan_grade="A"
+            person_income=address_form_data.get('person_income')
+            image4=address_form_data.get('image4')
+            img_cin=address_form_data.get('img_cin')
+            img_avis_imposition=address_form_data.get('img_avis_imposition')
+            img_bulletins_salaire=address_form_data.get('img_bulletins_salaire')
+            img_Releves_compte_banque=address_form_data.get('img_Releves_compte_banque')
+            img_justificatif_domicile_actuel=address_form_data.get('img_justificatif_domicile_actuel')
+            demande=Demande.objects.using('credit').create(
+                        ClientId=ClientId, first_name=first_name, last_name=last_name,
                         email=email, person_age=person_age, cin=cin, num_tel=num_tel,
                         marriage_status=marriage_status,job=job,person_emp_length=person_emp_length,
                         adress=adress,person_home_ownership=person_home_ownership,region=region,
-                        city=city,code_postal=code_postal,loan_intent=loan_intent,loan_amnt=loan_amnt,
+                        city=city,code_postal=cod_postal,loan_intent=loan_intent,loan_amnt=loan_amnt,
                         loan_duration=loan_duration,loan_percent_income=loan_percent_income,
-                        loan_int_rate=loan_int_rate,loan_grade=loan_grade,person_income=person_income,
+                        loan_int_rate=loan_int_rate,loan_grade=loan_grade,person_income=person_income,image4=image4,
+                        img_cin=img_cin,img_avis_imposition=img_avis_imposition,img_bulletins_salaire=img_bulletins_salaire,
+                        img_Releves_compte_banque=img_Releves_compte_banque,img_justificatif_domicile_actuel=img_justificatif_domicile_actuel
                      )
         
-        return Response( {'success': 'demande created successfully'})
+            return JsonResponse({'success': True})
+        return JsonResponse({'error': 'Invalid request method'})
 
 
 def decision_demande(request,identifiant):
@@ -262,12 +147,9 @@ def decision_demande(request,identifiant):
     #if not request.user.is_authenticated or not request.user.is_banquier:
        # return JsonResponse({'error': 'Unauthorized access'}, status=401)
 
-<<<<<<< HEAD
-    demande_data = Demande.objects.using('credit').get(DemandeId=identifiant)
-=======
+
         #if user_account.is_banquier:
     demande_data = Demande.objects.using('credit').get(DemandeId=identifiant).values('person_age','person_income', 'person_home_ownership',
->>>>>>> master
                                                                 'person_emp_length','loan_intent', 'loan_grade', 'loan_amnt',
                                                                 'loan_int_rate','loan_percent_income'
                                                             )
@@ -280,8 +162,6 @@ def decision_demande(request,identifiant):
         data_dict['loan_amnt']=float(obj['loan_amnt'])
         data_dict['loan_int_rate']=float(obj['loan_int_rate'])
         data_dict['loan_percent_income']=float(obj['loan_percent_income'])
->>>>>>> master
-
     person_age=float(demande_data.person_age)
     person_income=float(demande_data.person_income)
     person_emp_length=float(demande_data.person_emp_length)
@@ -354,14 +234,3 @@ def delete_agent(request, id_agent):
         return JsonResponse({'success': True})
     except Demande.DoesNotExist:
         return JsonResponse({'success': False, 'message': 'Demande not found'})
-
-
-        
-        
-                
-        
-    
-     
-
-
->>>>>>> master
