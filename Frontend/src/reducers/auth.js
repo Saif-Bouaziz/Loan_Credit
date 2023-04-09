@@ -3,6 +3,15 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     USER_LOADED_SUCCESS,
+<<<<<<< HEAD
+    USER_LOADED_FAIL, 
+    AUTHENTICATED_FAIL, 
+    AUTHENTICATED_SUCCESS, 
+    LOGOUT, 
+    SIGNUP_SUCCESS ,
+    SIGNUP_FAIL ,
+} from '../actions/types' 
+=======
     USER_LOADED_FAIL,
     AUTHENTICATED_FAIL,
     AUTHENTICATED_SUCCESS,
@@ -16,6 +25,7 @@ import {
     ACTIVATION_SUCCESS,
     ACTIVATION_FAIL
 } from '../actions/types'
+>>>>>>> master
 
 const initialState = {
     access: localStorage.getItem('access'),
@@ -75,6 +85,9 @@ export default function (state = initialState, action) {
                 refresh: null,
                 isAuthenticated: false,
                 user: null
+<<<<<<< HEAD
+            } 
+=======
             }
         case PASSWORD_RESET_SUCCESS:
         case PASSWORD_RESET_FAIL:
@@ -85,6 +98,7 @@ export default function (state = initialState, action) {
             return {
                 ...state
             }
+>>>>>>> master
         default:
             return state
     }
