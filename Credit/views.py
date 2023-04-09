@@ -46,8 +46,6 @@ def demandeApi(request,id=0):
 
 
 
-<<<<<<< HEAD
-=======
 
 
             
@@ -56,7 +54,6 @@ def create_demande(request):
             #user= request.user
             #ClientId=user.id
         ClientId=1
->>>>>>> master
         
 class ManageDemande(APIView):
     def create_demande(request):
@@ -138,13 +135,8 @@ def create_demande(request):
             img_bulletins_salaire=address_form_data.get('img_bulletins_salaire')
             img_Releves_compte_banque=address_form_data.get('img_Releves_compte_banque')
             img_justificatif_domicile_actuel=address_form_data.get('img_justificatif_domicile_actuel')
-<<<<<<< HEAD
-            demande=Demande.objects.using('credit').create(
-                        ClientId=ClientId, first_name=first_name, last_name=last_name,
-=======
             demande=Demande.objects.using('credit').create(   
                 ClientId=ClientId, first_name=first_name, last_name=last_name,
->>>>>>> master
                         email=email, person_age=person_age, cin=cin, num_tel=num_tel,
                         marriage_status=marriage_status,job=job,person_emp_length=person_emp_length,
                         adress=adress,person_home_ownership=person_home_ownership,region=region,
@@ -156,15 +148,6 @@ def create_demande(request):
         
             return JsonResponse({'success': True})
         return JsonResponse({'error': 'Invalid request method'})
-<<<<<<< HEAD
-
-
-
-
-from rest_framework.permissions import BasePermission, IsAuthenticated
-
-=======
->>>>>>> master
 
 from rest_framework.permissions import BasePermission
 from django.contrib.auth.decorators import user_passes_test
@@ -174,10 +157,6 @@ def decision_demande(request,identifiant):
     #if request.user.is_banquier:
        #return JsonResponse({'error': 'Unauthorized access'}, status=401)
     demande_data = Demande.objects.using('credit').get(DemandeId=identifiant)
-<<<<<<< HEAD
-=======
-
->>>>>>> master
     person_age=float(demande_data.person_age)
     person_income=float(demande_data.person_income)
     person_emp_length=float(demande_data.person_emp_length)
@@ -336,10 +315,4 @@ def delete_user(request, id_user):
 
         
         
-<<<<<<< HEAD
                 
-        
-    
-=======
-                
->>>>>>> master
