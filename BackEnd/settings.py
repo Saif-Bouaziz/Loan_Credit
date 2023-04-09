@@ -110,12 +110,9 @@ DATABASES = {
         'PASSWORD': 'PFH#23kgrw9',
         'HOST' : 'pcd.mysql.database.azure.com',
         'PORT': '3306',
-<<<<<<< HEAD
-    },      
-=======
+    
     },  
 
->>>>>>> master
     'credit': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'credit',
