@@ -23,11 +23,15 @@ class RegisterView(APIView):
             is_banquier = data['is_banquier']  
             is_agent = data['is_agent']
 
-            if is_banquier == 'False':
-                is_banquier = False
+            if is_banquier == 'True':
+                is_banquier = True
             else:
+<<<<<<< HEAD
 
                 is_banquier = True  
+=======
+                is_banquier = False  
+>>>>>>> master
             
             if is_agent == 'True':
                 is_agent = True

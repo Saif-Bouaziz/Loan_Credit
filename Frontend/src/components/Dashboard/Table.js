@@ -80,7 +80,7 @@ const Table = ({ demandes, handleEdit }) => {
         </button>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <button className="button muted-button" value={"notyet"} onClick={three} style={{ backgroundColor: active3 ? "#ccc" : null }}>
-          Pas de decision
+          Pas de décision
         </button>
 
 
