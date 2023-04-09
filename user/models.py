@@ -50,7 +50,10 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
     is_banquier = models.BooleanField(default=False)
     is_agent=models.BooleanField(default=False) 
 

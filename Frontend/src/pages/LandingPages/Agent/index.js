@@ -7,7 +7,7 @@ import Cookies from 'js-cookie';
 
 
 function Agent() {
-  const [agent, setAgent] = React.useState(false);
+  const [agent, setAgent] = React.useState(true);
 
   useEffect(() => {
 
@@ -19,10 +19,10 @@ function Agent() {
         'Accept': 'application/json'
       }
     };
-    axios.get('http://127.0.0.1:8000/auth/users/me', config).then((response) => {
+    /*axios.get('http://127.0.0.1:8000/auth/users/me', config).then((response) => {
       console.log(response.data.is_agent)
       setAgent(response.data.is_agent)
-    });
+    });*/
   });
   return (
     <div className='agent'>
