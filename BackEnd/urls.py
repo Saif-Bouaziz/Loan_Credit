@@ -19,6 +19,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     path('credit/', include('credit.urls')),
     
 =======
@@ -29,6 +30,9 @@ urlpatterns = [
 =======
     path('credit/', include('credit.urls')),    
 >>>>>>> master
+>>>>>>> master
+=======
+    path('credit/', include('credit.urls')),    
 >>>>>>> master
     #ajout
     path('auth/', include('djoser.urls')), 
@@ -41,9 +45,12 @@ urlpatterns = [
 #ajout
 #urlpatterns += [re_path(r'^.*', TemplateView.as_view(template_name=''))]
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 =======
 
 >>>>>>> master
+>>>>>>> master
+=======
 >>>>>>> master
