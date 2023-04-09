@@ -5,7 +5,7 @@ import Axios from 'axios'
 
 const Dashboard = () => {
   const [datas, setDatas] = React.useState([]);
-  const [agent, setAgent] = React.useState(false);
+  const [agent, setAgent] = React.useState(true);
 
   const [selectedDemande, setSelectedDemande] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -19,10 +19,13 @@ const Dashboard = () => {
         'Accept': 'application/json'
       }
     };
+    /*
     Axios.get('http://127.0.0.1:8000/auth/users/me', config).then((response) => {
       console.log(response.data.is_agent)
       setAgent(response.data.is_agent)
-    });
+    });  
+    */
+    
     Axios.get('http://127.0.0.1:8000/credit/demandeApi').then((response) => {
       console.log(response.data)
       setDatas(response.data)
