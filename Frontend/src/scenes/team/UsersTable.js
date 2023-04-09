@@ -1,19 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
-const ClientTable = ({ demandes, handleEdit}) => {
+const UsersTable = ({ users,handleDelete}) => {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [filterTerm, setFilterTerm] = useState("");
-  const [prediction, setPrediction] = useState(null);
-
-
- 
-  const formatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: null,
-  });
-
+  const [usersData, setUsersData] = useState("");
 
   const handleSearchTerm = (e) => {
     let value = e.target.value;
@@ -67,27 +58,23 @@ const ClientTable = ({ demandes, handleEdit}) => {
 
   };
 
+
   return (
     <div>
       <div className='filterBar'>
-        <button className="button muted-button" value={""} onClick={four} style={{ backgroundColor: active4 ? "#ccc" : null }}>
+  
+      <button className="button muted-button" value={""} onClick={four} style={{ backgroundColor: active4 ? "#ccc" : null }}>
           Tous
         </button>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-        <button className="button muted-button" value={"Acceptée"} onClick={one} style={{ backgroundColor: active1 ? "#ccc" : null }}>
-          Acceptées
+        <button className="button muted-button" value={"client"} onClick={one} style={{ backgroundColor: active1 ? "#ccc" : null }}>
+          Client
         </button>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <button className="button muted-button" value={"Refusée"} onClick={two} style={{ backgroundColor: active2 ? "#ccc" : null }}>
-          Refusées
+        <button className="button muted-button" value={"agent"} onClick={two} style={{ backgroundColor: active2 ? "#ccc" : null }}>
+          Agents
         </button>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <button className="button muted-button" value={"En cours"} onClick={three} style={{ backgroundColor: active3 ? "#ccc" : null }}>
-          En cours
-        </button>
-
-
       </div>
       <div style={{display: "flex", justifyContent: "center"}}>
       <div className="contain-table">
@@ -107,53 +94,39 @@ const ClientTable = ({ demandes, handleEdit}) => {
         <table >
           <thead>
             <tr>
-              <th>DemandeId</th>
-              <th>ClientId</th>
-              <th>Age</th>
-              <th>Salaire</th>
-              <th>Prop</th>
-              <th>Emploi</th>
-              <th>Obj</th>
-              <th>Cat</th>
-              <th>Montant</th>
-              <th>Intérêt</th>
-              <th>%</th>
-              <th>Status</th>
+              <th>Id utilisateur</th>
+              <th>Nom et Prénom</th>
+              <th>Email</th>
+              <th>Type</th>
               <th colSpan={2} className="text-center">
                 Actions
               </th>
             </tr>
           </thead>
           <tbody>
-            {demandes.length > 0 ? (
-              demandes
+            {users.length > 0 ? (
+              users.filter(
+                (val) => {
+                  return val.user_type.toLowerCase().includes(searchTerm.toLowerCase());
+                })
               .map(val => (
                 <tr key={val.id}>
-                  <td>{val.DemandeId}</td>
-                  <td>{val.ClientId}</td>
-                  <td>{val.person_age}</td>
-                  <td>{val.person_income}</td>
-                  <td>{val.person_home_ownership}</td>
-                  <td>{val.person_emp_length}</td>
-                  <td>{val.loan_intent}</td>
-                  <td>{val.loan_grade}</td>
-                  <td>{val.loan_amnt} </td>
-                  <td>{val.loan_int_rate} </td>
-                  <td>{val.loan_percent_income} </td>
-                  <td>{val.status}</td>
-                  <td className="text-left">
-                    <button
-                      onClick={() => handleEdit(val.DemandeId)}
+                  <td>{val.id}</td>
+                  <td>{val.name}</td>
+                  <td>{val.email}</td>
+                  <td>{val.user_type}</td>
+                  <button onClick={() => handleDelete(val.id)}
                       className="button muted-button"
                     >
-                     Traiter
+                     Supprimer
                     </button>
-                  </td>
+
+                  
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan={7}>Aucune demande</td>
+                <td colSpan={7}>Aucun utilisateur</td>
               </tr>
             )}
           </tbody>
@@ -167,4 +140,4 @@ const ClientTable = ({ demandes, handleEdit}) => {
   );
 };
 
-export default ClientTable;
+export default UsersTable;

@@ -60,7 +60,7 @@ export default function Checkout() {
     paymentFormData: paymentFormData
   };
   const handleFormSubmit = () => { 
-    axios.post('http://127.0.0.1:8000/credit/create_demande/', data)
+    axios.post('http://127.0.0.1:8000/credit/create_demande', data)
     .then(response => {
       console.log(response.data);
     })

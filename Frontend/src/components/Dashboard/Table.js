@@ -115,11 +115,8 @@ const Table = ({ demandes, handleEdit }) => {
           </thead>
           <tbody>
             {demandes.length > 0 ? (
-              demandes.filter(
-                (val) => {
-                  return val.decision.toLowerCase().includes(filterTerm.toLowerCase());
-                }
-              ).filter(
+              demandes
+              .filter(
                 (val) => {
                   return val.last_name.toLowerCase().includes(searchTerm.toLowerCase());
                 }

@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 
+
 const ClientEdit = ({ selectedDemande, setIsEditing }) => {
   const [prediction, setPrediction] = useState(null);
-  const [type, setType] = useState(null);
+  const [demandes, setDemandes] = useState(selectedDemande.status);
+
+
+
 
 
   const handlePredict = (demandeId) => {
@@ -22,28 +26,68 @@ const ClientEdit = ({ selectedDemande, setIsEditing }) => {
 
   }
 
-  const Refuse = e => {
-    e.preventDefault();
-    setIsEditing(false);
-    setType('refusée')
-    Swal.fire({
-      icon: 'error',
-      title: 'Refusée',
-      text: `${selectedDemande.first_name}'s demande est acceptée.`,
+  const handleClick1 = async () => {
+    const url = `http://127.0.0.1:8000/credit/demande_status/${selectedDemande.DemandeId}/`;
+    const data = { 'status': 'acceptée' };
+    const response = await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+    if (response.ok) {
+      setIsEditing(false);
+      const updatedDemandes = demandes.map(demande => {
+        if (demande.DemandeId === selectedDemande.DemandeId) {
+          return {
+            ...demande,
+            status: data.status,
+          };
+        }
+        return demande;
+      });
+      // Update the state of demandes to the new array with the updated status field
+      setDemandes(updatedDemandes)
+      Swal.fire({
+        icon: 'success',
+        title: 'Acceptée!',
+        text: `la demande de ${selectedDemande.DemandeId} est acceptée.`,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } else {
+      console.log(`Error: ${response.status}`);
+    }
+  };
+
+  const handleClick2 = async () => {
+    const url = `http://127.0.0.1:8000/credit/demande_status/${selectedDemande.DemandeId}/`;
+    const data = { 'status': 'refusée' };
+    const response = await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+    if (response.ok) {
+      setIsEditing(false);
+      const updatedDemandes = demandes.map(demande => {
+        if (demande.DemandeId === selectedDemande.DemandeId) {
+          return {
+            ...demande,
+            status: data.status,
+          };
+        }
+        return demande;
+      });
+      // Update the state of demandes to the new array with the updated status field
+      setDemandes(updatedDemandes)
+      Swal.fire({
+        icon: 'error',
+      title: 'Refusée!',
+      text: `la demande numéro ${selectedDemande.DemandeId} est refusée.`,
       showConfirmButton: false,
       timer: 1500,
-    });
-  }
-  const handleUpdate = e => {
-    e.preventDefault();
-    setIsEditing(false);
-    Swal.fire({
-      icon: 'success',
-      title: 'Acceptée!',
-      text: `${selectedDemande.first_name}'s demande est acceptée.`,
-      showConfirmButton: false,
-      timer: 1500,
-    });
+      });
+    } else {
+      console.log(`Error: ${response.status}`);
+    }
   };
 
   return (
@@ -78,6 +122,8 @@ const ClientEdit = ({ selectedDemande, setIsEditing }) => {
         {selectedDemande.loan_int_rate}
         <h4>Pourcentage</h4>
         {selectedDemande.loan_percent_income}
+        <h4>Status</h4>
+        {selectedDemande.status}
         <h4>Résultat</h4>
         {prediction}
         </div>
@@ -94,7 +140,7 @@ const ClientEdit = ({ selectedDemande, setIsEditing }) => {
           <button
             style={{ backgroundColor: "#BBD6B8" }}
             className="button muted-button"
-            onClick={handleUpdate}
+            onClick={handleClick1}
           >
             Accepter
           </button>
@@ -104,7 +150,7 @@ const ClientEdit = ({ selectedDemande, setIsEditing }) => {
             style={{ backgroundColor: "#E96479" }}
 
             className="button muted-button"
-            onClick={Refuse}
+            onClick={handleClick2}
           >
             Refuser
           </button>

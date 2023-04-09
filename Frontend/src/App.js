@@ -53,6 +53,7 @@ import BanquierTeam from "pages/LandingPages/Banquier/BanquierTeam";
 import Demandes from "pages/LandingPages/Banquier/Demandes";
 import ListeAgents from "pages/LandingPages/Banquier/ListeAgents";
 import AjoutAgent from "pages/LandingPages/Banquier/AjoutAgent";
+import Chart from "components/BarChart";
 
 export default function App() {
   const { pathname } = useLocation();
@@ -95,7 +96,7 @@ export default function App() {
           <Route path="/Demandes" element={<Demandes />} />
           <Route path="/Liste_agents" element={<ListeAgents/>} />
           <Route path="/ajout_agent" element={<AjoutAgent />} />
-          <Route path="/bar" element={<Bar />} />
+          <Route path="/bar" element={<Chart />} />
           <Route path="/pie" element={<Pie />} />
           <Route path="/line" element={<Line />} />
           <Route path="/faq" element={<FAQ />} />

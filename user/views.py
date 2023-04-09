@@ -26,16 +26,13 @@ class RegisterView(APIView):
             if is_banquier == 'False':
                 is_banquier = False
             else:
-<<<<<<< HEAD
-                is_banquier = True 
-=======
-                is_banquier = False  
+
+                is_banquier = True  
             
             if is_agent == 'True':
                 is_agent = True
             else:
                 is_agent = False 
->>>>>>> master
 
             if password == re_password:
                 if len(password) >= 8:
