@@ -12,10 +12,99 @@ import GeographyChart from "../../components/GeographyChart";
 import BarChart from "../../components/BarChart";
 import StatBox from "../../components/StatBox";
 import ProgressCircle from "../../components/ProgressCircle";
+import { useState, useEffect } from 'react'
+import axios from "axios";
+import Chart from "../../components/BarChart";
+
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [demandeCounts, setDemandeCounts] = useState(null);
+
+  useEffect(() => {
+    async function fetchDemandeCounts() {
+      const response = await fetch("http://127.0.0.1:8000/credit/status_counts");
+      const data = await response.json();
+      setDemandeCounts(data);
+    }
+
+    fetchDemandeCounts();
+  }, []);
+
+  const [demandes, setDemandes] = useState([]);
+
+  useEffect(() => {
+    const fetchLastSixDemande = async () => {
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/credit/last_six_demande/', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('access')}`, // include JWT token in the request header
+          },
+        });
+        setDemandes(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchLastSixDemande();
+  });
+
+  const [clientCount, setClientCount] = useState(0);
+
+  useEffect(() => {
+    const fetchClient = async () => {
+      try {
+        const res = await axios.get('http://127.0.0.1:8000/credit/client_count/',{
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('access')}`, // include JWT token in the request header
+          },
+        });
+        setClientCount(res.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchClient();
+  });
+
+  const [agentCount, setAgentCount] = useState(0);
+
+  useEffect(() => {
+    const fetchAgent = async () => {
+      try {
+        const res = await axios.get('http://127.0.0.1:8000/credit/agent_count/',{
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('access')}`, // include JWT token in the request header
+          },
+        });
+        setAgentCount(res.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchAgent();
+  });
+
+  const [demandeCount, setDemandeCount] = useState(0);
+
+
+  useEffect(() => {
+    const fetchDemande = async () => {
+      try {
+        const res = await axios.get('http://127.0.0.1:8000/credit/demande_count/',{
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('access')}`, // include JWT token in the request header
+          },
+        });
+        setDemandeCount(res.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchDemande();
+  });
 
   return (
     <Box m="20px">
@@ -55,10 +144,9 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="12,361"
-            subtitle="Emails Sent"
+            title={`${demandeCount}`}
+            subtitle="Nombre de demandes"
             progress="0.75"
-            increase="+14%"
             icon={
               <EmailIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
@@ -74,10 +162,9 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="431,225"
-            subtitle="Sales Obtained"
+            title={`${agentCount}`}
+            subtitle="Nombre d'agents"
             progress="0.50"
-            increase="+21%"
             icon={
               <PointOfSaleIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
@@ -93,16 +180,18 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="32,441"
-            subtitle="New Clients"
+            title={`${clientCount}`}
+            subtitle="Nombre de clients"
             progress="0.30"
-            increase="+5%"
             icon={
               <PersonAddIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
               />
+            
+            
             }
           />
+          
         </Box>
         <Box
           gridColumn="span 3"
@@ -125,43 +214,7 @@ const Dashboard = () => {
         </Box>
 
         {/* ROW 2 */}
-        <Box
-          gridColumn="span 8"
-          gridRow="span 2"
-          backgroundColor={colors.primary[400]}
-        >
-          <Box
-            mt="25px"
-            p="0 30px"
-            display="flex "
-            justifyContent="space-between"
-            alignItems="center"
-          >
-            <Box>
-              <Typography
-                variant="h5"
-                fontWeight="600"
-                color={colors.grey[100]}
-              >
-                Revenue Generated
-              </Typography>
-              <Typography
-                variant="h3"
-                fontWeight="bold"
-                color={colors.greenAccent[500]}
-              >
-                $59,342.32
-              </Typography>
-            </Box>
-            <Box>
-              <IconButton>
-                <DownloadOutlinedIcon
-                  sx={{ fontSize: "26px", color: colors.greenAccent[500] }}
-                />
-              </IconButton>
-            </Box>
-          </Box>
-        </Box>
+
         <Box
           gridColumn="span 4"
           gridRow="span 2"
@@ -177,12 +230,12 @@ const Dashboard = () => {
             p="15px"
           >
             <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
-              Recent Transactions
+              Dernières demandes
             </Typography>
           </Box>
-          {mockTransactions.map((transaction, i) => (
+          {demandes.map((demande,i) => (
             <Box
-              key={`${transaction.txId}-${i}`}
+              key={`${demande.DemandeId}-${i}`}
               display="flex"
               justifyContent="space-between"
               alignItems="center"
@@ -195,19 +248,19 @@ const Dashboard = () => {
                   variant="h5"
                   fontWeight="600"
                 >
-                  {transaction.txId}
+                  {demande.DemandeId}
                 </Typography>
                 <Typography color={colors.grey[100]}>
-                  {transaction.user}
+                  {[demande.first_name," ",demande.last_name]}
                 </Typography>
               </Box>
-              <Box color={colors.grey[100]}>{transaction.date}</Box>
+              <Box color={colors.grey[100]}>{demande.status}</Box>
               <Box
                 backgroundColor={colors.greenAccent[500]}
                 p="5px 10px"
                 borderRadius="4px"
               >
-                ${transaction.cost}
+                {demande.loan_amnt}DT
               </Box>
             </Box>
           ))}
@@ -250,11 +303,11 @@ const Dashboard = () => {
             fontWeight="600"
             sx={{ padding: "30px 30px 0 30px" }}
           >
-            Sales Quantity
+            Répartition des demandes
           </Typography>
           <Box height="250px" mt="-20px">
-            <BarChart isDashboard={true} />
-          </Box>
+          {demandeCounts && <Chart data={[demandeCounts]} />}
+           </Box>
         </Box>
         <Box
           gridColumn="span 4"

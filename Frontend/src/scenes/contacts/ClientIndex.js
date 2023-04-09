@@ -10,6 +10,8 @@ const ClientIndex = () => {
   const [demandesData, setDemandesData] = useState([]);
 
 
+
+
 useEffect(() => {
   fetch('http://localhost:8000/credit/demande')
   .then(response => response.json())
@@ -20,7 +22,7 @@ useEffect(() => {
   .catch(error => {
     console.error(error); // Handle any errors that occurred during the request
   });
-}, []);
+},[]);
 
 
 

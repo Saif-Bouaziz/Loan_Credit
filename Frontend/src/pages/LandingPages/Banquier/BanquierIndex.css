@@ -8,6 +8,7 @@ body,
   height: 100%;
   width: 100%;
   font-family: "Source Sans Pro", sans-serif;
+  background-color: #F3F1F0;
 }
 .container {
   display: flex;
@@ -34,7 +35,7 @@ body,
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #e0e0e0;
+  background: #6a6969;
 }
 
 /* Handle */

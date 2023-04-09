@@ -1,19 +1,27 @@
 from rest_framework.views import APIView
+<<<<<<< HEAD
+from rest_framework.decorators import api_view, permission_classes
+=======
+>>>>>>> master
 from django.shortcuts import render
-#from user.models import UserAccount
 from django.http import JsonResponse,HttpResponse,HttpResponseBadRequest
-#from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
+from rest_framework.permissions import IsAuthenticated
+from django.core.cache import cache
 
-
-
-from rest_framework import status, permissions
+from rest_framework import status, permissions,generics
 from rest_framework.response import Response
 from user.models import UserAccount
 from .models import Demande
 from .serializers import DemandeSerializer
 
 
+<<<<<<< HEAD
+
+from django.shortcuts import render
+=======
+>>>>>>> master
 from rest_framework.parsers import JSONParser
 
 
@@ -43,6 +51,14 @@ def demandeApi(request,id=0):
 
 with open('final_XGBmodel.pkl', 'rb') as f:
     model = pickle.load(f)
+<<<<<<< HEAD
+            
+def create_demande(request):
+    if request.method == 'POST':
+            #user= request.user
+            #ClientId=user.id
+        ClientId=1
+=======
         
 class ManageDemande(APIView):
     def create_demande(request):
@@ -118,10 +134,10 @@ class ManageDemande(APIView):
         return JsonResponse("Failed to Update", safe=False)
 
     def post(request):
+>>>>>>> master
         data = json.loads(request.body)
         address_form_data = data['addressFormData']
         payment_form_data = data['paymentFormData']
-        ClientId=1
         first_name=payment_form_data.get('first_name')
         last_name=payment_form_data.get('last_name')
         email=payment_form_data.get('email')
@@ -144,143 +160,28 @@ class ManageDemande(APIView):
         loan_grade="A"
         person_income=address_form_data.get('person_income')
         demande=Demande.objects.using('credit').create(
-                    ClientId=ClientId, first_name=first_name, last_name=last_name,
-                    email=email, person_age=person_age, cin=cin, num_tel=num_tel,
-                    marriage_status=marriage_status,job=job,person_emp_length=person_emp_length,
-                    adress=adress,person_home_ownership=person_home_ownership,region=region,
-                    city=city,code_postal=cod_postal,loan_intent=loan_intent,loan_amnt=loan_amnt,
-                    loan_duration=loan_duration,loan_percent_income=loan_percent_income,
-                    loan_int_rate=loan_int_rate,loan_grade=loan_grade,person_income=person_income
-                )
-        
-        return JsonResponse({'success': True})
-"""
-def prediction(request):
-    demande_data = Demande.objects.using('credit').all().values('person_age','person_income', 'person_home_ownership',
-=======
-                        loan_int_rate=loan_int_rate,loan_grade=loan_grade,person_income=person_income,
-                     )
-        
-            return JsonResponse({'success': True})
-        return JsonResponse({'error': 'Invalid request method'})
-    
-    def retrieve_values(self, data):
-
-        first_name=data['first_name']
-        last_name=data['last_name']
-        email=data['email']
-        person_age=data['person_age']
-        cin=data['cin']
-        num_tel=data['num_tel']
-        marriage_status=data['marriage_status']
-        job=data['job']
-        person_emp_length=data['person_emp_length']
-        adress=data['adress']
-        person_home_ownership=data['person_home_ownership']
-        region=data['region']
-        city=data['city']
-        code_postal=data['code_postal']
-        loan_intent=data['loan_intent']
-        loan_amnt=data['loan_amnt']
-        loan_duration=data['loan_duration']
-        loan_percent_income=data['loan_percent_income']
-        loan_int_rate=data['loan_int_rate']
-        loan_grade=data['loan_grade']
-        person_income=data['person_income']
-        verified="en_cours"
-        
-        data={
-           'first_name':first_name,
-           'last_name':last_name,
-           'email':email,
-           'person_age':person_age,
-           'cin':cin, 
-           'num_tel':num_tel,
-           'marriage_status':marriage_status,
-           'job':job,
-           'person_emp_length':person_emp_length,
-           'adress':adress,
-           'person_home_ownership':person_home_ownership,
-           'region':region,
-           'city':city,
-           'code_postal':code_postal,
-           'loan_intent':loan_intent,
-           'loan_amnt':loan_amnt,
-           'loan_duration':loan_duration,
-           'loan_percent_income':loan_percent_income,
-           'loan_int_rate':loan_int_rate,
-           'loan_grade':loan_grade,
-           'person_income':person_income,
-           'verified':verified
-        }
-        return data
-
-    def post(self, request):
-        
-        user=request.user
-        user_mail=UserAccount.objects.get(email=user.email)
-        user_id=user_mail.id
-        data = request.data
-        data = self.retrieve_values(data)
-
-        first_name=data['first_name']
-        last_name=data['last_name']
-        email=data['email']
-        person_age=data['person_age']
-        cin=data['cin']
-        num_tel=data['num_tel']
-        marriage_status=data['marriage_status']
-        job=data['job']
-        person_emp_length=data['person_emp_length']
-        adress=data['adress']
-        person_home_ownership=data['person_home_ownership']
-        region=data['region']
-        city=data['city']
-        code_postal=data['code_postal']
-        loan_intent=data['loan_intent']
-        loan_amnt=data['loan_amnt']
-        loan_duration=data['loan_duration']
-        loan_percent_income=data['loan_percent_income']
-        loan_int_rate=data['loan_int_rate']
-        loan_grade=data['loan_grade']
-        person_income=data['person_income']
-        demande=Demande.objects.using('credit').create(
-                        ClientId=user_id, first_name=first_name, last_name=last_name,
+                        ClientId=ClientId, first_name=first_name, last_name=last_name,
                         email=email, person_age=person_age, cin=cin, num_tel=num_tel,
                         marriage_status=marriage_status,job=job,person_emp_length=person_emp_length,
                         adress=adress,person_home_ownership=person_home_ownership,region=region,
-                        city=city,code_postal=code_postal,loan_intent=loan_intent,loan_amnt=loan_amnt,
+                        city=city,code_postal=cod_postal,loan_intent=loan_intent,loan_amnt=loan_amnt,
                         loan_duration=loan_duration,loan_percent_income=loan_percent_income,
-                        loan_int_rate=loan_int_rate,loan_grade=loan_grade,person_income=person_income,
+                        loan_int_rate=loan_int_rate,loan_grade=loan_grade,person_income=person_income
                      )
         
-        return Response( {'success': 'demande created successfully'})
+        return JsonResponse({'success': True})
+    return JsonResponse({'error': 'Invalid request method'})
+
+from rest_framework.permissions import BasePermission, IsAuthenticated
 
 
-def decision_demande(request,identifiant):
-    
-    #if not request.user.is_authenticated or not request.user.is_banquier:
-       # return JsonResponse({'error': 'Unauthorized access'}, status=401)
+from django.contrib.auth.decorators import user_passes_test
 
-<<<<<<< HEAD
+def decision_demande(request,identifiant): 
+
+    #if request.user.is_banquier:
+       #return JsonResponse({'error': 'Unauthorized access'}, status=401)
     demande_data = Demande.objects.using('credit').get(DemandeId=identifiant)
-=======
-        #if user_account.is_banquier:
-    demande_data = Demande.objects.using('credit').get(DemandeId=identifiant).values('person_age','person_income', 'person_home_ownership',
->>>>>>> master
-                                                                'person_emp_length','loan_intent', 'loan_grade', 'loan_amnt',
-                                                                'loan_int_rate','loan_percent_income'
-                                                            )
-    data_list = []
-    for obj in demande_data:
-        data_dict = {}
-        data_dict['person_age']=float(obj['person_age'])
-        data_dict['person_income']=float(obj['person_income'])
-        data_dict['person_emp_length']=float(obj['person_emp_length'])
-        data_dict['loan_amnt']=float(obj['loan_amnt'])
-        data_dict['loan_int_rate']=float(obj['loan_int_rate'])
-        data_dict['loan_percent_income']=float(obj['loan_percent_income'])
->>>>>>> master
 
     person_age=float(demande_data.person_age)
     person_income=float(demande_data.person_income)
@@ -316,7 +217,7 @@ def get_demande(request):
     data = Demande.objects.values("DemandeId", "ClientId","first_name","last_name","person_age",
                                   "person_emp_length","person_home_ownership","loan_intent",
                                   "loan_amnt","loan_percent_income","loan_int_rate",
-                                  "loan_grade","person_income")
+                                  "loan_grade","person_income","status")
     return JsonResponse(list(data), safe=False)
 
 
@@ -327,7 +228,74 @@ def delete_demande(request, demande_id):
         return JsonResponse({'success': True})
     except Demande.DoesNotExist:
         return JsonResponse({'success': False, 'message': 'Demande not found'})
+    
+def demande_status(request, demande_id):
+    if request.method == 'POST':
+        try:
+            demande = Demande.objects.using('credit').get(DemandeId=demande_id)
+            data = json.loads(request.body)
+            status = data['status']
+            demande.status = status
+            demande.save()
+            return JsonResponse({'status': status})
+        except Demande.DoesNotExist:
+            return JsonResponse({'error': 'Demande not found'}, status=404)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
 
+
+def status_counts(request):
+    demandes = Demande.objects.all().values('status')
+    counts = {'refusée': 0, 'acceptée': 0}
+    for demande in demandes:
+        status = demande['status']
+        if status == 'refusée':
+            counts['refusée'] += 1
+        elif status == 'acceptée':
+            counts['acceptée'] += 1
+    return JsonResponse(counts) 
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def LastSixDemandeList(request):
+    cached_data = cache.get('last_six_demande')
+    if cached_data:
+        return Response(cached_data)
+    last_six_demande = Demande.objects.order_by('-DemandeId')[:6]
+    serialized_last_six_demande = DemandeSerializer(last_six_demande, many=True).data
+    cache.set('last_six_demande', serialized_last_six_demande)
+    return Response(serialized_last_six_demande)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def client_count(request):
+    cached_data = cache.get('client_count')
+    if cached_data:
+        return Response(cached_data)
+    client_count = UserAccount.objects.exclude(is_agent=True, is_banquier=True).count()
+    cache.set('client_count', client_count, timeout=None)
+    return Response({'count': client_count})
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def agent_count(request):
+    cached_data = cache.get('agent_count')
+    if cached_data:
+        return Response(cached_data)
+    agent_count = UserAccount.objects.exclude(is_agent=False).count()
+    cache.set('agent_count', agent_count, timeout=None)
+    return Response({'count': agent_count})
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def demande_count(request):
+    cached_data = cache.get('demande_count')
+    if cached_data:
+        return Response(cached_data)
+    demande_count = Demande.objects.count()
+    cache.set('demande_count', demande_count, timeout=None)
+    return Response({'count': demande_count})
        
 
 def add_agent(request): 
@@ -354,7 +322,22 @@ def delete_agent(request, id_agent):
         return JsonResponse({'success': True})
     except Demande.DoesNotExist:
         return JsonResponse({'success': False, 'message': 'Demande not found'})
+    
+def get_users(request):
+    
+    users = list(UserAccount.objects.using('users').filter(is_banquier=False).values())
+    # Add a new key 'user_type' to each user object to indicate whether they are an agent or client
+    for user in users:
+        user['user_type'] = 'agent' if user['is_agent'] else 'client'
+    return JsonResponse(users, safe=False)
 
+def delete_user(request, id_user):
+    try:
+        user = UserAccount.objects.using('users').get(id=id_user)
+        user.delete()
+        return JsonResponse({'success': True})
+    except UserAccount.DoesNotExist:
+        return JsonResponse({'success': False, 'message': 'Utilisateur n existe pas !'})
 
         
         

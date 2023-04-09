@@ -6,7 +6,6 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "../../../theme";
 import './BanquierIndex.css'
 
-import './Demande.css'
 import ClientIndex from 'scenes/contacts/ClientIndex';
 
 export default function Demandes() {

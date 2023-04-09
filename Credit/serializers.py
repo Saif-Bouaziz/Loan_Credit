@@ -5,4 +5,5 @@ class DemandeSerializer(serializers.ModelSerializer):
     class Meta:
         model=Demande
         fields='__all__'
+        ordering = ['-DemandeId']
                
