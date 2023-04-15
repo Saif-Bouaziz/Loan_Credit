@@ -12,7 +12,7 @@ urlpatterns = [
     path('api/token/verify/', TokenVerifyView.as_view()),
     path('auth/user/', include('user.urls')),
     #path('api/demande/', include('credit.urls')),
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls),   
 
     path('credit/', include('credit.urls')),    
     #ajout

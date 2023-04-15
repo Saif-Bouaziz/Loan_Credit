@@ -1,11 +1,18 @@
 from django.urls import path
+
+
 from credit import views
 
 urlpatterns = [
     path('create_demande', views.create_demande, name='create_demande'),
     path('banker/<int:identifiant>/', views.decision_demande, name='banker_methods'),
+    path('demande',views.demandeApi),
+    path('demande/<int:id>',views.demandeApi),
+    path('create_demande/',views.create_demande),
     path('demandeApi',views.demandeApi),
     path('demandeApi/<int:id>',views.demandeApi),
+    path('demande',views.demandeApi),
+    path('demande/<int:id>',views.demandeApi),
     path('demande',views.demandeApi),
     path('demande/<int:id>',views.demandeApi),
     path('demande', views.get_demande,name='get_demande' ),

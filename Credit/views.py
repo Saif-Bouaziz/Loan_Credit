@@ -10,9 +10,10 @@ from django.core.cache import cache
 from rest_framework import status, permissions,generics
 from rest_framework.response import Response
 from user.models import UserAccount
-from .models import Demande
+from .models import Demande,Credit
 from .serializers import DemandeSerializer
 
+from rest_framework.permissions import BasePermission
 
 
 from django.shortcuts import render
@@ -100,6 +101,7 @@ class ManageDemande(APIView):
         return JsonResponse({'error': 'Invalid request method'})
 
 
+
 def create_demande(request):
         if request.method == 'POST':
             #user= request.user
@@ -144,11 +146,12 @@ def create_demande(request):
                         loan_duration=loan_duration,loan_percent_income=loan_percent_income,
                         loan_int_rate=loan_int_rate,loan_grade=loan_grade,person_income=person_income,image4=image4,
                         img_cin=img_cin,img_avis_imposition=img_avis_imposition,img_bulletins_salaire=img_bulletins_salaire,
-                        img_Releves_compte_banque=img_Releves_compte_banque,img_justificatif_domicile_actuel=img_justificatif_domicile_actuel
-                     )
+                        img_Releves_compte_banque=img_Releves_compte_banque,img_justificatif_domicile_actuel=img_justificatif_domicile_actuel                     )
         
             return JsonResponse({'success': True})
         return JsonResponse({'error': 'Invalid request method'})
+
+
 
 from rest_framework.permissions import BasePermission
 from django.contrib.auth.decorators import user_passes_test
@@ -158,7 +161,6 @@ def decision_demande(request,identifiant):
     #if request.user.is_banquier:
        #return JsonResponse({'error': 'Unauthorized access'}, status=401)
     demande_data = Demande.objects.using('credit').get(DemandeId=identifiant)
-
     person_age=float(demande_data.person_age)
     person_income=float(demande_data.person_income)
     person_emp_length=float(demande_data.person_emp_length)
@@ -213,6 +215,16 @@ def demande_status(request, demande_id):
             status = data['status']
             demande.status = status
             demande.save()
+            if status=='acceptée':
+                credit=Credit.objects.using('credit').create(demande=demande,montant_principal=demande.loan_amnt,montant_restant=demande.loan_amnt,
+                              taux=demande.loan_int_rate,mensualite=demande.loan_duration)
+                credit.save()
+                return JsonResponse({'success': True, 'message': 'Crédit créé avec succès!'})
+            credit_exists = Credit.objects.filter(demande=demande).exists()
+            if credit_exists and status=='refusée' :
+                credit_err=Credit.objects.filter(demande=demande)
+                credit_err.delete()
+                return JsonResponse({'success': True, 'message': 'Crédit supprimé !! '})   
             return JsonResponse({'status': status})
         except Demande.DoesNotExist:
             return JsonResponse({'error': 'Demande not found'}, status=404)
@@ -238,7 +250,7 @@ def LastSixDemandeList(request):
     cached_data = cache.get('last_six_demande')
     if cached_data:
         return Response(cached_data)
-    last_six_demande = Demande.objects.order_by('-DemandeId')[:6]
+    last_six_demande = Demande.objects.filter(status='En cours').order_by('-DemandeId')[:6]
     serialized_last_six_demande = DemandeSerializer(last_six_demande, many=True).data
     cache.set('last_six_demande', serialized_last_six_demande)
     return Response(serialized_last_six_demande)
@@ -314,7 +326,7 @@ def delete_user(request, id_user):
         return JsonResponse({'success': True})
     except UserAccount.DoesNotExist:
         return JsonResponse({'success': False, 'message': 'Utilisateur n existe pas !'})
+    
 
         
-        
-                
+

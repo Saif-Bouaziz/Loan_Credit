@@ -110,6 +110,7 @@ DATABASES = {
         'PASSWORD': 'PFH#23kgrw9',
         'HOST' : 'pcd.mysql.database.azure.com',
         'PORT': '3306',
+    
     },  
 
     'credit': {

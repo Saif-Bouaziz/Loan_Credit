@@ -59,16 +59,15 @@ export default function Checkout() {
     addressFormData: addressFormData,
     paymentFormData: paymentFormData
   };
-  const handleFormSubmit = () => { 
-    axios.post('http://127.0.0.1:8000/credit/create_demande', data)
-    .then(response => {
-      console.log(response.data);
-    })
-    .catch(error => {
-      console.error(error);
-    });
-  };
-
+  const handleFormSubmit = () => {
+    axios.post('http://127.0.0.1:8000/credit/CreatedemandeApi', data)
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
 
   return (
     <ThemeProvider theme={theme}>
