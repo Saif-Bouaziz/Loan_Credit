@@ -9,7 +9,8 @@ import Agent from "./pages/LandingPages/Agent/index"
 import SignIn from "layouts/pages/authentication/sign-in";
 import LoanApplication from "./pages/LandingPages/LoanApplication/index"
 
-import BanquierIndex from "pages/LandingPages/Banquier/BanquierIndex";
+import BanquierIndex from "pages/LandingPages/Banquier/BanquierIndex"; 
+import Dashboard from "pages/LandingPages/Client/Dashboard";
 
 // Sections
 // import PageHeaders from "layouts/sections/page-sections/page-headers";
@@ -32,7 +33,7 @@ import Toggles from "layouts/sections/elements/toggles";
 import Typography from "layouts/sections/elements/typography"; */
 const routes = [
   {
-    name: "Home",
+    name: "Acceuil",
     icon: <Icon>dashboard</Icon>,
     columns: 1,
     rowsPerColumn: 2,
@@ -60,131 +61,37 @@ const routes = [
     ],
   },
   {
-    name: "Loan",
-    icon: <Icon>view_day</Icon>,
-    collapse: [
-      {
-        name: "Get loan",
-        dropdown: true,
-      },
-      {
-        name: "Loan Application",
-        dropdown: true, 
-        route: "/pages/LandingPages/LoanApplication/index", 
-        component: <LoanApplication/>,
-
-      },
-      /* {
-        name: "input areas",
-        description: "See all input areas",
-        dropdown: true,
-        collapse: [
-          {
-            name: "inputs",
-            route: "/sections/input-areas/inputs",
-            component: <Inputs />,
-          },
-          {
-            name: "forms",
-            route: "/sections/input-areas/forms",
-            component: <Forms />,
-          },
-        ],
-      },
-      {
-        name: "attention catchers",
-        description: "See all examples",
-        dropdown: true,
-        collapse: [
-          {
-            name: "alerts",
-            route: "/sections/attention-catchers/alerts",
-            component: <Alerts />,
-          },
-          {
-            name: "modals",
-            route: "/sections/attention-catchers/modals",
-            component: <Modals />,
-          },
-          {
-            name: "tooltips & popovers",
-            route: "/sections/attention-catchers/tooltips-popovers",
-            component: <TooltipsPopovers />,
-          },
-        ],
-      },
-      {
-        name: "elements",
-        description: "See all 32 examples",
-        dropdown: true,
-        collapse: [
-          {
-            name: "avatars",
-            route: "/sections/elements/avatars",
-            component: <Avatars />,
-          },
-          {
-            name: "badges",
-            route: "/sections/elements/badges",
-            component: <Badges />,
-          },
-          {
-            name: "breadcrumbs",
-            route: "/sections/elements/breadcrumbs",
-            component: <BreadcrumbsEl />,
-          },
-          {
-            name: "buttons",
-            route: "/sections/elements/buttons",
-            component: <Buttons />,
-          },
-          {
-            name: "dropdowns",
-            route: "/sections/elements/dropdowns",
-            component: <Dropdowns />,
-          },
-          {
-            name: "progress bars",
-            route: "/sections/elements/progress-bars",
-            component: <ProgressBars />,
-          },
-          {
-            name: "toggles",
-            route: "/sections/elements/toggles",
-            component: <Toggles />,
-          },
-          {
-            name: "typography",
-            route: "/sections/elements/typography",
-            component: <Typography />,
-          },
-        ],
-      }, */
-    ],
+    name: "Demande de crédit",
+    icon: <Icon>view_day</Icon>, 
+    route: "/pages/LandingPages/LoanApplication/index", 
+    component: <LoanApplication/>,
+ 
   },
   {
-    name: "Connect",
+    name: "Se connecter",
     icon: <Icon>article</Icon>,
     collapse: [
       {
-        name: "Connect as a client",
-        href: "https://www.creative-tim.com/learning-lab/react/quick-start/material-kit/",
+        name: "Espace Client", 
+        route: "/dashboardC",
+        component: <Dashboard />,
+        
       },
       {
-        name: "Connect as an Agent",
+        name: "Espace Agent",
         route: "/Agent",
         component: <Agent />,
 
       },
       {
-        name: "Banquier",
+        name: "Espace Banquier",
         route: "/Dashboard", 
         component: <BanquierIndex />,
       },
     ],
   },
   {
-    name: "Simulate",
+    name: "Simuler votre crédit",
     route: "/pages/landing-pages/contact-us"
   },
 ];
