@@ -7,7 +7,7 @@ from user.models import UserAccount
 @receiver(post_save, sender=Demande)
 @receiver(post_delete, sender=Demande)
 def update_last_six_demande(sender, instance, **kwargs):
-    last_six_demande = Demande.objects.order_by('-DemandeId')[:6]
+    last_six_demande = Demande.objects.filter(status='En cours').order_by('-DemandeId')[:6]
     serialized_last_six_demande = serialize('json', last_six_demande)
     cache.set('last_six_demande', serialized_last_six_demande)
     
