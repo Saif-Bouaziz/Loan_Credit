@@ -51,7 +51,12 @@ import Demandes from "pages/LandingPages/Banquier/Demandes";
 import ListeAgents from "pages/LandingPages/Banquier/ListeAgents";
 import AjoutAgent from "pages/LandingPages/Banquier/AjoutAgent";
 import Chart from "components/BarChart"; 
-import theme from "assets/theme";
+import theme from "assets/theme"; 
+import Dashboard from "pages/LandingPages/Client/Dashboard"; 
+import Bilan from "pages/LandingPages/Client/Bilan"; 
+import Notifications from "pages/LandingPages/Client/notifications"; 
+import Profile from "pages/LandingPages/Client/Profile"; 
+import Liste from "pages/LandingPages/Client/Liste"; 
 
 export default function App() {
   const { pathname } = useLocation();
@@ -94,7 +99,17 @@ export default function App() {
             <Route path="/pie" element={<Pie />} />
             <Route path="/line" element={<Line />} />
             <Route path="/faq" element={<FAQ />} />
-            <Route path="/geography" element={<Geography />} />
+            <Route path="/geography" element={<Geography />} /> 
+            <Route path="/dashboardC" element={<Dashboard />} /> 
+            <Route path="/bilan" element={<Bilan />} /> 
+            <Route path="/liste" element={<Liste />} /> 
+            <Route path="/notification" element={<Notifications />} /> 
+            <Route path="/profile" element={<Profile />} />
+
+
+
+
+
 
 
 
