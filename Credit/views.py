@@ -48,6 +48,8 @@ def demandeApi(request,id=0):
 
 
 
+<<<<<<< HEAD
+=======
 
             
 def create_demande(request):
@@ -55,6 +57,7 @@ def create_demande(request):
             #user= request.user
             #ClientId=user.id
         ClientId=1
+>>>>>>> master
         
 class ManageDemande(APIView):
     def create_demande(request):
@@ -137,8 +140,14 @@ def create_demande(request):
             img_bulletins_salaire=address_form_data.get('img_bulletins_salaire')
             img_Releves_compte_banque=address_form_data.get('img_Releves_compte_banque')
             img_justificatif_domicile_actuel=address_form_data.get('img_justificatif_domicile_actuel')
+<<<<<<< HEAD
+            demande=Demande.objects.using('credit').create(
+                        ClientId=ClientId, first_name=first_name, last_name=last_name,
+
+=======
             demande=Demande.objects.using('credit').create(   
                 ClientId=ClientId, first_name=first_name, last_name=last_name,
+>>>>>>> master
                         email=email, person_age=person_age, cin=cin, num_tel=num_tel,
                         marriage_status=marriage_status,job=job,person_emp_length=person_emp_length,
                         adress=adress,person_home_ownership=person_home_ownership,region=region,
@@ -151,8 +160,11 @@ def create_demande(request):
             return JsonResponse({'success': True})
         return JsonResponse({'error': 'Invalid request method'})
 
+<<<<<<< HEAD
+=======
 
 
+>>>>>>> master
 from rest_framework.permissions import BasePermission
 from django.contrib.auth.decorators import user_passes_test
 
@@ -329,4 +341,9 @@ def delete_user(request, id_user):
     
 
         
+<<<<<<< HEAD
+        
+                
+=======
 
+>>>>>>> master

@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
-
-const ClientTable = ({ demandes, handleEdit}) => {
+import React, { useState, useEffect, useRef } from 'react';
+const ClientTable = ({ demandes, handleEdit }) => {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [filterTerm, setFilterTerm] = useState("");
   const [prediction, setPrediction] = useState(null);
 
+  const windowWidth = useRef(window.innerWidth);
 
- 
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
@@ -68,7 +67,7 @@ const ClientTable = ({ demandes, handleEdit}) => {
   };
 
   return (
-    <div>
+    <div className='table' style={{ fontSize: windowWidth.current * 0.01 }}>
       <div className='filterBar'>
         <button className="button muted-button" value={""} onClick={four} style={{ backgroundColor: active4 ? "#ccc" : null }}>
           Tous
@@ -89,79 +88,79 @@ const ClientTable = ({ demandes, handleEdit}) => {
 
 
       </div>
-      <div style={{display: "flex", justifyContent: "center"}}>
-      <div className="contain-table">
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <div className="contain-table" >
 
 
-        <div className='searchBar'>
-          <input
-            type="text"
-            name="searchbar"
-            id="searchbar"
-            placeholder='Rechercher'
-            onChange={handleSearchTerm}
+          <div className='searchBar'>
+            <input
+              type="text"
+              name="searchbar"
+              id="searchbar"
+              placeholder='Rechercher'
+              onChange={handleSearchTerm}
 
-          />
+            />
 
-        </div>
-        <table >
-          <thead>
-            <tr>
-              <th>DemandeId</th>
-              <th>ClientId</th>
-              <th>Age</th>
-              <th>Salaire</th>
-              <th>Prop</th>
-              <th>Emploi</th>
-              <th>Obj</th>
-              <th>Cat</th>
-              <th>Montant</th>
-              <th>Intérêt</th>
-              <th>%</th>
-              <th>Status</th>
-              <th colSpan={2} className="text-center">
-                Actions
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {demandes.length > 0 ? (
-              demandes
-              .map(val => (
-                <tr key={val.id}>
-                  <td>{val.DemandeId}</td>
-                  <td>{val.ClientId}</td>
-                  <td>{val.person_age}</td>
-                  <td>{val.person_income}</td>
-                  <td>{val.person_home_ownership}</td>
-                  <td>{val.person_emp_length}</td>
-                  <td>{val.loan_intent}</td>
-                  <td>{val.loan_grade}</td>
-                  <td>{val.loan_amnt} </td>
-                  <td>{val.loan_int_rate} </td>
-                  <td>{val.loan_percent_income} </td>
-                  <td>{val.status}</td>
-                  <td className="text-left">
-                    <button
-                      onClick={() => handleEdit(val.DemandeId)}
-                      className="button muted-button"
-                    >
-                     Traiter
-                    </button>
-                  </td>
-                </tr>
-              ))
-            ) : (
+          </div>
+          <table >
+            <thead>
               <tr>
-                <td colSpan={7}>Aucune demande</td>
+                <th>DemandeId</th>
+                <th>ClientId</th>
+                <th>Age</th>
+                <th>Salaire</th>
+                <th>Prop</th>
+                <th>Emploi</th>
+                <th>Obj</th>
+                <th>Cat</th>
+                <th>Montant</th>
+                <th>Intérêt</th>
+                <th>%</th>
+                <th>Status</th>
+                <th colSpan={2} className="text-center">
+                  Actions
+                </th>
               </tr>
-            )}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {demandes.length > 0 ? (
+                demandes
+                  .map(val => (
+                    <tr key={val.id}>
+                      <td>{val.DemandeId}</td>
+                      <td>{val.ClientId}</td>
+                      <td>{val.person_age}</td>
+                      <td>{val.person_income}</td>
+                      <td>{val.person_home_ownership}</td>
+                      <td>{val.person_emp_length}</td>
+                      <td>{val.loan_intent}</td>
+                      <td>{val.loan_grade}</td>
+                      <td>{val.loan_amnt} </td>
+                      <td>{val.loan_int_rate} </td>
+                      <td>{val.loan_percent_income} </td>
+                      <td>{val.status}</td>
+                      <td className="text-left">
+                        <button
+                          onClick={() => handleEdit(val.DemandeId)}
+                          className="button muted-button"
+                        >
+                          Traiter
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+              ) : (
+                <tr>
+                  <td colSpan={7}>Aucune demande</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
         </div >
-        </div>
+      </div>
 
-        </div>
+    </div>
 
 
   );
