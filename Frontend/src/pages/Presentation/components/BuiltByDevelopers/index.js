@@ -45,8 +45,8 @@ function BuiltByDevelopers() {
     >
       <Container>
         <Grid container item xs={12} lg={6} sx={{ ml: { xs: 0, lg: 6 } }}>
-          <MKTypography variant="h1" color="white" mb={1}>
-            Get your loan approved in 3 steps
+          <MKTypography variant="h1" color="white" mb={1}> 
+          Obtenez  votre crédit en 3 étapes
           </MKTypography>
           <MKTypography
             component="a"
@@ -71,7 +71,7 @@ function BuiltByDevelopers() {
               },
             }}
           >
-            Register Now <Icon sx={{ fontWeight: "bold" }}>arrow_forward</Icon>
+            S'inscrire <Icon sx={{ fontWeight: "bold" }}>arrow_forward</Icon>
           </MKTypography>
         </Grid>
       </Container>

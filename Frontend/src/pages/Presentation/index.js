@@ -119,12 +119,12 @@ function Presentation() {
                 variant="gradient"
                 color="info"
                 icon="flag"
-                title="Check Eligibility"
-                description="Select your loan amount, answer a few questions and get instant loan amountCheck the possible ways of working with our product and the necessary files for building your own project."
+                title="Vérifier votre éligibilité"
+                description="Sélectionnez le montant de votre crédit, répondez à quelques questions et obtenez instantanément le montant du prêt. Découvrez  les fichiers nécessaires pour construire votre propre dossier de crédit."
                 action={{
                   type: "external",
                   route: "https://www.creative-tim.com/learning-lab/react/overview/material-kit/",
-                  label: "Let's start",
+                  label: "C'est parti",
                 }}
               />
             </Grid>
@@ -132,12 +132,12 @@ function Presentation() {
               <FilledInfoCard
                 color="info"
                 icon="precision_manufacturing"
-                title="Submit Documents"
-                description="Share required documents with our representative hassle-free"
+                title="Soumettre les documents"
+                description="Partagez les documents requis avec notre représentant sans tracas"
                 action={{
                   type: "external",
                   route: "https://www.creative-tim.com/learning-lab/react/overview/datepicker/",
-                  label: "Read more",
+                  label: "Lire plus",
                 }}
               />
             </Grid>
@@ -145,12 +145,12 @@ function Presentation() {
               <FilledInfoCard
                 color="info"
                 icon="apps"
-                title="Approval in Principle"
-                description="Choose the final sanctioned loan offer with the terms that work best for you"
+                title="Accord de principe"
+                description="Sélectionnez l'offre finale de prêt sanctionné avec les modalités qui vous conviennent le mieux"
                 action={{
                   type: "external",
                   route: "https://www.creative-tim.com/learning-lab/react/alerts/material-kit/",
-                  label: "Read more",
+                  label: "Lire plus ",
                 }}
               />
             </Grid>

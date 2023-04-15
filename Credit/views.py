@@ -10,9 +10,10 @@ from django.core.cache import cache
 from rest_framework import status, permissions,generics
 from rest_framework.response import Response
 from user.models import UserAccount
-from .models import Demande
+from .models import Demande,Credit
 from .serializers import DemandeSerializer
 
+from rest_framework.permissions import BasePermission
 
 
 from django.shortcuts import render
@@ -47,6 +48,16 @@ def demandeApi(request,id=0):
 
 
 
+<<<<<<< HEAD
+=======
+
+            
+def create_demande(request):
+    if request.method == 'POST':
+            #user= request.user
+            #ClientId=user.id
+        ClientId=1
+>>>>>>> master
         
 class ManageDemande(APIView):
     def create_demande(request):
@@ -93,6 +104,7 @@ class ManageDemande(APIView):
         return JsonResponse({'error': 'Invalid request method'})
 
 
+
 def create_demande(request):
         if request.method == 'POST':
             #user= request.user
@@ -128,9 +140,14 @@ def create_demande(request):
             img_bulletins_salaire=address_form_data.get('img_bulletins_salaire')
             img_Releves_compte_banque=address_form_data.get('img_Releves_compte_banque')
             img_justificatif_domicile_actuel=address_form_data.get('img_justificatif_domicile_actuel')
+<<<<<<< HEAD
             demande=Demande.objects.using('credit').create(
                         ClientId=ClientId, first_name=first_name, last_name=last_name,
 
+=======
+            demande=Demande.objects.using('credit').create(   
+                ClientId=ClientId, first_name=first_name, last_name=last_name,
+>>>>>>> master
                         email=email, person_age=person_age, cin=cin, num_tel=num_tel,
                         marriage_status=marriage_status,job=job,person_emp_length=person_emp_length,
                         adress=adress,person_home_ownership=person_home_ownership,region=region,
@@ -143,6 +160,11 @@ def create_demande(request):
             return JsonResponse({'success': True})
         return JsonResponse({'error': 'Invalid request method'})
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> master
 from rest_framework.permissions import BasePermission
 from django.contrib.auth.decorators import user_passes_test
 
@@ -205,6 +227,16 @@ def demande_status(request, demande_id):
             status = data['status']
             demande.status = status
             demande.save()
+            if status=='acceptée':
+                credit=Credit.objects.using('credit').create(demande=demande,montant_principal=demande.loan_amnt,montant_restant=demande.loan_amnt,
+                              taux=demande.loan_int_rate,mensualite=demande.loan_duration)
+                credit.save()
+                return JsonResponse({'success': True, 'message': 'Crédit créé avec succès!'})
+            credit_exists = Credit.objects.filter(demande=demande).exists()
+            if credit_exists and status=='refusée' :
+                credit_err=Credit.objects.filter(demande=demande)
+                credit_err.delete()
+                return JsonResponse({'success': True, 'message': 'Crédit supprimé !! '})   
             return JsonResponse({'status': status})
         except Demande.DoesNotExist:
             return JsonResponse({'error': 'Demande not found'}, status=404)
@@ -230,7 +262,7 @@ def LastSixDemandeList(request):
     cached_data = cache.get('last_six_demande')
     if cached_data:
         return Response(cached_data)
-    last_six_demande = Demande.objects.order_by('-DemandeId')[:6]
+    last_six_demande = Demande.objects.filter(status='En cours').order_by('-DemandeId')[:6]
     serialized_last_six_demande = DemandeSerializer(last_six_demande, many=True).data
     cache.set('last_six_demande', serialized_last_six_demande)
     return Response(serialized_last_six_demande)
@@ -306,7 +338,12 @@ def delete_user(request, id_user):
         return JsonResponse({'success': True})
     except UserAccount.DoesNotExist:
         return JsonResponse({'success': False, 'message': 'Utilisateur n existe pas !'})
+    
 
         
+<<<<<<< HEAD
         
                 
+=======
+
+>>>>>>> master

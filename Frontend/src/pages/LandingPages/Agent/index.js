@@ -3,7 +3,6 @@ import Dashboard from '../../../components/Dashboard';
 import './index.css'
 import ButtonAppBar from '../../../components/Navbar1'
 import axios from "axios"
-import Cookies from 'js-cookie';
 
 
 function Agent() {

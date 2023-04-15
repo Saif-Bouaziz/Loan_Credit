@@ -42,9 +42,9 @@ function Information() {
                 icon="touch_app"
                 title={
                   <>
-                    3 Steps
+                    3 étapes 
                     <br />
-                    to follow
+                    à suivre
                   </>
                 }
                 description="Get a credit loan with ease through our user-friendly application - no more complicated processes or paperwork"
