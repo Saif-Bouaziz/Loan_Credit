@@ -27,7 +27,6 @@ const Dashboard = () => {
     */
     
     Axios.get('http://127.0.0.1:8000/credit/demandeApi').then((response) => {
-      console.log(response.data)
       setDatas(response.data)
 
     });
@@ -43,9 +42,6 @@ const Dashboard = () => {
 
   return (
     <div className="container">
-
-
-
       {!isEditing && (
         <div>
           <br />

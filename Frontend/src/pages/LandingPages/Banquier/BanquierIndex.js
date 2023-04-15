@@ -12,19 +12,20 @@ export default function BanquierIndex() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
   return (
-    <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme}>
+    <div className='Banquier'>
+      <ColorModeContext.Provider value={colorMode}>
+        <ThemeProvider theme={theme}>
 
-        <div className="app">
+          <div className="app">
             <Sidebar isSidebar={isSidebar} />
             <main className="content">
               <Topbar setIsSidebar={setIsSidebar} />
               <Dashboard />
             </main>
-        </div>
-      </ThemeProvider>
-    </ColorModeContext.Provider>
-
+          </div>
+        </ThemeProvider>
+      </ColorModeContext.Provider>
+    </div>
   )
 }
 

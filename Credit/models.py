@@ -58,6 +58,12 @@ class Demande(models.Model):
     img_bulletins_salaire = models.TextField(null=True)
     img_Releves_compte_banque = models.TextField(null=True)
     img_justificatif_domicile_actuel = models.TextField(null=True)
+<<<<<<< HEAD
+    status=models.CharField(max_length=50,null=True,default="En cours")
+    #verified=models.CharField(max_length=50,null=True)
+
+    
+=======
     
 class Credit(models.Model):
     demande = models.ForeignKey(Demande, on_delete=models.CASCADE)
@@ -69,3 +75,4 @@ class Credit(models.Model):
 
     
 
+>>>>>>> master
