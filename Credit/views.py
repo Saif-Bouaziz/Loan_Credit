@@ -1,9 +1,5 @@
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view, permission_classes
-<<<<<<< HEAD
-
-=======
->>>>>>> master
 from django.shortcuts import render
 from django.http import JsonResponse,HttpResponse,HttpResponseBadRequest
 from django.contrib.auth.decorators import login_required
@@ -14,15 +10,13 @@ from django.core.cache import cache
 from rest_framework import status, permissions,generics
 from rest_framework.response import Response
 from user.models import UserAccount
-from .models import Demande
+from .models import Demande,Credit
 from .serializers import DemandeSerializer
 
-<<<<<<< HEAD
-=======
+from rest_framework.permissions import BasePermission
 
 
 from django.shortcuts import render
->>>>>>> master
 from rest_framework.parsers import JSONParser
 
 
@@ -52,12 +46,6 @@ def demandeApi(request,id=0):
                 return JsonResponse("Failed to Update", safe=False)
 
 
-<<<<<<< HEAD
-with open('final_XGBmodel.pkl', 'rb') as f:
-    model = pickle.load(f)
-            
-def create_demande(request):
-=======
 
 
 
@@ -70,7 +58,6 @@ def create_demande(request):
         
 class ManageDemande(APIView):
     def create_demande(request):
->>>>>>> master
         if request.method == 'POST':
             #user= request.user
             #ClientId=user.id
@@ -114,9 +101,7 @@ class ManageDemande(APIView):
         return JsonResponse({'error': 'Invalid request method'})
 
 
-<<<<<<< HEAD
-from rest_framework.permissions import BasePermission
-=======
+
 def create_demande(request):
         if request.method == 'POST':
             #user= request.user
@@ -165,19 +150,8 @@ def create_demande(request):
         
             return JsonResponse({'success': True})
         return JsonResponse({'error': 'Invalid request method'})
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 
-
-
-from rest_framework.permissions import BasePermission, IsAuthenticated
->>>>>>> master
-
-=======
->>>>>>> master
-=======
->>>>>>> master
 
 from rest_framework.permissions import BasePermission
 from django.contrib.auth.decorators import user_passes_test
@@ -241,6 +215,16 @@ def demande_status(request, demande_id):
             status = data['status']
             demande.status = status
             demande.save()
+            if status=='acceptée':
+                credit=Credit.objects.using('credit').create(demande=demande,montant_principal=demande.loan_amnt,montant_restant=demande.loan_amnt,
+                              taux=demande.loan_int_rate,mensualite=demande.loan_duration)
+                credit.save()
+                return JsonResponse({'success': True, 'message': 'Crédit créé avec succès!'})
+            credit_exists = Credit.objects.filter(demande=demande).exists()
+            if credit_exists and status=='refusée' :
+                credit_err=Credit.objects.filter(demande=demande)
+                credit_err.delete()
+                return JsonResponse({'success': True, 'message': 'Crédit supprimé !! '})   
             return JsonResponse({'status': status})
         except Demande.DoesNotExist:
             return JsonResponse({'error': 'Demande not found'}, status=404)
@@ -266,7 +250,7 @@ def LastSixDemandeList(request):
     cached_data = cache.get('last_six_demande')
     if cached_data:
         return Response(cached_data)
-    last_six_demande = Demande.objects.order_by('-DemandeId')[:6]
+    last_six_demande = Demande.objects.filter(status='En cours').order_by('-DemandeId')[:6]
     serialized_last_six_demande = DemandeSerializer(last_six_demande, many=True).data
     cache.set('last_six_demande', serialized_last_six_demande)
     return Response(serialized_last_six_demande)
@@ -342,21 +326,7 @@ def delete_user(request, id_user):
         return JsonResponse({'success': True})
     except UserAccount.DoesNotExist:
         return JsonResponse({'success': False, 'message': 'Utilisateur n existe pas !'})
-
-        
-        
-                
-<<<<<<< HEAD
-        
     
-<<<<<<< HEAD
-     
 
+        
 
-=======
-=======
-                
->>>>>>> master
->>>>>>> master
-=======
->>>>>>> master

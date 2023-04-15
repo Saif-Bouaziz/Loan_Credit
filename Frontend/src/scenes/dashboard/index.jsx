@@ -230,7 +230,7 @@ const Dashboard = () => {
             p="15px"
           >
             <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
-              Dernières demandes
+              Dernières demandes non traitées
             </Typography>
           </Box>
           {demandes.map((demande,i) => (
