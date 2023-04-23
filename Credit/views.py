@@ -1,17 +1,20 @@
 from rest_framework.views import APIView
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes,renderer_classes
+from rest_framework.renderers import JSONRenderer
+
 from django.shortcuts import render
 from django.http import JsonResponse,HttpResponse,HttpResponseBadRequest
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 from django.core.cache import cache
+from django.views.decorators.http import require_http_methods
 
 from rest_framework import status, permissions,generics
 from rest_framework.response import Response
 from user.models import UserAccount
 from .models import Demande,Credit
-from .serializers import DemandeSerializer
+from .serializers import DemandeSerializer,CreditSerializer
 
 from rest_framework.permissions import BasePermission
 
@@ -40,65 +43,21 @@ def demandeApi(request,id=0):
             elif request.method=='PATCH':
                 demande=Demande.objects.get(DemandeId=id)
                 demande_serializer=DemandeSerializer(demande,data=JSONParser().parse(request),partial=True)
+                
                 if demande_serializer.is_valid():
                     demande_serializer.save()
+                    if  demande.status=='acceptée':
+                        credit=Credit.objects.using('credit').create(demande=demande,montant_principal=demande.loan_amnt,montant_restant=demande.loan_amnt,
+                              taux=demande.loan_int_rate,mensualite=demande.loan_duration)
+                        credit.save()
+                        return JsonResponse({'success': True, 'message': 'Crédit créé avec succès!'})
+                    credit_exists = Credit.objects.filter(demande=demande).exists()
+                    if credit_exists and  demande.status=='refusée' :
+                        credit_err=Credit.objects.filter(demande=demande)
+                        credit_err.delete()
+                        return JsonResponse({'success': True, 'message': 'Crédit supprimé !! '}) 
                     return JsonResponse("Updated Successfully!", safe=False)
                 return JsonResponse("Failed to Update", safe=False)
-
-
-
-
-
-            
-def create_demande(request):
-    if request.method == 'POST':
-            #user= request.user
-            #ClientId=user.id
-        ClientId=1
-        
-class ManageDemande(APIView):
-    def create_demande(request):
-        if request.method == 'POST':
-            #user= request.user
-            #ClientId=user.id
-            ClientId=1
-            data = json.loads(request.body)
-            address_form_data = data['addressFormData']
-            payment_form_data = data['paymentFormData']
-            first_name=payment_form_data.get('first_name')
-            last_name=payment_form_data.get('last_name')
-            email=payment_form_data.get('email')
-            person_age=payment_form_data.get('person_age')
-            cin=payment_form_data.get('cin')
-            num_tel=payment_form_data.get('num_tel')
-            marriage_status=payment_form_data.get('marriage_status')
-            job=payment_form_data.get('job')
-            person_emp_length=payment_form_data.get('person_emp_length')
-            adress=payment_form_data.get('adress')
-            person_home_ownership=payment_form_data.get('person_home_ownership')
-            region=payment_form_data.get('region')
-            city=payment_form_data.get('city')
-            cod_postal=payment_form_data.get('code_postal')
-            loan_intent=address_form_data.get('loan_intent')
-            loan_amnt=address_form_data.get('loan_amnt')
-            loan_duration=address_form_data.get('loan_duration')
-            loan_percent_income=address_form_data.get('loan_percent_income')
-            loan_int_rate=address_form_data.get('loan_int_rate')
-            loan_grade="A"
-            person_income=address_form_data.get('person_income')
-            image2=address_form_data.get('image2')
-            demande=Demande.objects.using('credit').create(
-                        ClientId=ClientId, first_name=first_name, last_name=last_name,
-                        email=email, person_age=person_age, cin=cin, num_tel=num_tel,
-                        marriage_status=marriage_status,job=job,person_emp_length=person_emp_length,
-                        adress=adress,person_home_ownership=person_home_ownership,region=region,
-                        city=city,code_postal=cod_postal,loan_intent=loan_intent,loan_amnt=loan_amnt,
-                        loan_duration=loan_duration,loan_percent_income=loan_percent_income,
-                        loan_int_rate=loan_int_rate,loan_grade=loan_grade,person_income=person_income,image2=image2
-                     )
-        
-            return JsonResponse({'success': True})
-        return JsonResponse({'error': 'Invalid request method'})
 
 
 
@@ -192,10 +151,10 @@ def decision_demande(request,identifiant):
 
     
 def get_demande(request):
-    data = Demande.objects.values("DemandeId", "ClientId","first_name","last_name","person_age",
+    data = Demande.objects.filter(decision="Accepted").values("DemandeId", "ClientId","first_name","last_name","person_age",
                                   "person_emp_length","person_home_ownership","loan_intent",
                                   "loan_amnt","loan_percent_income","loan_int_rate",
-                                  "loan_grade","person_income","status")
+                                  "loan_grade","person_income","status","created","prediction")
     return JsonResponse(list(data), safe=False)
 
 
@@ -206,6 +165,16 @@ def delete_demande(request, demande_id):
         return JsonResponse({'success': True})
     except Demande.DoesNotExist:
         return JsonResponse({'success': False, 'message': 'Demande not found'})
+
+def update_prediction(request, demande_id):
+    if request.method == 'PATCH':
+        demande = Demande.objects.get (DemandeId=demande_id)
+        data = json.loads(request.body)
+        demande.prediction = data['prediction']
+        demande.save()
+        return JsonResponse({'prediction': demande.prediction})
+
+    return JsonResponse({'error': 'Invalid request method'})
     
 def demande_status(request, demande_id):
     if request.method == 'POST':
@@ -233,7 +202,7 @@ def demande_status(request, demande_id):
 
 
 def status_counts(request):
-    demandes = Demande.objects.all().values('status')
+    demandes = Demande.objects.using('credit').filter(decision="Accepted").values('status')
     counts = {'refusée': 0, 'acceptée': 0}
     for demande in demandes:
         status = demande['status']
@@ -250,40 +219,51 @@ def LastSixDemandeList(request):
     cached_data = cache.get('last_six_demande')
     if cached_data:
         return Response(cached_data)
-    last_six_demande = Demande.objects.filter(status='En cours').order_by('-DemandeId')[:6]
+    last_six_demande = Demande.objects.using('credit').filter(status='En cours',decision="Accepted").order_by('-DemandeId')[:6]
     serialized_last_six_demande = DemandeSerializer(last_six_demande, many=True).data
     cache.set('last_six_demande', serialized_last_six_demande)
     return Response(serialized_last_six_demande)
 
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
+
+
 def client_count(request):
-    cached_data = cache.get('client_count')
-    if cached_data:
-        return Response(cached_data)
-    client_count = UserAccount.objects.exclude(is_agent=True, is_banquier=True).count()
-    cache.set('client_count', client_count, timeout=None)
-    return Response({'count': client_count})
+    client_count = UserAccount.objects.filter(is_agent=False, is_banquier=False).count()
+    return JsonResponse(client_count,safe=False)
 
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
+def client_count_date(request):
+    client_count_date = UserAccount.objects.filter(is_agent=False, is_banquier=False).values('date_inscription').annotate(count=Count('id'))
+    counts_dict = {}
+    for client_count in client_count_date:
+        date_string = client_count['date_inscription'].strftime("%Y-%m-%d %H:%M:%S")
+        count = client_count['count']
+        counts_dict[date_string] = count
+    return JsonResponse(counts_dict)
+
 def agent_count(request):
-    cached_data = cache.get('agent_count')
-    if cached_data:
-        return Response(cached_data)
-    agent_count = UserAccount.objects.exclude(is_agent=False).count()
-    cache.set('agent_count', agent_count, timeout=None)
-    return Response({'count': agent_count})
+    agent_count = UserAccount.objects.filter(is_agent=True).count()
+    return JsonResponse(agent_count,safe=False)
 
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
+def agent_count_date(request):
+    agent_count_date = UserAccount.objects.filter(is_agent=True, is_banquier=False).values('date_inscription').annotate(count=Count('id'))
+    counts_dict = {}
+    for agent_count in agent_count_date:
+        date_string = agent_count['date_inscription'].strftime("%Y-%m-%d %H:%M:%S")
+        count = agent_count['count']
+        counts_dict[date_string] = count
+    return JsonResponse(counts_dict)
+
 def demande_count(request):
-    cached_data = cache.get('demande_count')
-    if cached_data:
-        return Response(cached_data)
-    demande_count = Demande.objects.count()
-    cache.set('demande_count', demande_count, timeout=None)
-    return Response({'count': demande_count})
+    demande_count = Demande.objects.filter(decision="Accepted").count()
+    return JsonResponse(demande_count,safe=False)
+
+def demande_count_date(request):
+    demande_count_date = Demande.objects.filter(decision="Accepted").values('created').annotate(count=Count('DemandeId'))
+    counts_dict = {}
+    for demande_count in demande_count_date:
+        date_string = demande_count['created'].strftime("%Y-%m-%d %H:%M:%S")
+        count = demande_count['count']
+        counts_dict[date_string] = count
+    return JsonResponse(counts_dict)
        
 
 def add_agent(request): 
@@ -310,14 +290,35 @@ def delete_agent(request, id_agent):
         return JsonResponse({'success': True})
     except Demande.DoesNotExist:
         return JsonResponse({'success': False, 'message': 'Demande not found'})
+
+from django.views.decorators.http import require_http_methods
+   
+@require_http_methods(["PUT"])
+def update_agent(request, id_agent):
+    agent = UserAccount.objects.using('users').get(id=id_agent)
+    data = json.loads(request.body.decode("utf-8"))
+    new_email = data.get('email')
+    
+    if not new_email:
+        # new_email is empty or null, handle the error here
+        return JsonResponse({'success': False, 'error': 'New email is empty or null'})
+
+    agent.email = new_email
+    agent.save()
+    return JsonResponse({'success': True})
+    
     
 def get_users(request):
     
-    users = list(UserAccount.objects.using('users').filter(is_banquier=False).values())
+    users = list(UserAccount.objects.using('users').filter(is_banquier=False,is_agent=False).values())
     # Add a new key 'user_type' to each user object to indicate whether they are an agent or client
-    for user in users:
-        user['user_type'] = 'agent' if user['is_agent'] else 'client'
     return JsonResponse(users, safe=False)
+
+def get_banquier(request):  
+    banquier =UserAccount.objects.using('users').filter(is_banquier=True).values()
+    banquier_list = list(banquier)
+
+    return JsonResponse(banquier_list, safe=False)
 
 def delete_user(request, id_user):
     try:
@@ -327,6 +328,92 @@ def delete_user(request, id_user):
     except UserAccount.DoesNotExist:
         return JsonResponse({'success': False, 'message': 'Utilisateur n existe pas !'})
     
+def get_credits(request):
+    data = Credit.objects.values("IdCredit","montant_principal","montant_restant","taux","mensualite","demande__last_name","demande__first_name",
+                                 "demande__person_income","demande__loan_intent","demande__loan_percent_income")
+    return JsonResponse(list(data), safe=False)
+
+def delete_credit(request,id_credit):
+    try :
+        credit=Credit.objects.get(IdCredit=id_credit)
+        credit.delete()
+        return JsonResponse({'success': True})
+    except Credit.DoesNotExist:
+        return JsonResponse({'success': False, 'message': 'Credit not found'})
+    
+
+from django.views.decorators.http import require_http_methods
+import re
+
+
+@require_http_methods(["PATCH"])
+def retrancher_montant(request,id):
+    credit=Credit.objects.using('credit').get(IdCredit=id)
+    demande=credit.demande
+    salaire_mensuel=credit.montant_principal / 12
+    restant=credit.montant_restant
+    ancienne_mensualite=credit.mensualite
+    mensualite_courante=ancienne_mensualite
+    if ( mensualite_courante != "0m" and restant !=0) :
+        retrancher=(salaire_mensuel * demande.loan_percent_income)/100
+        mensualite_courante =str(int(re.findall('\d+',ancienne_mensualite)[0]) - 1) + "m"
+        restant=restant-retrancher
+        credit.montant_restant = restant
+        credit.mensualite= mensualite_courante
+        credit.save()
+        return JsonResponse({'success': True, 'message': 'opération faite avec succes', 'montant_restant': restant,'mensualite_courante':mensualite_courante})
+    return JsonResponse({'success': False, 'message': 'opération non valide !'})
+
+import requests
+from django.db.models import Count
+
+def update_credit_counts(request):
+    credit_counts = Credit.objects.values('montant_principal').annotate(count=Count('IdCredit'))
+    counts_dict = {}
+    for credit_count in credit_counts:
+        credit_amount = credit_count['montant_principal']
+        count = credit_count['count']
+        counts_dict[credit_amount] = count
+    return JsonResponse(counts_dict)
+
+
+def credit_count(request):
+    credit_count = Credit.objects.count()
+    return JsonResponse(credit_count,safe=False)
+
+def credit_count_date(request):
+    credit_count_date = Credit.objects.values('affected').annotate(count=Count('IdCredit'))
+    counts_dict = {}
+    for credit_count in credit_count_date:
+        date_string = credit_count['affected'].strftime("%Y-%m-%d %H:%M:%S")
+        count = credit_count['count']
+        counts_dict[date_string] = count
+    return JsonResponse(counts_dict)
+
+def upload_image(request):
+        image_file = request.FILES.get('image')
+
+        if not image_file:
+            return JsonResponse({'success': False, 'message': 'pas d''image lue !'})
+
+        user = UserAccount.objects.get(is_banquier=True)
+        user.image = image_file
+        user.save()
+
+        return JsonResponse({'success': True, 'message': 'opération faite avec succes','image':image_file})
+
+
+
+
+
+
+
+
+    
+
+
+    
+    
+    
 
         
-

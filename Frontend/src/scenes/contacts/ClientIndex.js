@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import ClientTable from './ClientTable';
 import ClientEdit from './ClientEdit';
+import Axios from 'axios'
+
 
 
 
@@ -12,19 +14,12 @@ const ClientIndex = () => {
 
 
 
-useEffect(() => {
-  fetch('http://localhost:8000/credit/demande')
-  .then(response => response.json())
-  .then(data => {
-    console.log(data); // Process the data returned by the API
-    setDemandesData(data)
-  })
-  .catch(error => {
-    console.error(error); // Handle any errors that occurred during the request
+  useEffect(() => {
+    Axios.get('http://127.0.0.1:8000/credit/get_demande').then((response) => {
+      setDemandesData(response.data)
+
+    });
   });
-},[]);
-
-
 
   const handleEdit = DemandeId => {
     const [demande] = demandesData.filter(demande => demande.DemandeId === DemandeId);
@@ -35,23 +30,26 @@ useEffect(() => {
 
   return (
     <div className="container">
-           {!isEditing && (
-            <div>
-                <ClientTable
-                demandes={demandesData}
-                handleEdit={handleEdit}
-                />
-            </div>
-            )}
+      {!isEditing && (
+        <div>
+          <ClientTable
+            demandes={demandesData}
+            handleEdit={handleEdit}
+            setDemandesData={setDemandesData}
+          />
+          <br /><br /><br /><br /><br /><br /><br />
 
-            {isEditing && (
-            <ClientEdit
+        </div>
+      )}
+
+      {isEditing && (
+        <ClientEdit
           selectedDemande={selectedDemande}
           setIsEditing={setIsEditing}
-            />
-            )}
+        />
+      )}
     </div>
-      
+
   );
 };
 

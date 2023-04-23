@@ -1,15 +1,42 @@
-@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap");
+@import "https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap";
 
-html,
-body,
-#root,
-.app,
+html {
+  height: 100%;
+  width: 100%;
+  font-family: "Source Sans Pro", sans-serif;
+  background-color: #F3F1F0;
+}
+
+body {
+  height: 100%;
+  width: 100%;
+  font-family: "Source Sans Pro", sans-serif;
+  background-color: #F3F1F0;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+  font-family: "Source Sans Pro", sans-serif;
+  background-color: #F3F1F0;
+}
+
+.app {
+  height: 100%;
+  width: 100%;
+  font-family: "Source Sans Pro", sans-serif;
+  background-color: #F3F1F0;
+  display: flex;
+  position: relative;
+}
+
 .content {
   height: 100%;
   width: 100%;
   font-family: "Source Sans Pro", sans-serif;
   background-color: #F3F1F0;
 }
+
 .container {
   display: flex;
   flex-direction: row;
@@ -24,26 +51,18 @@ body,
   padding-left: 20px;
 }
 
-.app {
-  display: flex;
-  position: relative;
-}
-
 ::-webkit-scrollbar {
   width: 10px;
 }
 
-/* Track */
 ::-webkit-scrollbar-track {
   background: #6a6969;
 }
 
-/* Handle */
 ::-webkit-scrollbar-thumb {
   background: #888;
 }
 
-/* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
