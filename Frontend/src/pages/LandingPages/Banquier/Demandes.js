@@ -21,7 +21,6 @@ export default function Demandes() {
           <div className="app">
             <Sidebar isSidebar={isSidebar} />
             <main className="content">
-              <Topbar setIsSidebar={setIsSidebar} />
               <div style={{ height: "50%", width: "100%", overflowX: 'auto' }}>
                 <ClientIndex />
               </div>

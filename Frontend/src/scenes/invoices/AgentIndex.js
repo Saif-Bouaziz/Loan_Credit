@@ -39,6 +39,7 @@ const AgentIndex = () => {
       <AgentTable
         agents={agentsData}
         handleAdd={handleAdd}
+        setAgentsData={setAgentsData}
       />
 
 

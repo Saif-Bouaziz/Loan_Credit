@@ -21,27 +21,11 @@ const UsersIndex = () => {
   });
   });
 
-  const handleDelete = (id_user) => {
-    fetch(`http://localhost:8000/credit/delete_user/${id_user}/`)
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.text();
-    })
-    .then(data => {
-        setUsersData(users.filter(user => user.id !== id_user));
-    })
-    .catch(error => console.error(error));
-    console.log(id_agent)
-
-  }
 
   return (
     <div className="container">
       <UsersTable users={usersData}
-      
-                handleDelete={handleDelete}/>
+                  setUsersData={setUsersData}/>
     </div>
       
   );

@@ -1,6 +1,8 @@
 from django.db import models
 from user.models import UserAccount
 from django.utils.translation import gettext_lazy as _
+from datetime import datetime
+
 
 def upload_to(instance,filename):
     return 'demande/{filename}'.format(filename=filename)
@@ -58,12 +60,10 @@ class Demande(models.Model):
     img_bulletins_salaire = models.TextField(null=True)
     img_Releves_compte_banque = models.TextField(null=True)
     img_justificatif_domicile_actuel = models.TextField(null=True)
-<<<<<<< HEAD
-    status=models.CharField(max_length=50,null=True,default="En cours")
-    #verified=models.CharField(max_length=50,null=True)
+    created = models.DateTimeField(auto_now_add=True)
+    prediction=models.IntegerField(null=True)
 
     
-=======
     
 class Credit(models.Model):
     demande = models.ForeignKey(Demande, on_delete=models.CASCADE)
@@ -72,7 +72,8 @@ class Credit(models.Model):
     montant_restant=models.FloatField()
     taux=models.FloatField()
     mensualite=models.CharField(max_length=20)
+    affected = models.DateTimeField(auto_now_add=True)
+
 
     
 
->>>>>>> master

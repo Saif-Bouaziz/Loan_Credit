@@ -15,13 +15,11 @@ const ClientIndex = () => {
 
 
   useEffect(() => {
-    Axios.get('http://127.0.0.1:8000/credit/demandeApi').then((response) => {
+    Axios.get('http://127.0.0.1:8000/credit/get_demande').then((response) => {
       setDemandesData(response.data)
 
     });
   });
-
-
 
   const handleEdit = DemandeId => {
     const [demande] = demandesData.filter(demande => demande.DemandeId === DemandeId);
@@ -37,6 +35,7 @@ const ClientIndex = () => {
           <ClientTable
             demandes={demandesData}
             handleEdit={handleEdit}
+            setDemandesData={setDemandesData}
           />
           <br /><br /><br /><br /><br /><br /><br />
 
