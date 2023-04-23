@@ -48,12 +48,9 @@ import FAQ from "scenes/faq";
 import Geography from "scenes/geography";
 import BanquierTeam from "pages/LandingPages/Banquier/BanquierTeam";
 import Demandes from "pages/LandingPages/Banquier/Demandes";
+import Credits from "pages/LandingPages/Banquier/Credits";
 import ListeAgents from "pages/LandingPages/Banquier/ListeAgents";
 import AjoutAgent from "pages/LandingPages/Banquier/AjoutAgent";
-<<<<<<< HEAD
-import Chart from "components/BarChart";
-import theme from "assets/theme";
-=======
 import Chart from "components/BarChart"; 
 import theme from "assets/theme"; 
 import Dashboard from "pages/LandingPages/Client/Dashboard"; 
@@ -61,7 +58,6 @@ import Bilan from "pages/LandingPages/Client/Bilan";
 import Notifications from "pages/LandingPages/Client/notifications"; 
 import Profile from "pages/LandingPages/Client/Profile"; 
 import Liste from "pages/LandingPages/Client/Liste"; 
->>>>>>> master
 
 export default function App() {
   const { pathname } = useLocation();
@@ -95,24 +91,15 @@ export default function App() {
             <Route path="/presentation" element={<Presentation />} />
             <Route path="/register" element={<SignInPage />} />
             <Route path="/SignUp" element={<SignUp />} />
-<<<<<<< HEAD
-
-            <Route path="/Dashboard" element={<BanquierIndex />} />
-=======
             <Route path="/Dashboard" element={<BanquierIndex />} /> 
->>>>>>> master
             <Route path="/Liste_utilisateurs" element={<BanquierTeam />} />
             <Route path="/Demandes" element={<Demandes />} />
+            <Route path="/credits" element={<Credits />} />
             <Route path="/Liste_agents" element={<ListeAgents />} />
             <Route path="/ajout_agent" element={<AjoutAgent />} />
             <Route path="/bar" element={<Chart />} />
-            <Route path="/pie" element={<Pie />} />
-            <Route path="/line" element={<Line />} />
+
             <Route path="/faq" element={<FAQ />} />
-<<<<<<< HEAD
-            <Route path="/geography" element={<Geography />} />
-=======
-            <Route path="/geography" element={<Geography />} /> 
             <Route path="/dashboardC" element={<Dashboard />} /> 
             <Route path="/bilan" element={<Bilan />} /> 
             <Route path="/liste" element={<Liste />} /> 
@@ -126,7 +113,6 @@ export default function App() {
 
 
 
->>>>>>> master
           </Routes>
         </Layout>
 

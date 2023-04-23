@@ -21,8 +21,8 @@ const Chart = ({ data }) => {
       <YAxis />
       <Tooltip />
       <Legend />
-      <Bar dataKey="refusée" fill="#8884d8" />
-      <Bar dataKey="acceptée" fill="#82ca9d" />
+      <Bar dataKey="refusée" fill="#A9A9A9" />
+      <Bar dataKey="acceptée" fill="#F5CB5C" />
     </BarChart>
   </ResponsiveContainer>
   );

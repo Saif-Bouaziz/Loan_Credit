@@ -3,6 +3,8 @@ import { Formik } from "formik";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 import { useState } from "react";
+import Swal from 'sweetalert2';
+
 import axios from 'axios'
 
 
@@ -21,6 +23,13 @@ const Form = () => {
     axios.post('http://127.0.0.1:8000/credit/add_agent', formData)
     .then(response => {
       console.log(response.data);
+      Swal.fire({
+        icon: 'success',
+        title: 'Confirmé!',
+        text: `Agent ajouté avec succés.`,
+        showConfirmButton: false,
+        timer: 1500,
+      });
     })
     .catch(error => {
       console.error(error);
@@ -37,7 +46,7 @@ const Form = () => {
 
   return (
     <Box m="20px">
-      <Header title="CREATION UTILISATEUR" subtitle="Ajouter Nouveau Agent" />
+      <Header title="CREATION AGENT" subtitle="Ajouter Nouveau Agent" />
 
       <Formik
         onSubmit={handleFormSubmit}

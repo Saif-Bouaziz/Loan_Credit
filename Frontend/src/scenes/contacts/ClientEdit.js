@@ -1,15 +1,12 @@
-import React, { useState } from 'react';
+import React, {useState, useRef } from 'react';
 import Swal from 'sweetalert2';
 import axios from 'axios'
 
 
 const ClientEdit = ({ selectedDemande, setIsEditing }) => {
-  const [prediction, setPrediction] = useState(null);
-  const [demandes, setDemandes] = useState(selectedDemande.status);
-
-
-
-
+ // const [result, setResult] = useState(selectedDemande.prediction);
+  const windowWidth = useRef(window.innerWidth);
+  const[modify,setModify]=useState(selectedDemande)
 
   const handlePredict = (demandeId) => {
     fetch(`http://localhost:8000/credit/banker/${demandeId}/`)
@@ -20,44 +17,40 @@ const ClientEdit = ({ selectedDemande, setIsEditing }) => {
         return response.text();
       })
       .then(data => {
-        setPrediction(data);
+        console.log(data);
+        const param={demandeId,data}
+        console.log(param);
+        updatePrediction(param.demandeId,param.data);
       })
       .catch(error => console.error(error));
-    console.log(demandeId)
-
   }
+  
+  const updatePrediction = async (demandeId, prediction) => {
+    fetch(`http://127.0.0.1:8000/credit/update_prediction/${demandeId}/`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ "prediction": prediction })
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      console.log(response);
+      return response.json();
+    })
+    .then(data=>{
+      console.log(data);
+      const updatedDemande = { ...selectedDemande }
+      updatedDemande.prediction = data['prediction'];
+      setModify(updatedDemande);
+      console.log(modify)
+    })
+    .catch(error => console.error(error));
+  }
+    
 
-  const handleClick = async () => {
-    const url = `http://127.0.0.1:8000/credit/demande_status/${selectedDemande.DemandeId}/`;
-    const data = { 'status': 'acceptée' };
-    const response = await fetch(url, {
-      method: 'POST',
-      body: JSON.stringify(data),
-    });
-    if (response.ok) {
-      setIsEditing(false);
-      const updatedDemandes = demandes.map(demande => {
-        if (demande.DemandeId === selectedDemande.DemandeId) {
-          return {
-            ...demande,
-            status: data.status,
-          };
-        }
-        return demande;
-      });
-      // Update the state of demandes to the new array with the updated status field
-      setDemandes(updatedDemandes)
-      Swal.fire({
-        icon: 'success',
-        title: 'Acceptée!',
-        text: `la demande de ${selectedDemande.DemandeId} est acceptée.`,
-        showConfirmButton: false,
-        timer: 1500,
-      });
-    } else {
-      console.log(`Error: ${response.status}`);
-    }
-  };
   const handleClick1 = async () => {
     const response = await axios
       .patch(`http://127.0.0.1:8000/credit/demandeApi/${selectedDemande.DemandeId}`, { "status": "acceptée" })
@@ -69,8 +62,8 @@ const ClientEdit = ({ selectedDemande, setIsEditing }) => {
     setIsEditing(false);
     Swal.fire({
       icon: 'success',
-      title: 'Accepted!',
-      text: `${selectedDemande.last_name}'s demand has been accepted.`,
+      title: 'Acceptée!',
+      text: `la de demande de ${selectedDemande.last_name} est accptée.`,
       showConfirmButton: false,
       timer: 1500,
     });
@@ -87,8 +80,8 @@ const ClientEdit = ({ selectedDemande, setIsEditing }) => {
     setIsEditing(false);
     Swal.fire({
       icon: 'error',
-      title: 'Refused!',
-      text: `${selectedDemande.last_name}'s demand has been refused.`,
+      title: 'Refusée!',
+      text: `la demande de ${selectedDemande.last_name} est refusée.`,
       showConfirmButton: false,
       timer: 1500,
     });
@@ -96,41 +89,71 @@ const ClientEdit = ({ selectedDemande, setIsEditing }) => {
   };
 
   return (
-    <div className="small-container">
+    <div style={{ fontSize: windowWidth.current * 0.01,marginLeft: '180px'  }}>
       <div >
         <br />
-        <h1>Details de la demande</h1>
+        <h1>Détails de la demande</h1>
         <br />
-        <div style={{ display: "inline-block", float: "left" }}>
-          <h4>Nom</h4>
-          {selectedDemande.first_name}
-          <h4>Prénom</h4>
-          {selectedDemande.last_name}
-          <h4>Age</h4>
-          {selectedDemande.person_age}
-          <h4>Salaire</h4>
-          {selectedDemande.person_income}
-          <h4>Propriété </h4>
-          {selectedDemande.person_home_ownership}
-          <h4>Emploi</h4>
-          {selectedDemande.person_emp_length}
-        </div>
-        <div style={{ display: "inline-block", float: "right" }}>
+        <div  >
+          <table >
+            
+            <thead>
+                  <tr>
+                    <th>Nom</th>
+                    <td>{modify.first_name}</td>
+                  </tr>
+                  <tr>
+                    <th>Prénom</th>
+                    <td>{modify.last_name}</td>
+                  </tr>
+                  <tr>
+                    <th>Age</th>
+                    <td>{modify.person_age}</td>
+                  </tr>
+                  <tr>
+                    <th>Salaire</th>
+                    <td>{modify.person_income}</td>
+                  </tr>
+                  <tr>
+                    <th>Propriété</th>
+                    <td>{modify.person_home_ownership}</td>
+                  </tr>
+                  <tr>
+                    <th>Emploi</th>
+                    <td>{modify.person_emp_length}</td>
+                  </tr>
+                  <tr>
+                    <th>Objectif</th>
+                    <td>{modify.loan_intent}</td>
+                  </tr>
+                  <tr>
+                    <th>Catégorie</th>
+                    <td>{modify.loan_grade}</td>
+                  </tr>
+                  <tr>
+                    <th>Montant</th>
+                    <td>{modify.loan_amnt}</td>
+                  </tr>
+                  <tr>
+                    <th>Intérêt</th>
+                    <td>{modify.loan_int_rate}</td>
+                  </tr>
+                  <tr>
+                    <th>Pourcentage</th>
+                    <td>{modify.loan_percent_income}</td>
+                  </tr>
+                  <tr>
+                    <th>Status</th>
+                    <td>{modify.status}</td>
+                  </tr>
+                  <tr>
+                    <th>Résultat</th>
+                    <td>{modify.prediction}</td>
+                  </tr>
+                </thead>
 
-          <h4>Objectif</h4>
-          {selectedDemande.loan_intent}
-          <h4>Ctégorie</h4>
-          {selectedDemande.loan_grade}
-          <h4>Montant</h4>
-          {selectedDemande.loan_amnt}
-          <h4>Intérêt</h4>
-          {selectedDemande.loan_int_rate}
-          <h4>Pourcentage</h4>
-          {selectedDemande.loan_percent_income}
-          <h4>Status</h4>
-          {selectedDemande.status}
-          <h4>Résultat</h4>
-          {prediction}
+              </table>
+     
         </div>
         <div style={{ clear: "both", textAlign: "center" }}>
 

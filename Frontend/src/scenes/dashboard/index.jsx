@@ -15,12 +15,20 @@ import ProgressCircle from "../../components/ProgressCircle";
 import { useState, useEffect } from 'react'
 import axios from "axios";
 import Chart from "../../components/BarChart";
+import CreditChart from "../../components/LineChart";
+import {PeopleAlt} from "@mui/icons-material";
+import InterpreterModeIcon from '@mui/icons-material/InterpreterMode';
+import PriceCheckIcon from '@mui/icons-material/PriceCheck';
+import CreditScoreIcon from '@mui/icons-material/CreditScore';
+import Card from "scenes/cards/Card";
+
 
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [demandeCounts, setDemandeCounts] = useState(null);
+  const [creditCounts, setCreditCounts] = useState({});
 
   useEffect(() => {
     async function fetchDemandeCounts() {
@@ -30,7 +38,18 @@ const Dashboard = () => {
     }
 
     fetchDemandeCounts();
-  }, []);
+  });
+
+  useEffect(() => {
+    async function fetchCreditCounts() {
+      const response = await fetch("http://127.0.0.1:8000/credit/update_credit_counts/");
+      const data = await response.json();
+      setCreditCounts(data);
+    }
+
+    fetchCreditCounts();
+  });
+
 
   const [demandes, setDemandes] = useState([]);
 
@@ -51,83 +70,14 @@ const Dashboard = () => {
     fetchLastSixDemande();
   });
 
-  const [clientCount, setClientCount] = useState(0);
-
-  useEffect(() => {
-    const fetchClient = async () => {
-      try {
-        const res = await axios.get('http://127.0.0.1:8000/credit/client_count/',{
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('access')}`, // include JWT token in the request header
-          },
-        });
-        setClientCount(res.data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    fetchClient();
-  });
-
-  const [agentCount, setAgentCount] = useState(0);
-
-  useEffect(() => {
-    const fetchAgent = async () => {
-      try {
-        const res = await axios.get('http://127.0.0.1:8000/credit/agent_count/',{
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('access')}`, // include JWT token in the request header
-          },
-        });
-        setAgentCount(res.data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    fetchAgent();
-  });
-
-  const [demandeCount, setDemandeCount] = useState(0);
-
-
-  useEffect(() => {
-    const fetchDemande = async () => {
-      try {
-        const res = await axios.get('http://127.0.0.1:8000/credit/demande_count/',{
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('access')}`, // include JWT token in the request header
-          },
-        });
-        setDemandeCount(res.data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    fetchDemande();
-  });
-
   return (
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
-
-        <Box>
-          <Button
-            sx={{
-              backgroundColor: colors.blueAccent[700],
-              color: colors.grey[100],
-              fontSize: "14px",
-              fontWeight: "bold",
-              padding: "10px 20px",
-            }}
-          >
-            <DownloadOutlinedIcon sx={{ mr: "10px" }} />
-            Download Reports
-          </Button>
-        </Box>
+        <Header title="Tableau de bord" subtitle="Bienvenue Admin" />
       </Box>
-
+      <Card />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       {/* GRID & CHARTS */}
       <Box
         display="grid"
@@ -135,90 +85,14 @@ const Dashboard = () => {
         gridAutoRows="140px"
         gap="20px"
       >
-        {/* ROW 1 */}
-        <Box
-          gridColumn="span 3"
-          backgroundColor={colors.primary[400]}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <StatBox
-            title={`${demandeCount}`}
-            subtitle="Nombre de demandes"
-            progress="0.75"
-            icon={
-              <EmailIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
-              />
-            }
-          />
-        </Box>
-        <Box
-          gridColumn="span 3"
-          backgroundColor={colors.primary[400]}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <StatBox
-            title={`${agentCount}`}
-            subtitle="Nombre d'agents"
-            progress="0.50"
-            icon={
-              <PointOfSaleIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
-              />
-            }
-          />
-        </Box>
-        <Box
-          gridColumn="span 3"
-          backgroundColor={colors.primary[400]}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <StatBox
-            title={`${clientCount}`}
-            subtitle="Nombre de clients"
-            progress="0.30"
-            icon={
-              <PersonAddIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
-              />
-            
-            
-            }
-          />
-          
-        </Box>
-        <Box
-          gridColumn="span 3"
-          backgroundColor={colors.primary[400]}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <StatBox
-            title="1,325,134"
-            subtitle="Traffic Received"
-            progress="0.80"
-            increase="+43%"
-            icon={
-              <TrafficIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
-              />
-            }
-          />
-        </Box>
+        
 
         {/* ROW 2 */}
 
         <Box
           gridColumn="span 4"
           gridRow="span 2"
-          backgroundColor={colors.primary[400]}
+          backgroundColor={colors.primary[100]}
           overflow="auto"
         >
           <Box
@@ -256,7 +130,7 @@ const Dashboard = () => {
               </Box>
               <Box color={colors.grey[100]}>{demande.status}</Box>
               <Box
-                backgroundColor={colors.greenAccent[500]}
+                backgroundColor={colors.greenAccent[100]}
                 p="5px 10px"
                 borderRadius="4px"
               >
@@ -267,36 +141,11 @@ const Dashboard = () => {
         </Box>
 
         {/* ROW 3 */}
+
         <Box
           gridColumn="span 4"
           gridRow="span 2"
-          backgroundColor={colors.primary[400]}
-          p="30px"
-        >
-          <Typography variant="h5" fontWeight="600">
-            Campaign
-          </Typography>
-          <Box
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            mt="25px"
-          >
-            <ProgressCircle size="125" />
-            <Typography
-              variant="h5"
-              color={colors.greenAccent[500]}
-              sx={{ mt: "15px" }}
-            >
-              $48,352 revenue generated
-            </Typography>
-            <Typography>Includes extra misc expenditures and costs</Typography>
-          </Box>
-        </Box>
-        <Box
-          gridColumn="span 4"
-          gridRow="span 2"
-          backgroundColor={colors.primary[400]}
+          backgroundColor={colors.primary[100]}
         >
           <Typography
             variant="h5"
@@ -309,22 +158,22 @@ const Dashboard = () => {
           {demandeCounts && <Chart data={[demandeCounts]} />}
            </Box>
         </Box>
+
         <Box
           gridColumn="span 4"
           gridRow="span 2"
-          backgroundColor={colors.primary[400]}
-          padding="30px"
+          backgroundColor={colors.primary[100]}
         >
           <Typography
             variant="h5"
             fontWeight="600"
-            sx={{ marginBottom: "15px" }}
+            sx={{ padding: "30px 30px 0 30px" }}
           >
-            Geography Based Traffic
+            Evolution des credits
           </Typography>
-          <Box height="200px">
-            <GeographyChart isDashboard={true} />
-          </Box>
+          <Box height="250px" mt="-20px">
+           <CreditChart data={creditCounts} />
+           </Box>
         </Box>
       </Box>
     </Box>

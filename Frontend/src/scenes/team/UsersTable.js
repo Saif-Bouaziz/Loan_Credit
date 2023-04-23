@@ -1,124 +1,86 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import SearchIcon from "@mui/icons-material/Search";
+import InputBase from "@mui/material/InputBase";
+import { Box, IconButton, useTheme } from "@mui/material";
+import { ColorModeContext, useMode ,tokens} from "../../theme";
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
-const UsersTable = ({ users,handleDelete}) => {
+
+
+const UsersTable = ({ users,setUsersData}) => {
+  const [theme, colorMode] = useMode();
 
   const [searchTerm, setSearchTerm] = useState("");
   const [filterTerm, setFilterTerm] = useState("");
-  const [usersData, setUsersData] = useState("");
 
+  const windowWidth = useRef(window.innerWidth);
+
+  const colors = tokens(theme.palette.mode);
   const handleSearchTerm = (e) => {
     let value = e.target.value;
     setSearchTerm(value);
   }
 
-  const handleFilterTerm = (e) => {
-    let value = e.target.value;
-    setFilterTerm(value);
-  }
-  const [active1, setActive1] = useState(false);
-  const one = (e) => {
-    let value = e.target.value;
-    setFilterTerm(value);
-    setActive1(true);
-    setActive2(false);
-    setActive3(false);
-    setActive4(false);
+  const [deletedUserId, setDeletedUserId] = useState(null);
 
-
-  };
-  const [active2, setActive2] = useState(false);
-  const two = (e) => {
-    let value = e.target.value;
-    setFilterTerm(value);
-    setActive2(true);
-    setActive1(false);
-    setActive3(false);
-    setActive4(false);
-
-
-  };
-  const [active3, setActive3] = useState(false);
-  const three = (e) => {
-    let value = e.target.value;
-    setFilterTerm(value);
-    setActive3(true);
-    setActive1(false);
-    setActive2(false);
-    setActive4(false);
-
-  };
-  const [active4, setActive4] = useState(true);
-  const four = (e) => {
-    let value = e.target.value;
-    setFilterTerm(value);
-    setActive3(false);
-    setActive1(false);
-    setActive2(false);
-    setActive4(true);
-
-  };
-
+const handleDelete = (id_user) => {
+  fetch(`http://localhost:8000/credit/delete_user/${id_user}/`, {
+    method: 'DELETE',
+  })
+    .then(response => response.json())
+    .then(data => {
+      // Remove the deleted agent from the agents array
+      const updatedUsers = users.filter(client => client.id !== id_user);
+      setUsersData(updatedUsers);
+      setDeletedUserId(id_user);
+    })
+    .catch(error => console.error(error));
+};
 
   return (
-    <div>
-      <div className='filterBar'>
-  
-      <button className="button muted-button" value={""} onClick={four} style={{ backgroundColor: active4 ? "#ccc" : null }}>
-          Tous
-        </button>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-        <button className="button muted-button" value={"client"} onClick={one} style={{ backgroundColor: active1 ? "#ccc" : null }}>
-          Client
-        </button>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <button className="button muted-button" value={"agent"} onClick={two} style={{ backgroundColor: active2 ? "#ccc" : null }}>
-          Agents
-        </button>
-      </div>
-      <div style={{display: "flex", justifyContent: "center"}}>
-      <div className="contain-table">
-
-
-        <div className='searchBar'>
-          <input
-            type="text"
-            name="searchbar"
-            id="searchbar"
-            placeholder='Rechercher'
-            onChange={handleSearchTerm}
-
+    <div className='table' style={{ fontSize: windowWidth.current * 0.01,marginLeft: '140px',backgroundColor: `${colors.primary[100]}` }}>
+        <Box
+          display="flex"
+          backgroundColor={colors.primary[400]}
+          borderRadius="3px"
+        >
+          <InputBase sx={{ ml: 2, flex: 1 }} placeholder="Rechercher" 
+          onChange={handleSearchTerm}
           />
+          <IconButton type="button" sx={{ p: 1 }} >
+            <SearchIcon />
+          </IconButton>
+        </Box>
+        <h2 style={{ textAlign: "center" }}>Liste des clients</h2>
 
-        </div>
+      
+      <div >
+      <div className="contain-table">
         <table >
           <thead>
             <tr>
               <th>Id utilisateur</th>
               <th>Nom et Prénom</th>
               <th>Email</th>
-              <th>Type</th>
               <th colSpan={2} className="text-center">
-                Actions
+                Action
               </th>
             </tr>
           </thead>
           <tbody>
             {users.length > 0 ? (
-              users.filter(
-                (val) => {
-                  return val.user_type.toLowerCase().includes(searchTerm.toLowerCase());
-                })
+              users.filter(val => val.name.toLowerCase().includes(searchTerm.toLowerCase())
+               || val.email.toLowerCase().includes(searchTerm.toLowerCase()))
+        
               .map(val => (
-                <tr key={val.id}>
+                <tr key={val.id} style={{ display: val.id === deletedUserId ? 'none' : 'table-row' }}>
                   <td>{val.id}</td>
                   <td>{val.name}</td>
                   <td>{val.email}</td>
-                  <td>{val.user_type}</td>
                   <button onClick={() => handleDelete(val.id)}
                       className="button muted-button"
                     >
-                     Supprimer
+                     <DeleteForeverIcon/>
                     </button>
 
                   
