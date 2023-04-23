@@ -1,17 +1,20 @@
 import React, { useState, useEffect, useRef } from 'react';
-const ClientTable = ({ demandes, handleEdit }) => {
+import SearchIcon from "@mui/icons-material/Search";
+import InputBase from "@mui/material/InputBase";
+import { Box, IconButton, useTheme } from "@mui/material";
+import { ColorModeContext, useMode ,tokens} from "../../theme";
+import ContentPasteGoIcon from '@mui/icons-material/ContentPasteGo';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+
+
+const ClientTable = ({ demandes, handleEdit,setDemandesData }) => {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [filterTerm, setFilterTerm] = useState("");
   const [prediction, setPrediction] = useState(null);
-
+  const [theme, colorMode] = useMode();
   const windowWidth = useRef(window.innerWidth);
-
-  const formatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: null,
-  });
+  const colors = tokens(theme.palette.mode);
 
 
   const handleSearchTerm = (e) => {
@@ -66,8 +69,38 @@ const ClientTable = ({ demandes, handleEdit }) => {
 
   };
 
+  const [deletedDemandeId, setDeletedDemandeId] = useState(null);
+
+const handleDelete = (id_demande) => {
+  fetch(`http://localhost:8000/credit/delete_demande/${id_demande}/`, {
+    method: 'DELETE',
+  })
+    .then(response => response.json())
+    .then(data => {
+      // Remove the deleted agent from the agents array
+      const updatedDemandes = demandes.filter(demande => demande.DemandeId!== id_demande);
+      setDemandesData(updatedDemandes);
+      setDeletedDemandeId(id_demande);
+    })
+    .catch(error => console.error(error));
+};
+
   return (
-    <div className='table' style={{ fontSize: windowWidth.current * 0.01 }}>
+    <div className='table' style={{ fontSize: windowWidth.current * 0.01,marginLeft: '140px',backgroundColor: `${colors.primary[100]}`  }}>
+       <Box
+          display="flex"
+          backgroundColor={colors.primary[400]}
+          borderRadius="3px"
+        >
+          <InputBase sx={{ ml: 2, flex: 1 }} placeholder="Rechercher" 
+          onChange={handleSearchTerm}
+          />
+          <IconButton type="button" sx={{ p: 1 }} >
+            <SearchIcon />
+          </IconButton>
+        </Box>
+        <h2 style={{ textAlign: "center" }}>Liste des demandes</h2>
+
       <div className='filterBar'>
         <button className="button muted-button" value={""} onClick={four} style={{ backgroundColor: active4 ? "#ccc" : null }}>
           Tous
@@ -88,21 +121,9 @@ const ClientTable = ({ demandes, handleEdit }) => {
 
 
       </div>
+     
       <div style={{ display: "flex", justifyContent: "center" }}>
         <div className="contain-table" >
-
-
-          <div className='searchBar'>
-            <input
-              type="text"
-              name="searchbar"
-              id="searchbar"
-              placeholder='Rechercher'
-              onChange={handleSearchTerm}
-
-            />
-
-          </div>
           <table >
             <thead>
               <tr>
@@ -125,9 +146,17 @@ const ClientTable = ({ demandes, handleEdit }) => {
             </thead>
             <tbody>
               {demandes.length > 0 ? (
-                demandes
+                demandes.filter(
+                  (val) => {
+                    return val.status.toLowerCase().includes(filterTerm.toLowerCase());
+                  }
+                )
+                .filter(val => val.loan_intent.toLowerCase().includes(searchTerm.toLowerCase())
+                ||
+                val.loan_amnt.toString().includes(searchTerm))
+         
                   .map(val => (
-                    <tr key={val.id}>
+                    <tr key={val.id} style={{ display: val.DemandeId === deletedDemandeId ? 'none' : 'table-row' }}>
                       <td>{val.DemandeId}</td>
                       <td>{val.ClientId}</td>
                       <td>{val.person_age}</td>
@@ -145,7 +174,13 @@ const ClientTable = ({ demandes, handleEdit }) => {
                           onClick={() => handleEdit(val.DemandeId)}
                           className="button muted-button"
                         >
-                          Traiter
+                          <ContentPasteGoIcon/>
+                        </button>
+                        <button
+                          onClick={() => handleDelete(val.DemandeId)}
+                          className="button muted-button"
+                        >
+                          <DeleteForeverIcon/>
                         </button>
                       </td>
                     </tr>

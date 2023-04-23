@@ -19,7 +19,6 @@ export default function AjoutAgent() {
           <div className="app">
               <Sidebar isSidebar={isSidebar} />
               <main className="content">
-                <Topbar setIsSidebar={setIsSidebar} />
                 <Form/>
               </main>
           </div>
