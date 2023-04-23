@@ -115,30 +115,34 @@ const Table = ({ demandes, handleEdit }) => {
           </thead>
           <tbody>
             {demandes.length > 0 ? (
-              demandes
-              .filter(
+              demandes.filter(
                 (val) => {
-                  return val.last_name.toLowerCase().includes(searchTerm.toLowerCase());
+                  return val.decision.toLowerCase().includes(filterTerm.toLowerCase());
                 }
-              ).map((val, i) => (
-                <tr key={val.DemandeId}>
-                  <td>{val.DemandeId}</td>
-                  <td>{val.first_name}</td>
-                  <td>{val.last_name}</td>
-                  <td>{val.email}</td>
-                  <td>{formatter.format(val.person_income)}</td>
-                  <td>{val.loan_intent} </td>
-                  <td>{val.loan_amnt} </td>
-                  <td className="text-right">
-                    <button
-                      onClick={() => handleEdit(val.DemandeId)}
-                      className="button muted-button"
-                    >
-                      Détails
-                    </button>
-                  </td>
-                </tr>
-              ))
+              )
+                .filter(
+                  (val) => {
+                    return val.last_name.toLowerCase().includes(searchTerm.toLowerCase());
+                  }
+                ).map((val, i) => (
+                  <tr key={val.DemandeId}>
+                    <td>{val.DemandeId}</td>
+                    <td>{val.first_name}</td>
+                    <td>{val.last_name}</td>
+                    <td>{val.email}</td>
+                    <td>{formatter.format(val.person_income)}</td>
+                    <td>{val.loan_intent} </td>
+                    <td>{val.loan_amnt} </td>
+                    <td className="text-right">
+                      <button
+                        onClick={() => handleEdit(val.DemandeId)}
+                        className="button muted-button"
+                      >
+                        Détails
+                      </button>
+                    </td>
+                  </tr>
+                ))
             ) : (
               <tr>
                 <td colSpan={7}>Pas de Demandes</td>

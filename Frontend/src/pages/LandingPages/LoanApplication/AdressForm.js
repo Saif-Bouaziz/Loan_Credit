@@ -178,13 +178,7 @@ export default function AddressForm({ onFormSubmit }) {
     img_justificatif_domicile_actuel: ""
 
   });
-  const handleButtonClick = () => {
-    // Clear the value of the file input
-    inputRef.current.value = '';
-
-    // Trigger a click event on the file input
-    inputRef.current.click();
-  };
+  
   const handleInputChange = (e) => {
     const newdata = { ...formData }
     newdata[e.target.name] = e.target.value
