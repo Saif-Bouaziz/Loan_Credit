@@ -39,7 +39,9 @@ urlpatterns = [
     path('credit_count_date',views.credit_count_date,name='credit_count_date'),
     path('client_count_date',views.client_count_date,name='client_count_date'),
     path('agent_count_date',views.agent_count_date,name='agent_count_date'),
-    path('upload_image',views.upload_image,name='upload_image'),
+    path('upload_picture',views.upload_picture,name='upload_picture'),
+    path('display_image',views.display_image,name='display_image'),
+
 
 
     
