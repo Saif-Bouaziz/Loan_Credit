@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Table from './Table';
 import Edit from './Edit';
 import Axios from 'axios'
+import emailjs from '@emailjs/browser'
 
 const Dashboard = () => {
   const [datas, setDatas] = React.useState([]);
@@ -25,7 +26,7 @@ const Dashboard = () => {
       setAgent(response.data.is_agent)
     });  
     */
-    
+
     Axios.get('http://127.0.0.1:8000/credit/demandeApi').then((response) => {
       setDatas(response.data)
 
@@ -40,8 +41,10 @@ const Dashboard = () => {
     setIsEditing(true);
   };
 
+  
   return (
     <div className="container">
+      
       {!isEditing && (
         <div>
           <br />
