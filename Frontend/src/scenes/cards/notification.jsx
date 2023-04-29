@@ -14,7 +14,7 @@ const Notification = (props) => {
     const [update,setUpdate]=useState(props.number)
 
     const ResetMailCount = async () => {
-         response = await fetch("http://127.0.0.1:8000/credit/reset_nb_email", {
+         const response = await fetch("http://127.0.0.1:8000/credit/reset_nb_email", {
           method: "POST",
           headers: {
             Authorization: `Bearer ${localStorage.getItem('access')}`, // include JWT token in the request header
@@ -28,6 +28,12 @@ const Notification = (props) => {
           )
           .catch(error => console.error(error));
       };
+
+      useEffect(() => {
+        if (!expanded) {
+          ResetMailCount();
+        }
+      }, [expanded]);
 
 
   return (
