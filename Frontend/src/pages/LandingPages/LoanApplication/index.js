@@ -22,7 +22,7 @@ import bgImage from "./abcde.jpg"
 import { Navigate, useHistory } from 'react-router-dom';
 
 function handleClick() {
-  window.location.href = '/SignUp';
+  window.location.href = '/dashboardC';
 }
 
 
@@ -36,9 +36,9 @@ function LoanApplication({isAuthenticated}) {
       <DefaultNavbar
         routes={routes}
         action={{
-          type: "external",
-          route: "https://www.creative-tim.com/product/material-kit-react",
-          label: "Register Now",
+          type: "internal",
+          route: "/dashboardC",
+          label: "Espace Personel",
           color: "info",
         }}
         transparent
@@ -86,7 +86,7 @@ function LoanApplication({isAuthenticated}) {
               
             </MKTypography>
             <MKButton color="default" sx={{ color: ({ palette: { dark } }) => dark.main }} onClick={handleClick}>
-              S'inscrire
+              Espace Personnel
             </MKButton>
           </Grid>
         </Container>

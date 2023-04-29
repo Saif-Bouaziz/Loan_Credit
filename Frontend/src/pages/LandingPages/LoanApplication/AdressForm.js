@@ -229,7 +229,7 @@ export default function AddressForm({ onFormSubmit }) {
         <Grid item xs={12} sm={6}>
           <FormControl>
             <FormLabel id="demo-row-radio-buttons-group-label">Durée du prêt</FormLabel>
-            <RadioGroup
+            {/*<RadioGroup
               row
               aria-labelledby="demo-row-radio-buttons-group-label"
               name="loan_duration"
@@ -240,7 +240,20 @@ export default function AddressForm({ onFormSubmit }) {
               <FormControlLabel value="24m" control={<Radio />} label="24 mois" />
               <FormControlLabel value="36m" control={<Radio />} label="36 mois" />
               <FormControlLabel value="48m" control={<Radio />} label="48 moiss" />
-            </RadioGroup>
+            </RadioGroup> */} 
+             <RadioGroup
+  row
+  aria-labelledby="demo-row-radio-buttons-group-label"
+  name='loan_duration'
+  value={formData.loan_duration}
+  onChange={(e)=>handleInputChange(e)}
+ >
+ <FormControlLabel value="12m" control={<Radio />} label="12 mois" />
+<FormControlLabel value="24m" control={<Radio />} label="24 mois" />
+<FormControlLabel value="36m" control={<Radio />} label="36 mois" />
+<FormControlLabel value="48m" control={<Radio />} label="48 mois" /> 
+ 
+ </RadioGroup>
           </FormControl>
         </Grid>
         <Grid item xs={12} sm={6}>

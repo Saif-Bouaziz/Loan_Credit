@@ -60,13 +60,10 @@ class Demande(models.Model):
     img_bulletins_salaire = models.TextField(null=True)
     img_Releves_compte_banque = models.TextField(null=True)
     img_justificatif_domicile_actuel = models.TextField(null=True)
-<<<<<<< HEAD
-=======
     created = models.DateTimeField(auto_now_add=True)
     prediction=models.IntegerField(null=True)
 
     
->>>>>>> master
     
 class Credit(models.Model):
     demande = models.ForeignKey(Demande, on_delete=models.CASCADE)
