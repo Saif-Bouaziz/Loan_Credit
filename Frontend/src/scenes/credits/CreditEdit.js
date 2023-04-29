@@ -6,7 +6,12 @@ import select from 'assets/theme/components/form/select';
 
 const CreditEdit = ({handleClick1,selectedCredit, setIsEditing }) => {
   const windowWidth = useRef(window.innerWidth);
-
+  const handleNbr = () => {
+    fetch(`http://127.0.0.1:8000/credit/update_nb_email/${selectedCredit.DemandeId}/`)
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error(error));
+  };
   return (
     <div style={{ fontSize: windowWidth.current * 0.01,marginLeft: '180px'  }}>
       <div >
@@ -23,6 +28,10 @@ const CreditEdit = ({handleClick1,selectedCredit, setIsEditing }) => {
                   <tr>
                     <th>Nom</th>
                     <td>{selectedCredit.demande__first_name}</td>
+                  </tr>
+                  <tr>
+                    <th>Email</th>
+                    <td>{selectedCredit.demande__email}</td>
                   </tr>
                   <tr>
                     <th>Salaire</th>
@@ -55,8 +64,10 @@ const CreditEdit = ({handleClick1,selectedCredit, setIsEditing }) => {
               style={{ backgroundColor: "#E96479" }}
 
               className="button muted-button"
-              onClick={handleClick1}
-            >
+              onClick={() => {
+                handleClick1();
+                handleNbr();
+              }}            >
               Retrancher
             </button>
             &nbsp;&nbsp;&nbsp;
