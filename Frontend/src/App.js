@@ -66,7 +66,11 @@ import Dashboard from "pages/LandingPages/Client/Dashboard";
 import Bilan from "pages/LandingPages/Client/Bilan"; 
 import Notifications from "pages/LandingPages/Client/notifications"; 
 import Profile from "pages/LandingPages/Client/Profile"; 
+<<<<<<< HEAD
+import Liste from "pages/LandingPages/Client/Liste";  
+=======
 import Liste from "pages/LandingPages/Client/Liste"; 
+>>>>>>> master
 >>>>>>> master
 
 export default function App() {

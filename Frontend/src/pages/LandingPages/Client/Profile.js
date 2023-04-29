@@ -14,9 +14,9 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import { mainListItems, secondaryListItems } from './listItems'; 
+import NotificationsIcon from '@mui/icons-material/Notifications';  
 
+import { mainListItems } from './listItems'; 
 
 const drawerWidth = 240;
 
@@ -64,7 +64,8 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-const mdTheme = createTheme();
+const mdTheme = createTheme(); 
+
 
 function DashboardContent() {
   const [open, setOpen] = React.useState(true);
@@ -94,22 +95,13 @@ function DashboardContent() {
             >
               <MenuIcon />
             </IconButton>
-            <Typography
-              component="h1"
-              variant="h6"
-              color="inherit"
-              noWrap
-              sx={{ flexGrow: 1 }}
-            >
-              Dashboard
-            </Typography>
             <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">
                 <NotificationsIcon />
               </Badge>
             </IconButton>
           </Toolbar>
-        </AppBar>
+        </AppBar> 
         <Drawer variant="permanent" open={open}>
           <Toolbar
             sx={{
@@ -127,7 +119,6 @@ function DashboardContent() {
           <List component="nav">
             {mainListItems}
             <Divider sx={{ my: 1 }} />
-            {secondaryListItems}
           </List>
         </Drawer>
         <Box
@@ -143,12 +134,74 @@ function DashboardContent() {
           }}
         >
           <Toolbar />
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <Grid container spacing={3}>
-            
-            <h1>Profile</h1>            
-            </Grid>
-          </Container>
+          
+          <section  style={{ backgroundColor: '#f4f5f7'}}>
+      <div className="container py-5 "style={{ marginLeft: '350px'}}>
+              
+                <div 
+                  style={{display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center', 
+                  borderTopLeftRadius: '.5rem', 
+                  borderBottomLeftRadius: '.5rem', 
+                  width:'150px' , 
+                  backgroundColor: 'white', 
+                  borderTopRightRadius: '.5rem', 
+                  borderBottomRightRadius: '.5rem' }}>
+                  <div> 
+                  <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
+                    alt="Avatar" className="my-5" style={{ width: '100px' }} fluid />
+                  <h5>Saif Bouaziz</h5>
+                  <p>Student</p>
+                  <i className="far fa-edit mb-5"></i> 
+                  </div>
+                </div>
+                
+                
+                <div style={{ display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center',
+                borderLeft: '3px solid white', 
+                width: '500px', 
+                background: 'linear-gradient(90deg, #F5CB5C, #E8EDDF)', 
+                borderTopLeftRadius: '.5rem',  
+                borderBottomLeftRadius: '.5rem', 
+                borderTopRightRadius: '.5rem', 
+                borderBottomRightRadius: '.5rem'}}>
+                  <div >
+                    <h6 style={{ color: '#0072ff' }}>Informations Personelles</h6>
+                    <div >
+                      <div >
+                        <h6>Email</h6>
+                        <p >saif@gmail.com</p>
+                      </div>
+                      <div >
+                        <h6>Phone</h6>
+                        <p >123 456 789</p>
+                      </div>
+                    </div>
+                    <hr  /> 
+                  
+
+                    <h6 style={{ color: '#0072ff' }}>Information</h6>
+                    <div >
+                      <div >
+                        <h6>Email</h6>
+                        <p >info@example.com</p>
+                      </div>
+                      <div >
+                        <h6>Phone</h6>
+                        <p >123 456 789</p>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+      </div>
+    </section>
+          
+          
+          
         </Box>
       </Box>
     </ThemeProvider>

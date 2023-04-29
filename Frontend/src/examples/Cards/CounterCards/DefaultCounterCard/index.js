@@ -27,7 +27,7 @@ function DefaultCounterCard({ color, count, title, description, ...rest }) {
   return (
     <MKBox p={2} textAlign="center" lineHeight={1}>
       <MKTypography variant="h1" color={color} textGradient>
-        <CountUp end={count} duration={1} {...rest} />
+        <CountUp end={count} duration={3} {...rest} />
       </MKTypography>
       {title && (
         <MKTypography variant="h5" mt={2} mb={1}>
