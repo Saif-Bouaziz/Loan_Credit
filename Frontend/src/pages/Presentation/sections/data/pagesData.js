@@ -28,7 +28,7 @@ export default [
     image: manage,
     name: (
       <MKBox textAlign="center">
-        Manage your cash easily
+        Gérez facilement votre Crédit.
       </MKBox>
     ),
     route: "/pages/landing-pages/about-us",
@@ -37,7 +37,7 @@ export default [
     image: security, 
     name: (
       <MKBox textAlign="center">
-        Access to secure banking
+        Accès à une banque sécurisée.
       </MKBox>
     ),
     route: "/pages/landing-pages/contact-us",

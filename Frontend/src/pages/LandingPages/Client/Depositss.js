@@ -10,7 +10,7 @@ function preventDefault(event) {
   event.preventDefault();
 }
 
-export default function Deposits() { 
+export default function Depositss() { 
   const [datass, setDatass] = React.useState([]);
   const [client, setClient] = React.useState(false);
 
@@ -43,21 +43,21 @@ export default function Deposits() {
   });
   return (
     <React.Fragment>
-      <Title>Somme du montant des crédits</Title>      
+      <Title>Montant restant</Title>      
       <Typography component="p" variant="h4">
   {datass
     .filter(data => data.demande__first_name === client.name)
-    .reduce((total, data) => total + data.montant_principal, 0)}
+    .reduce((total, data) => total + data.montant_restant, 0)}
 </Typography>
       
 
-<Typography color="text.secondary" sx={{ flex: 1 }}>
-  Vous avez {datass.filter(data => data.demande__first_name === `${client.name}`).length} non encore payé
+<Typography color="text.secondary" sx={{ flex: 1 }}> 
+
 </Typography>
 
       <div>
         <Link color="primary" href="#" onClick={preventDefault}>
-          View balance
+          Voir liste des crédits
         </Link>
       </div>
     </React.Fragment>

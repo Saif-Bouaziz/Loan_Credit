@@ -1,0 +1,76 @@
+<form id="loan-form" onSubmit={handleSubmit}>
+  <div className="level">
+    
+    <div className="level-left is-marginless">
+      <div className="level-item">
+        <p className="number">1</p>
+        Loan Amount
+      </div>
+    </div>
+    
+    <div className="level-right">
+      <div className="level-item">
+        <div className="field">
+          <div className="control has-icons-left ">
+            <input className="input" id="amount" type="number" onChange={handleAmountChange}/>
+            <span className="icon is-small is-left">
+              <i className="fa fa-dollar-sign"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div className="level">
+    
+    <div className="level-left is-marginless">
+      <div className="level-item">
+        <p className="number">2</p>
+        Interest Rate
+      </div>
+    </div>
+    
+    <div className="level-right">
+      <div className="level-item">
+        <div className="field">
+          <div className="control has-icons-right">
+            <input className="input" id="interest" type="number"  onChange={handleInterestChange}/>
+            <span className="icon is-small is-right">
+              <i className="fa fa-percentage"></i>
+              
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div className="level">
+   
+    <div className="level-left is-marginless">
+      <div className="level-item">
+        <p className="number">3</p>
+        Number Of Years
+      </div>
+    </div>
+    
+    <div className="level-right">
+      <div className="level-item">
+        <div className="field">
+          <div className="control has-icons-left">
+            <input className="input" id="years" type="number" onChange={handleYearsChange} />
+            <span className="icon is-small is-left">
+              <i className="fa fa-calendar"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div className="control">
+    <button
+      className="button is-large is-fullwidth is-primary is-outlined" type="submit"
+    >
+      Calculate
+    </button>
+  </div>
+</form>

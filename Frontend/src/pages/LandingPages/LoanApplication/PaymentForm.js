@@ -114,7 +114,7 @@ export default function PaymentForm({ onFormSubmit }) {
     
       <Grid container spacing={3}> 
         <Grid item xs={12} md={6}>
-        <TextField fullWidth label="First Name" id="fullWidth" name='first_name' 
+        <TextField fullWidth label="Prénom" id="fullWidth" name='first_name' 
         value={formData.first_name}
         onChange={(e)=>handleInputChange(e)}
         InputProps={{
@@ -128,7 +128,7 @@ export default function PaymentForm({ onFormSubmit }) {
         </Grid> 
 
         <Grid item xs={12} md={6}>
-        <TextField fullWidth label="Last Name" id="fullWidth"  name='last_name'
+        <TextField fullWidth label="Nom" id="fullWidth"  name='last_name'
         value={formData.last_name}
         onChange={(e)=>handleInputChange(e)}
         InputProps={{
@@ -159,7 +159,7 @@ export default function PaymentForm({ onFormSubmit }) {
         <TextField
  
   id="demo-helper-text-aligned"
-  label="AGE"
+  label="Age"
   name="person_age"
   value={formData.person_age}
   onChange={(e)=>handleInputChange(e)}
@@ -167,7 +167,7 @@ export default function PaymentForm({ onFormSubmit }) {
 <TextField
   
   id="demo-helper-text-aligned-no-helper"
-  label="CIN"
+  label="Numéro CIN"
   name='cin'
   value={formData.cin}
   onChange={(e)=>handleInputChange(e)}
@@ -175,7 +175,7 @@ export default function PaymentForm({ onFormSubmit }) {
         </Grid>  
        
         <Grid item xs={12} md={6}>
-        <TextField fullWidth label="Mobile Number" id="fullWidth"  name='num_tel'
+        <TextField fullWidth label="Numéro de téléphone" id="fullWidth"  name='num_tel'
         value={formData.num_tel}
        onChange={(e)=>handleInputChange(e)}
         InputProps={{
@@ -190,22 +190,22 @@ export default function PaymentForm({ onFormSubmit }) {
 
         <Grid item xs={12} md={6}>
         <FormControl>
- <FormLabel id="demo-row-radio-buttons-group-label">Marital Statas</FormLabel>
+ <FormLabel id="demo-row-radio-buttons-group-label">Situation Sociale</FormLabel>
  <RadioGroup
   row
   aria-labelledby="demo-row-radio-buttons-group-label"
-  name="marriage_status"
+  name='marriage_status'
   value={formData.marriage_status}
   onChange={(e)=>handleInputChange(e)}
  >
- <FormControlLabel value="married" control={<Radio />} label="Married" />
- <FormControlLabel value="single" control={<Radio />} label="Single" />
+ <FormControlLabel value="married" control={<Radio />} label="Marrié" />
+ <FormControlLabel value="single" control={<Radio />} label="Célibataire" />
  </RadioGroup>
 </FormControl>
 </Grid> 
          
 <Grid item xs={12} md={6}>
-<TextField fullWidth label="Present Job" id="fullWidth"  name='job' 
+<TextField fullWidth label="Profession" id="fullWidth"  name='job' 
 value={formData.job}  onChange={(e)=>handleInputChange(e)}
 InputProps={{
   startAdornment: (
@@ -218,13 +218,13 @@ InputProps={{
 </Grid>  
 
 <Grid item xs={12} md={6}>
-<TextField fullWidth label="Years in Current Job" id="fullWidth" name="person_emp_length"
+<TextField fullWidth label="Durée dans le poste actuel" id="fullWidth" name="person_emp_length"
 value={formData.person_emp_length} onChange={(e)=>handleInputChange(e)}
 /> 
 </Grid>  
 
 <Grid item xs={12} md={6}>
-<TextField fullWidth label="Present Adress" id="fullWidth"  name='adress' value={formData.adress} onChange={(e)=>handleInputChange(e)}
+<TextField fullWidth label="Adresse" id="fullWidth"  name='adress' value={formData.adress} onChange={(e)=>handleInputChange(e)}
 InputProps={{
   startAdornment: (
     <InputAdornment position="start">
@@ -244,8 +244,8 @@ InputProps={{
            onChange={(e)=>handleInputChange(e)}
             id="outlined-select-currency"
             select
-            label="Home Ownership"
-            helperText="Please select your Home ownership"
+            label="Propriété de la maison"
+            helperText="Veuillez sélectionner votre statut de propriété immobilière"
           >
           {currencies.map((option) => (
           <MenuItem key={option.value} value={option.value}>
@@ -263,7 +263,7 @@ InputProps={{
           name='region'
           value={formData.region}
            onChange={(e)=>handleInputChange(e)}
-          label="State"
+          label="État"
           id="outlined-start-adornment"
           sx={{ m:1,width: '20ch' }} 
           InputProps={{
@@ -279,7 +279,7 @@ InputProps={{
         name='city'
         value={formData.city}
           onChange={(e)=>handleInputChange(e)}
-  label="City"
+  label="Ville"
   id="outlined-start-adornment"
   sx={{ m:1, width: '20ch' }} 
   InputProps={{
@@ -294,7 +294,7 @@ InputProps={{
  name='code_postal'
  value={formData.code_postal}
   onChange={(e)=>handleInputChange(e)}
- label="Postal/Zip Code"
+ label="Code Postale"
  id="outlined-start-adornment"
  sx={{ m:1, width: '21ch' }}  
  InputProps={{
@@ -308,12 +308,12 @@ InputProps={{
 </Grid>
 
 
-        <Grid item xs={12}>
-          <FormControlLabel
-            control={<Checkbox color="secondary" name="saveCard" value="yes" />}
-            label="All informations given are correct"
-          />
-        </Grid>
+        
+        
+        
+        
+        
+        
         
       </Grid>
     </React.Fragment>
