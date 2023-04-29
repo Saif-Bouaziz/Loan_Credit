@@ -33,7 +33,36 @@ import base64
 
 with open('final_XGBmodel.pkl', 'rb') as f:
     model = pickle.load(f)
+    
+def update_nb_email(request,id):
+    demande=Demande.objects.using('credit').get(DemandeId=id)
+    email=demande.email
+    user=UserAccount.objects.using('users').get(email=email)
+    user.nb_mail +=1
+    user.save()
+    return JsonResponse({'success': True, 'message': 'nbr mail incrémenté '})                   
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_nb_email(request):
+    user_co=request.user
+    user=UserAccount.objects.using('users').get(email=user_co.email)
+    nbr=user.nb_mail
+    return JsonResponse({'nbr':nbr})  
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def reset_nb_email(request):
+    if request.method=='POST':
+        user_co=request.user
+        user=UserAccount.objects.using('users').get(email=user_co.email) 
+        user.nb_mail=0
+        user.save()  
+        return JsonResponse({'success': True, 'message':'Pas de nouveaux mails','nbr':0})
+    return JsonResponse("Failed to Reset")
+             
+
+    
 
 def demandeApi(request,id=0):
             if request.method=='GET':
@@ -43,7 +72,6 @@ def demandeApi(request,id=0):
             elif request.method=='PATCH':
                 demande=Demande.objects.get(DemandeId=id)
                 demande_serializer=DemandeSerializer(demande,data=JSONParser().parse(request),partial=True)
-                
                 if demande_serializer.is_valid():
                     demande_serializer.save()
                     if  demande.status=='acceptée':
@@ -55,20 +83,12 @@ def demandeApi(request,id=0):
                     if credit_exists and  demande.status=='refusée' :
                         credit_err=Credit.objects.filter(demande=demande)
                         credit_err.delete()
-<<<<<<< HEAD
-                        return JsonResponse({'success': True, 'message': 'Crédit supprimé !! '})
-
-                    return JsonResponse("Updated Successfully!", safe=False)
-                return JsonResponse("Failed to Update", safe=False)
-
-=======
-                        return JsonResponse({'success': True, 'message': 'Crédit supprimé !! '}) 
-                    return JsonResponse("Updated Successfully!", safe=False)
+                        return JsonResponse({'success': True, 'message': 'Crédit supprimé !! '})                   
+                    return JsonResponse({'message':"Updated Successfully!"}, safe=False)
                 return JsonResponse("Failed to Update", safe=False)
 
 
 
->>>>>>> master
 def create_demande(request):
         if request.method == 'POST':
             #user= request.user
@@ -164,7 +184,7 @@ def get_demande(request):
     data = Demande.objects.filter(decision="Accepted").values("DemandeId", "ClientId","first_name","last_name","person_age",
                                   "person_emp_length","person_home_ownership","loan_intent",
                                   "loan_amnt","loan_percent_income","loan_int_rate",
-                                  "loan_grade","person_income","status","created","prediction")
+                                  "loan_grade","person_income","status","created","prediction","email")
     return JsonResponse(list(data), safe=False)
 
 
@@ -340,7 +360,7 @@ def delete_user(request, id_user):
     
 def get_credits(request):
     data = Credit.objects.values("IdCredit","montant_principal","montant_restant","taux","mensualite","demande__last_name","demande__first_name",
-                                 "demande__person_income","demande__loan_intent","demande__loan_percent_income")
+                                 "demande__person_income","demande__loan_intent","demande__loan_percent_income","demande__email","demande__DemandeId")
     return JsonResponse(list(data), safe=False)
 
 def delete_credit(request,id_credit):
@@ -400,6 +420,7 @@ def credit_count_date(request):
         counts_dict[date_string] = count
     return JsonResponse(counts_dict)
 
+
 from django.core.files.storage import default_storage
 from django.conf import settings
 
@@ -418,6 +439,7 @@ def display_image(request):
     image=banquier.image
     return JsonResponse({'success': True, 'message': 'opération faite avec succes', 'image':image},safe=False)
 
+    
 
 
 
