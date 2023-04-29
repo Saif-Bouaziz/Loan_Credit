@@ -55,20 +55,12 @@ def demandeApi(request,id=0):
                     if credit_exists and  demande.status=='refusée' :
                         credit_err=Credit.objects.filter(demande=demande)
                         credit_err.delete()
-<<<<<<< HEAD
-                        return JsonResponse({'success': True, 'message': 'Crédit supprimé !! '})
-
-                    return JsonResponse("Updated Successfully!", safe=False)
-                return JsonResponse("Failed to Update", safe=False)
-
-=======
                         return JsonResponse({'success': True, 'message': 'Crédit supprimé !! '}) 
                     return JsonResponse("Updated Successfully!", safe=False)
                 return JsonResponse("Failed to Update", safe=False)
 
 
 
->>>>>>> master
 def create_demande(request):
         if request.method == 'POST':
             #user= request.user

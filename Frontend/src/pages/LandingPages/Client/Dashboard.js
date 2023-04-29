@@ -25,10 +25,6 @@ import { useEffect, useState } from 'react';
 import axios from 'axios'; 
 import Title from './Title'; 
 import Depositss from './Depositss'; 
-import {
-  PieSeries,
-} from '@devexpress/dx-react-chart-material-ui';
-import { Animation } from '@devexpress/dx-react-chart'; 
 import Demo from './Graphe'; 
 import DefaultNavbar from 'examples/Navbars/DefaultNavbar'; 
 import routes from 'routes'; 

@@ -16,11 +16,7 @@ import PaymentForm from './PaymentForm';
 import Review from './Review';
 import axios from 'axios'
 
-<<<<<<< HEAD
-const steps = ['Informations personelles', 'Informations sur le crédit', 'Documents Upload'];
-=======
-const steps = ['Personal Details', 'Loan Details and Documents Upload'];
->>>>>>> master
+const steps = ['Informations Personelles ', 'Informations sur le crédit'];
 
 
 
@@ -123,7 +119,7 @@ export default function Checkout() {
                   onClick={activeStep === steps.length - 1 ? handleFormSubmit : handleNext}
                   sx={{ mt: 3, ml: 1 }}
                 >
-                  {activeStep === steps.length - 1 ? 'Place' : 'Suivant'}
+                  {activeStep === steps.length - 1 ? 'Placer' : 'Suivant'}
                 </Button>
 
               </Box>
