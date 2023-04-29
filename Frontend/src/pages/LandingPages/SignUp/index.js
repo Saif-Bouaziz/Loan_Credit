@@ -33,7 +33,7 @@ import DefaultNavbar from "examples/Navbars/DefaultNavbar";
 import routes from "routes";
 
 // Images
-import bgImage from "assets/images/bg-sign-in-basic.jpeg";
+import bgImage from "assets/images/abc.jpg";
 
 function SignUp({isAuthenticated}) { 
   
@@ -115,7 +115,7 @@ if (isAuthenticated) {
                 textAlign="center"
               >
                 <MKTypography variant="h4" fontWeight="medium" color="white" mt={1}>
-                  Sign Up
+                  S'inscrire
                 </MKTypography>
                 <Grid container spacing={3} justifyContent="center" sx={{ mt: 1, mb: 2 }}>
                   <Grid item xs={2}>
@@ -138,7 +138,7 @@ if (isAuthenticated) {
               <MKBox pt={4} pb={3} px={3}>
                 <MKBox component="form" role="form" > 
                 <MKBox mb={2}>
-                  <MKInput type="text" label="name" fullWidth name='name' onChange={handleChange}
+                  <MKInput type="text" label="Nom" fullWidth name='name' onChange={handleChange}
 
                   required/>
 
@@ -156,7 +156,7 @@ if (isAuthenticated) {
                      
                   </MKBox> 
                   <MKBox mb={2}>
-                    <MKInput type="password" label="Password" fullWidth name="password" 
+                    <MKInput type="password" label="Mot de Passe" fullWidth name="password" 
                         						onChange={handleChange}
                                   
                         required/>
@@ -164,12 +164,12 @@ if (isAuthenticated) {
 
                   <MKBox mt={4} mb={1}>
                     <MKButton variant="gradient" color="info" fullWidth onClick={handleSubmit} >
-                      sign Up
+                      S'inscrire
                     </MKButton>
                   </MKBox>
                   <MKBox mt={3} mb={1} textAlign="center">
                     <MKTypography variant="button" color="text">
-                      have an account?{" "}
+                    Avez-vous un compte ?{" "}
                       <MKTypography
                         component={Link}
                         to="/register"
@@ -178,7 +178,7 @@ if (isAuthenticated) {
                         fontWeight="medium"
                         textGradient
                       >
-                        Sign in
+                        Se connecter
                       </MKTypography> 
                     </MKTypography>  
                     </MKBox> 

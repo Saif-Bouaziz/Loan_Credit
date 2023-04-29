@@ -16,7 +16,7 @@ import PaymentForm from './PaymentForm';
 import Review from './Review';
 import axios from 'axios'
 
-const steps = ['Personal Details', 'Loan Details and Documents Upload'];
+const steps = ['Informations Personelles ', 'Informations sur le crédit'];
 
 
 
@@ -83,8 +83,8 @@ export default function Checkout() {
       <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
           <Typography component="h1" variant="h5" align="center">
-            Thank you for filling this form
-          </Typography>
+          Merci de remplir ce formulaire.
+</Typography>
           <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
             {steps.map((label) => (
               <Step key={label}>
@@ -109,7 +109,7 @@ export default function Checkout() {
               <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                 {activeStep !== 0 && (
                   <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
-                    Back
+                    Retour
                   </Button>
                 )}
 
@@ -119,7 +119,7 @@ export default function Checkout() {
                   onClick={activeStep === steps.length - 1 ? handleFormSubmit : handleNext}
                   sx={{ mt: 3, ml: 1 }}
                 >
-                  {activeStep === steps.length - 1 ? 'Place' : 'Next'}
+                  {activeStep === steps.length - 1 ? 'Placer' : 'Suivant'}
                 </Button>
 
               </Box>

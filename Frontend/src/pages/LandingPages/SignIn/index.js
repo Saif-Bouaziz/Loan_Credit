@@ -32,7 +32,7 @@ import DefaultNavbar from "examples/Navbars/DefaultNavbar";
 import routes from "routes";
 
 // Images
-import bgImage from "assets/images/bg-sign-in-basic.jpeg";
+import bgImage from "assets/images/abc.jpg";
 
 function SignInBasic({login,isAuthenticated}) { 
   const [formData, setFormData] = useState({
@@ -50,7 +50,7 @@ const onSubmit = e => {
     login(email, password);
 }; 
 if (isAuthenticated) {
-  return <Navigate to='/' />
+  return <Navigate to='/dashboardC' />
 }
   return (
     <>
@@ -93,7 +93,7 @@ if (isAuthenticated) {
                 textAlign="center"
               >
                 <MKTypography variant="h4" fontWeight="medium" color="white" mt={1}>
-                  Sign in
+                  Se connecter
                 </MKTypography>
                 <Grid container spacing={3} justifyContent="center" sx={{ mt: 1, mb: 2 }}>
                   <Grid item xs={2}>
@@ -123,18 +123,18 @@ if (isAuthenticated) {
                      
                   </MKBox> 
                   <MKBox mb={2}>
-                    <MKInput type="password" label="Password" fullWidth name="password" value={password}
+                    <MKInput type="password" label="Mot de passe" fullWidth name="password" value={password}
                         onChange={e => onChange(e)}
                         required/>
                   </MKBox> 
                   <MKBox mt={4} mb={1}>
                     <MKButton variant="gradient" color="info" fullWidth type='submit' >
-                      sign in
+                      Se connecter
                     </MKButton>
                   </MKBox>
                   <MKBox mt={3} mb={1} textAlign="center">
                     <MKTypography variant="button" color="text">
-                      dont have an account?{" "}
+                    Vous n'avez pas de compte ?{" "}
                       <MKTypography
                         component={Link}
                         to="/SignUp"
@@ -143,16 +143,10 @@ if (isAuthenticated) {
                         fontWeight="medium"
                         textGradient
                       >
-                        Sign up
+                        S'inscrire
                       </MKTypography> 
                     </MKTypography>  
                     </MKBox> 
-                  <MKBox mt={3} mb={1} textAlign="center" >
-                    <MKTypography  color="text">
-                      Forgot Your Password ??{" "} 
-                      <Link to='/reset-password' >Reset Password</Link>
-                    </MKTypography>
-                  </MKBox>
                   
                 </MKBox>
               </MKBox>
