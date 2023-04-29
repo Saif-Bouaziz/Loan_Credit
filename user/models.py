@@ -44,6 +44,9 @@ class UserAccountManager(BaseUserManager):
 
         return user
 
+def upload_to(instance, filename):
+    return 'images/{filename}'.format(filename=filename)
+
 
 class UserAccount(AbstractBaseUser, PermissionsMixin):
    
@@ -56,7 +59,7 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     is_agent=models.BooleanField(default=False) 
     date_inscription = models.DateTimeField(default=timezone.now)
     image=models.TextField(null=True)
-
+    picture=models.ImageField(upload_to="picture/",blank=True,null=True)
 
     
 

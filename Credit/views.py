@@ -21,7 +21,7 @@ from rest_framework.permissions import BasePermission
 
 from django.shortcuts import render
 from rest_framework.parsers import JSONParser
-
+from django.core.mail import send_mail
 
 import numpy as np
 import pickle
@@ -55,16 +55,26 @@ def demandeApi(request,id=0):
                     if credit_exists and  demande.status=='refusée' :
                         credit_err=Credit.objects.filter(demande=demande)
                         credit_err.delete()
+<<<<<<< HEAD
+                        return JsonResponse({'success': True, 'message': 'Crédit supprimé !! '})
+
+                    return JsonResponse("Updated Successfully!", safe=False)
+                return JsonResponse("Failed to Update", safe=False)
+
+=======
                         return JsonResponse({'success': True, 'message': 'Crédit supprimé !! '}) 
                     return JsonResponse("Updated Successfully!", safe=False)
                 return JsonResponse("Failed to Update", safe=False)
 
 
 
+>>>>>>> master
 def create_demande(request):
         if request.method == 'POST':
             #user= request.user
-            #ClientId=user.id
+            #email=user.email
+            #client=UserAccount.objects.get(email=email)
+            #ClientId=client.id
             ClientId=1
             data = json.loads(request.body)
             address_form_data = data['addressFormData']
@@ -390,19 +400,23 @@ def credit_count_date(request):
         counts_dict[date_string] = count
     return JsonResponse(counts_dict)
 
-def upload_image(request):
-        image_file = request.FILES.get('image')
-
-        if not image_file:
-            return JsonResponse({'success': False, 'message': 'pas d''image lue !'})
-
-        user = UserAccount.objects.get(is_banquier=True)
-        user.image = image_file
-        user.save()
-
-        return JsonResponse({'success': True, 'message': 'opération faite avec succes','image':image_file})
+from django.core.files.storage import default_storage
+from django.conf import settings
 
 
+def upload_picture(request):
+    picture = request.FILES['picture']
+    filename = default_storage.save('picture/' + picture.name, picture)
+    picture_url = settings.MEDIA_URL + filename
+    banquier=UserAccount.objects.get(is_banquier=True)
+    banquier.image = picture_url
+    banquier.save()
+    return JsonResponse({'success': True, 'message': 'opération faite avec succes', 'picture': picture_url})
+
+def display_image(request):
+    banquier=UserAccount.objects.get(is_banquier=True)
+    image=banquier.image
+    return JsonResponse({'success': True, 'message': 'opération faite avec succes', 'image':image},safe=False)
 
 
 

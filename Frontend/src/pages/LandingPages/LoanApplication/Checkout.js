@@ -16,7 +16,11 @@ import PaymentForm from './PaymentForm';
 import Review from './Review';
 import axios from 'axios'
 
+<<<<<<< HEAD
 const steps = ['Informations personelles', 'Informations sur le crédit', 'Documents Upload'];
+=======
+const steps = ['Personal Details', 'Loan Details and Documents Upload'];
+>>>>>>> master
 
 
 
@@ -48,8 +52,6 @@ export default function Checkout() {
         return <PaymentForm onFormSubmit={handlePaymentFormSubmit} />;
       case 1:
         return <AddressForm onFormSubmit={handleAddressFormSubmit} />;
-      case 2:
-        return <Review />;
       default:
         throw new Error('Unknown step');
     }

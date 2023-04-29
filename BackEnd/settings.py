@@ -175,7 +175,7 @@ STATICFILES_DIRS = [
 ]
 
 MEDIA_URL='/media/' 
-MEDIA_ROOT=os.path.join(BASE_DIR,'media')
+MEDIA_ROOT=os.path.join(BASE_DIR,'Frontend','src','media')
 
 REST_FRAMEWORK={  
     'DEFAULT_PERMISSION_CLASSES': (
@@ -224,3 +224,13 @@ DJOSER = {
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL='user.UserAccount'
+
+
+DEBUG= True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'pcd8880@gmail.com'
+EMAIL_HOST_PASSWORD = "pcd12345678"
+ALLOWED_HOSTS = []
