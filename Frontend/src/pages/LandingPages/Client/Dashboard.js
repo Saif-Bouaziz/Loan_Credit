@@ -30,6 +30,7 @@ import DefaultNavbar from 'examples/Navbars/DefaultNavbar';
 import routes from 'routes'; 
 import App from './graphee'; 
 import { connect } from "react-redux"; 
+import Mail from 'scenes/cards/mail';
 
 
 
@@ -291,7 +292,12 @@ useEffect(() => {
       </div>
     </section>    
     </div>  
-    <div style={{ width:"10000px",display: 'flex',flexDirection: 'row', marginTop:'30px'}} >
+    <div style={{ display: 'flex',flexDirection: 'row', marginTop:'30px', justifyContent: 'space-between'}} >
+    <div style={{ flex: 1 }}>
+        <Mail />
+      </div>
+      <div style={{ flex: 1 , marginLeft: 20 }}>
+
     <Grid item xs={12} md={4} lg={5}>
       <Paper
         sx={{
@@ -299,15 +305,18 @@ useEffect(() => {
           display: 'flex', 
           flexDirection: 'column',
           height: 240,
+          width:200,
         }}
       >
         <Depositss />
+           
+
       </Paper>
     </Grid>
+    </div>
+    </div>
   </div> 
-  
 
-    </div>  
     <hr />
     <Demo />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
