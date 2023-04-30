@@ -17,6 +17,8 @@ urlpatterns = [
 from django.urls import path
 from .views import RegisterView #, RetrieveUserView
 #from .views import AllUsersView , AllBankersView 
+from user import views
+
 
 
 
@@ -26,6 +28,8 @@ urlpatterns = [
     #path('me', RetrieveUserView.as_view()), 
     #path('allusers/', AllUsersView.as_view()),  
     #path('allBankers/', AllBankersView.as_view()), 
+    path('getall',views.userAPI),
+
 
     
 ]

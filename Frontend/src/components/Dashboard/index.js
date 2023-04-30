@@ -6,7 +6,7 @@ import emailjs from '@emailjs/browser'
 
 const Dashboard = () => {
   const [datas, setDatas] = React.useState([]);
-  const [agent, setAgent] = React.useState(true);
+  const [agent, setAgent] = React.useState(false);
 
   const [selectedDemande, setSelectedDemande] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -20,12 +20,12 @@ const Dashboard = () => {
         'Accept': 'application/json'
       }
     };
-    /*
+
     Axios.get('http://127.0.0.1:8000/auth/users/me', config).then((response) => {
       console.log(response.data.is_agent)
       setAgent(response.data.is_agent)
-    });  
-    */
+    });
+
 
     Axios.get('http://127.0.0.1:8000/credit/demandeApi').then((response) => {
       setDatas(response.data)
@@ -41,11 +41,15 @@ const Dashboard = () => {
     setIsEditing(true);
   };
 
-  
+
   return (
     <div className="container">
-      
-      {!isEditing && (
+      {!agent && (
+        <div>
+          <h1>Vous n'êtes pas un agent</h1>
+        </div>
+      )}
+      {agent && !isEditing && (
         <div>
           <br />
           <Table
@@ -60,6 +64,7 @@ const Dashboard = () => {
         <Edit
           selectedDemande={selectedDemande}
           setIsEditing={setIsEditing}
+
         />)}
 
     </div>

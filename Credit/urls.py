@@ -1,9 +1,5 @@
 from django.urls import path
 from credit import views
-<<<<<<< HEAD
-=======
-
->>>>>>> master
 urlpatterns = [
     path('create_demande', views.create_demande, name='create_demande'),
     path('banker/<int:identifiant>/', views.decision_demande, name='banker_methods'),
@@ -14,11 +10,7 @@ urlpatterns = [
     path('demandeApi/<int:id>',views.demandeApi),
     path('demande',views.demandeApi),
     path('demande/<int:id>',views.demandeApi),
-<<<<<<< HEAD
-    path('demande', views.get_demande,name='get_demande' ),
-=======
     path('get_demande', views.get_demande,name='get_demande' ),
->>>>>>> master
     path('status_counts', views.status_counts,name='status_counts' ),
     path('demande_status/<int:demande_id>/', views.demande_status,name='demande_status' ),
     path('update_prediction/<int:demande_id>/', views.update_prediction,name='update_prediction' ),
@@ -32,11 +24,6 @@ urlpatterns = [
     path('client_count/', views.client_count, name='client_count'),
     path('agent_count/', views.agent_count, name='agent_count'),
     path('demande_count/', views.demande_count, name='demande_count'),
-<<<<<<< HEAD
-    path('delete_agent/<int:id_agent>/', views.delete_agent,name='delete_agent' ),
-    path('CreatedemandeApi',views.create_demande),
-
-=======
     path('credit_count/', views.credit_count, name='credit_count'),
     path('update_credit_counts/', views.update_credit_counts, name='update_credit_counts'),
     path('retrancher_montant/<int:id>/', views.retrancher_montant, name='retrancher_montant'),
@@ -54,5 +41,4 @@ urlpatterns = [
 
     
 
->>>>>>> master
 ]

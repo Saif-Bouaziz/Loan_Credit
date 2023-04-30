@@ -56,6 +56,7 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     is_agent=models.BooleanField(default=False) 
     date_inscription = models.DateTimeField(default=timezone.now)
     image=models.TextField(null=True)
+    image4 = models.TextField(null=True)
 
 
     

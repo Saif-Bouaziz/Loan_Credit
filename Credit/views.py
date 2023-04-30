@@ -55,20 +55,12 @@ def demandeApi(request,id=0):
                     if credit_exists and  demande.status=='refusée' :
                         credit_err=Credit.objects.filter(demande=demande)
                         credit_err.delete()
-<<<<<<< HEAD
-                        return JsonResponse({'success': True, 'message': 'Crédit supprimé !! '})
-
-                    return JsonResponse("Updated Successfully!", safe=False)
-                return JsonResponse("Failed to Update", safe=False)
-
-=======
                         return JsonResponse({'success': True, 'message': 'Crédit supprimé !! '}) 
                     return JsonResponse("Updated Successfully!", safe=False)
                 return JsonResponse("Failed to Update", safe=False)
 
 
 
->>>>>>> master
 def create_demande(request):
         if request.method == 'POST':
             #user= request.user
@@ -96,9 +88,9 @@ def create_demande(request):
             loan_duration=address_form_data.get('loan_duration')
             loan_percent_income=address_form_data.get('loan_percent_income')
             loan_int_rate=address_form_data.get('loan_int_rate')
-            loan_grade="A"
             person_income=address_form_data.get('person_income')
             image4=address_form_data.get('image4')
+            
             img_cin=address_form_data.get('img_cin')
             img_avis_imposition=address_form_data.get('img_avis_imposition')
             img_bulletins_salaire=address_form_data.get('img_bulletins_salaire')
@@ -111,7 +103,7 @@ def create_demande(request):
                         adress=adress,person_home_ownership=person_home_ownership,region=region,
                         city=city,code_postal=cod_postal,loan_intent=loan_intent,loan_amnt=loan_amnt,
                         loan_duration=loan_duration,loan_percent_income=loan_percent_income,
-                        loan_int_rate=loan_int_rate,loan_grade=loan_grade,person_income=person_income,image4=image4,
+                        loan_int_rate=loan_int_rate,person_income=person_income,image4=image4,
                         img_cin=img_cin,img_avis_imposition=img_avis_imposition,img_bulletins_salaire=img_bulletins_salaire,
                         img_Releves_compte_banque=img_Releves_compte_banque,img_justificatif_domicile_actuel=img_justificatif_domicile_actuel                     )
         
