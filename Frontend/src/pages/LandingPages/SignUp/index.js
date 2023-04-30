@@ -137,9 +137,6 @@ function SignUp({ isAuthenticated }) {
                 </Grid>
               </MKBox>
               <MKBox pt={4} pb={3} px={3}>
-<<<<<<< HEAD
-                <MKBox component="form" role="form" >
-=======
                 <MKBox component="form" role="form" > 
                 <MKBox mb={2}>
                   <MKInput type="text" label="Nom" fullWidth name='name' onChange={handleChange}
@@ -151,7 +148,6 @@ function SignUp({ isAuthenticated }) {
                   
                   
                   
->>>>>>> master
                   <MKBox mb={2}>
                     <MKInput type="text" label="name" fullWidth name='name' onChange={handleChange}
 
@@ -163,27 +159,11 @@ function SignUp({ isAuthenticated }) {
 
 
                   <MKBox mb={2}>
-<<<<<<< HEAD
-                    <MKInput type="email" label="Email" fullWidth name='email'
-                      onChange={handleChange}
-
-                      required />
-
-
-                  </MKBox>
-                  <MKBox mb={2}>
-                    <MKInput type="password" label="Password" fullWidth name="password"
-                      onChange={handleChange}
-
-                      required />
-                  </MKBox>
-=======
                     <MKInput type="password" label="Mot de Passe" fullWidth name="password" 
                         						onChange={handleChange}
                                   
                         required/>
                   </MKBox>  
->>>>>>> master
 
                   <MKBox mt={4} mb={1}>
                     <MKButton variant="gradient" color="info" fullWidth onClick={handleSubmit} >
@@ -201,19 +181,11 @@ function SignUp({ isAuthenticated }) {
                         fontWeight="medium"
                         textGradient
                       >
-<<<<<<< HEAD
-                        Sign in
-                      </MKTypography>
-                    </MKTypography>
-                  </MKBox>
-
-=======
                         Se connecter
                       </MKTypography> 
                     </MKTypography>  
                     </MKBox> 
                   
->>>>>>> master
                 </MKBox>
               </MKBox>
             </Card>
