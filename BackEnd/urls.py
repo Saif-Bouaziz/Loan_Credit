@@ -6,6 +6,7 @@ from . import views
 from django.conf import settings
 from django.conf.urls.static import static
 
+
 urlpatterns = [ 
     path('api/token/', TokenObtainPairView.as_view()),
     path('api/token/refresh/', TokenRefreshView.as_view()),

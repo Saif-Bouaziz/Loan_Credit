@@ -1,18 +1,43 @@
 import React, { useState, useEffect } from 'react';
+import i18n from 'i18next';
+i18n.init({
+  lng: 'en',
+  resources: {
+    en: {
+      translation: {
+        'Hello': 'Hello',
+        'Welcome to my app': 'Welcome to my app',
+        'PERSONAL': 'PERSONAL',
+        'EDUCATION': 'EDUCATION',
+        'MEDICAL': 'MEDICAL',
+        'VENTURE': 'VENTURE',
+        'DEBT CONSOLIDATION': 'DEBT CONSOLIDATION',
+        'OTHER': 'OTHER',
+
+      }
+    },
+    fr: {
+      translation: {
+        'Hello': 'Bonjour',
+        'Welcome to my app': 'Bienvenue dans mon application',
+        'PERSONAL': 'PERSONNEL',
+        'EDUCATION': 'EDUCATION',
+        'MEDICAL': 'MEDICAL',
+        'VENTURE': 'ENTREPRISE',
+        'DEBT CONSOLIDATION': 'CONSOLIDATION DE DETTE',
+        'OTHER': 'AUTRE',
+
+      }
+    }
+  }
+});
+i18n.changeLanguage('fr');
+
 
 const Table = ({ demandes, handleEdit }) => {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [filterTerm, setFilterTerm] = useState("");
-
-
-
-  const formatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: null,
-  });
-
 
   const handleSearchTerm = (e) => {
     let value = e.target.value;
@@ -72,15 +97,15 @@ const Table = ({ demandes, handleEdit }) => {
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
         <button className="button muted-button" value={"accepted"} onClick={one} style={{ backgroundColor: active1 ? "#ccc" : null }}>
-          Acceptées
+          Validées
         </button>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <button className="button muted-button" value={"refused"} onClick={two} style={{ backgroundColor: active2 ? "#ccc" : null }}>
-          Refusées
+          Non validées
         </button>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <button className="button muted-button" value={"notyet"} onClick={three} style={{ backgroundColor: active3 ? "#ccc" : null }}>
-          Pas de décision
+          Non lus
         </button>
 
 
@@ -108,8 +133,9 @@ const Table = ({ demandes, handleEdit }) => {
               <th>Nom</th>
               <th>Email</th>
               <th>Salaire</th>
-              <th>objectif du prêt</th>
-              <th>montant du prêt</th>
+              <th>Objectif du prêt</th>
+              <th>Montant du prêt</th>
+              <th>Validation</th>
 
             </tr>
           </thead>
@@ -130,9 +156,15 @@ const Table = ({ demandes, handleEdit }) => {
                     <td>{val.first_name}</td>
                     <td>{val.last_name}</td>
                     <td>{val.email}</td>
-                    <td>{formatter.format(val.person_income)}</td>
-                    <td>{val.loan_intent} </td>
+                    <td>{val.person_income}</td>
+                    <td>
+                      {i18n.t(val.loan_intent)}
+
+
+                    </td>
                     <td>{val.loan_amnt} </td>
+                    <td>{val.decision}</td>
+
                     <td className="text-right">
                       <button
                         onClick={() => handleEdit(val.DemandeId)}

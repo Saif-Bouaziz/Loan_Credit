@@ -33,7 +33,7 @@ import Counters from "pages/Presentation/sections/Counters";
 import Information from "pages/Presentation/sections/Information";
 import Pages from "pages/Presentation/sections/Pages";
 import Download from "pages/Presentation/sections/Download";
-
+import Navbar from "../../Navbar"
 // Presentation page components
 import BuiltByDevelopers from "pages/Presentation/components/BuiltByDevelopers";
 
