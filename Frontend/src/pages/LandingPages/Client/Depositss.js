@@ -49,7 +49,7 @@ export default function Depositss() {
     .filter(data => data.demande__first_name === client.name)
     .reduce((total, data) => total + data.montant_restant, 0)}
 </Typography>
-      
+
 
 <Typography color="text.secondary" sx={{ flex: 1 }}> 
 

@@ -33,7 +33,36 @@ import base64
 
 with open('final_XGBmodel.pkl', 'rb') as f:
     model = pickle.load(f)
+    
+def update_nb_email(request,id):
+    demande=Demande.objects.using('credit').get(DemandeId=id)
+    email=demande.email
+    user=UserAccount.objects.using('users').get(email=email)
+    user.nb_mail +=1
+    user.save()
+    return JsonResponse({'success': True, 'message': 'nbr mail incrémenté '})                   
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_nb_email(request):
+    user_co=request.user
+    user=UserAccount.objects.using('users').get(email=user_co.email)
+    nbr=user.nb_mail
+    return JsonResponse({'nbr':nbr})  
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def reset_nb_email(request):
+    if request.method=='POST':
+        user_co=request.user
+        user=UserAccount.objects.using('users').get(email=user_co.email) 
+        user.nb_mail=0
+        user.save()  
+        return JsonResponse({'success': True, 'message':'Pas de nouveaux mails','nbr':0})
+    return JsonResponse("Failed to Reset")
+             
+
+    
 
 def demandeApi(request,id=0):
             if request.method=='GET':
@@ -43,7 +72,6 @@ def demandeApi(request,id=0):
             elif request.method=='PATCH':
                 demande=Demande.objects.get(DemandeId=id)
                 demande_serializer=DemandeSerializer(demande,data=JSONParser().parse(request),partial=True)
-                
                 if demande_serializer.is_valid():
                     demande_serializer.save()
                     if  demande.status=='acceptée':
@@ -90,9 +118,9 @@ def create_demande(request):
             loan_duration=address_form_data.get('loan_duration')
             loan_percent_income=address_form_data.get('loan_percent_income')
             loan_int_rate=address_form_data.get('loan_int_rate')
-            loan_grade="A"
             person_income=address_form_data.get('person_income')
             image4=address_form_data.get('image4')
+            
             img_cin=address_form_data.get('img_cin')
             img_avis_imposition=address_form_data.get('img_avis_imposition')
             img_bulletins_salaire=address_form_data.get('img_bulletins_salaire')
@@ -105,7 +133,7 @@ def create_demande(request):
                         adress=adress,person_home_ownership=person_home_ownership,region=region,
                         city=city,code_postal=cod_postal,loan_intent=loan_intent,loan_amnt=loan_amnt,
                         loan_duration=loan_duration,loan_percent_income=loan_percent_income,
-                        loan_int_rate=loan_int_rate,loan_grade=loan_grade,person_income=person_income,image4=image4,
+                        loan_int_rate=loan_int_rate,person_income=person_income,image4=image4,
                         img_cin=img_cin,img_avis_imposition=img_avis_imposition,img_bulletins_salaire=img_bulletins_salaire,
                         img_Releves_compte_banque=img_Releves_compte_banque,img_justificatif_domicile_actuel=img_justificatif_domicile_actuel                     )
         
@@ -156,7 +184,7 @@ def get_demande(request):
     data = Demande.objects.filter(decision="Accepted").values("DemandeId", "ClientId","first_name","last_name","person_age",
                                   "person_emp_length","person_home_ownership","loan_intent",
                                   "loan_amnt","loan_percent_income","loan_int_rate",
-                                  "loan_grade","person_income","status","created","prediction")
+                                  "loan_grade","person_income","status","created","prediction","email")
     return JsonResponse(list(data), safe=False)
 
 
@@ -332,7 +360,7 @@ def delete_user(request, id_user):
     
 def get_credits(request):
     data = Credit.objects.values("IdCredit","montant_principal","montant_restant","taux","mensualite","demande__last_name","demande__first_name",
-                                 "demande__person_income","demande__loan_intent","demande__loan_percent_income")
+                                 "demande__person_income","demande__loan_intent","demande__loan_percent_income","demande__email","demande__DemandeId")
     return JsonResponse(list(data), safe=False)
 
 def delete_credit(request,id_credit):
@@ -392,6 +420,7 @@ def credit_count_date(request):
         counts_dict[date_string] = count
     return JsonResponse(counts_dict)
 
+
 from django.core.files.storage import default_storage
 from django.conf import settings
 
@@ -410,6 +439,7 @@ def display_image(request):
     image=banquier.image
     return JsonResponse({'success': True, 'message': 'opération faite avec succes', 'image':image},safe=False)
 
+    
 
 
 

@@ -1,25 +1,13 @@
 import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
-import { mockTransactions } from "../../data/mockData";
-import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
-import EmailIcon from "@mui/icons-material/Email";
-import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import TrafficIcon from "@mui/icons-material/Traffic";
+
 import Header from "../../components/Header";
-import LineChart from "../../components/LineChart";
-import GeographyChart from "../../components/GeographyChart";
-import BarChart from "../../components/BarChart";
-import StatBox from "../../components/StatBox";
-import ProgressCircle from "../../components/ProgressCircle";
+
 import { useState, useEffect } from 'react'
 import axios from "axios";
 import Chart from "../../components/BarChart";
 import CreditChart from "../../components/LineChart";
-import {PeopleAlt} from "@mui/icons-material";
-import InterpreterModeIcon from '@mui/icons-material/InterpreterMode';
-import PriceCheckIcon from '@mui/icons-material/PriceCheck';
-import CreditScoreIcon from '@mui/icons-material/CreditScore';
+
 import Card from "scenes/cards/Card";
 
 
@@ -85,7 +73,7 @@ const Dashboard = () => {
         gridAutoRows="140px"
         gap="20px"
       >
-        
+
 
         {/* ROW 2 */}
 
@@ -107,7 +95,7 @@ const Dashboard = () => {
               Dernières demandes non traitées
             </Typography>
           </Box>
-          {demandes.map((demande,i) => (
+          {demandes.map((demande, i) => (
             <Box
               key={`${demande.DemandeId}-${i}`}
               display="flex"
@@ -125,7 +113,7 @@ const Dashboard = () => {
                   {demande.DemandeId}
                 </Typography>
                 <Typography color={colors.grey[100]}>
-                  {[demande.first_name," ",demande.last_name]}
+                  {[demande.first_name, " ", demande.last_name]}
                 </Typography>
               </Box>
               <Box color={colors.grey[100]}>{demande.status}</Box>
@@ -155,8 +143,8 @@ const Dashboard = () => {
             Répartition des demandes
           </Typography>
           <Box height="250px" mt="-20px">
-          {demandeCounts && <Chart data={[demandeCounts]} />}
-           </Box>
+            {demandeCounts && <Chart data={[demandeCounts]} />}
+          </Box>
         </Box>
 
         <Box
@@ -172,8 +160,8 @@ const Dashboard = () => {
             Evolution des credits
           </Typography>
           <Box height="250px" mt="-20px">
-           <CreditChart data={creditCounts} />
-           </Box>
+            <CreditChart data={creditCounts} />
+          </Box>
         </Box>
       </Box>
     </Box>

@@ -2,10 +2,10 @@
 import { useState } from "react";
 
 // react-router-dom components
-import { Link } from "react-router-dom"; 
-import { connect } from "react-redux"; 
-import { signup } from "actions/auth"; 
-import { Navigate } from 'react-router-dom'; 
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { signup } from "actions/auth";
+import { Navigate } from 'react-router-dom';
 import axios from "axios";
 
 
@@ -35,45 +35,46 @@ import routes from "routes";
 // Images
 import bgImage from "assets/images/abc.jpg";
 
-function SignUp({isAuthenticated}) { 
-  
+function SignUp({ isAuthenticated }) {
 
-const initialFormData = Object.freeze({
-  email: '',
-  name: '',
-  password: '',
-});
 
-const [formData, updateFormData] = useState(initialFormData);
-
-const handleChange = (e) => {
-  updateFormData({
-    ...formData,
-    // Trimming any whitespace
-    [e.target.name]: e.target.value.trim(),
+  const initialFormData = Object.freeze({
+    email: '',
+    name: '',
+    password: '',
+    image4: '',
   });
-};
 
-const handleSubmit = (e) => {
-  e.preventDefault();
-  console.log(formData);
+  const [formData, updateFormData] = useState(initialFormData);
 
-  axios
-    .post(`http://127.0.0.1:8000/auth/user/register`, {
-      email: formData.email,
-      name: formData.name,
-      password: formData.password,
-    })
-    .then((res) => {
-      console.log(res);
-      console.log(res.data);
+  const handleChange = (e) => {
+    updateFormData({
+      ...formData,
+      // Trimming any whitespace
+      [e.target.name]: e.target.value.trim(),
     });
-};
+  };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
 
-if (isAuthenticated) {
-  return <Navigate to='/' />
-} 
+    axios
+      .post(`http://127.0.0.1:8000/auth/user/register`, {
+        email: formData.email,
+        name: formData.name,
+        password: formData.password,
+        image4: formData.image4,
+      })
+      .then((res) => {
+        console.log(res);
+        console.log(res.data);
+      });
+  };
+
+  if (isAuthenticated) {
+    return <Navigate to='/' />
+  }
   return (
     <>
       <DefaultNavbar
@@ -133,13 +134,15 @@ if (isAuthenticated) {
                   
                   
                   <MKBox mb={2}>
-                    <MKInput type="email" label="Email" fullWidth name='email' 
-                    						onChange={handleChange}
+                    <MKInput type="text" label="name" fullWidth name='name' onChange={handleChange}
 
-                    required/>
-                    
-                     
-                  </MKBox> 
+                      required />
+
+
+                  </MKBox>
+
+
+
                   <MKBox mb={2}>
                     <MKInput type="password" label="Mot de Passe" fullWidth name="password" 
                         						onChange={handleChange}
@@ -174,15 +177,15 @@ if (isAuthenticated) {
           </Grid>
         </Grid>
       </MKBox>
-      
-      
-      
+
+
+
     </>
   );
 };
 
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated
-}); 
+});
 
-export default connect(mapStateToProps,null) (SignUp);
+export default connect(mapStateToProps, null)(SignUp);

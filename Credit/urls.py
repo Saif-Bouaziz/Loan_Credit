@@ -14,7 +14,7 @@ urlpatterns = [
     path('status_counts', views.status_counts,name='status_counts' ),
     path('demande_status/<int:demande_id>/', views.demande_status,name='demande_status' ),
     path('update_prediction/<int:demande_id>/', views.update_prediction,name='update_prediction' ),
-    path('delete/<int:demande_id>/', views.delete_demande,name='delete_demande' ),
+    path('delete_demande/<int:demande_id>/', views.delete_demande,name='delete_demande' ),
     path('add_agent', views.add_agent,name='add_agent' ),
     path('get_banquier',views.get_banquier,name='get_banquier'),
     path('get_agent', views.get_agent,name='get_agent' ),
@@ -38,6 +38,12 @@ urlpatterns = [
     path('agent_count_date',views.agent_count_date,name='agent_count_date'),
     path('upload_picture',views.upload_picture,name='upload_picture'),
     path('display_image',views.display_image,name='display_image'),
+    path('update_nb_email/<int:id>/',views.update_nb_email,name='update'),
+    path('get_nb_email',views.get_nb_email,name='get_email'),
+    path('reset_nb_email',views.reset_nb_email,name='reset_email'),
+
+
+
 
 
 
