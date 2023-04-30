@@ -23,7 +23,7 @@ const Navbar = ({ logout, isAuthenticated }) => {
                 Se connecter
             </Button>
             <Button variant="contained" color="success" href="/signup">
-                Creer un compte
+                Créer un compte
             </Button>
         </Fragment>
     );
@@ -60,7 +60,7 @@ const Navbar = ({ logout, isAuthenticated }) => {
 
             <div style={{ marginTop: "15px" }}>
                 <Stack spacing={5} direction="row">
-                    <Button style={{ backgroundColor: "#F5CB5C", color: "white" }} variant="contained" color="success" href="/">Acceuil</Button>
+                    <Button style={{ backgroundColor: "#F5CB5C", color: "white" }} variant="contained" color="success" href="/">Accueil</Button>
                     {isAuthenticated ? authLinks() : guestLinks()}
                 </Stack>
             </div>

@@ -150,7 +150,7 @@ useEffect(() => {
     
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="absolute" open={open}>
+      <AppBar  style={{ marginTop: "70px" }} position="absolute" open={open}>
         <Toolbar
          
          // keep right padding when drawer closed
