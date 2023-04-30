@@ -47,12 +47,12 @@ function Information() {
                     à suivre
                   </>
                 }
-                description="Get a credit loan with ease through our user-friendly application - no more complicated processes or paperwork"
+                description="Obtenez facilement un prêt de crédit grâce à notre application conviviale - finis les processus compliqués ou les documents papier."
               />
               <RotatingCardBack
                 image={bgBack}
-                title="Discover More"
-                description="Get the money you need in just three simple steps - Apply, Get Approved, and Receive Funds - with our hassle-free credit loan application"
+                title="Découvrez plus."
+                description="Obtenez l'argent dont vous avez besoin en seulement trois étapes simples - Appliquez, Obtenez la validation et Recevez des fonds - grâce à notre application de prêt de crédit"
                 action={{
                   type: "internal",
                   route: "/sections/page-sections/page-headers",
@@ -66,15 +66,15 @@ function Information() {
               <Grid item xs={12} md={6}>
                 <DefaultInfoCard
                   icon="content_copy"
-                  title="Apply for loan"
-                  description="Complete a quick and easy application form to get started on your loan request"
+                  title="Demander un crédit "
+                  description="Remplissez un formulaire de demande rapide et facile pour commencer votre demande de prêt."
                 />
               </Grid>
               <Grid item xs={12} md={6}>
                 <DefaultInfoCard
                   icon="flip_to_front"
-                  title="Get approuved"
-                  description="Our expert team will review your application promptly and provide you with a decision in no time"
+                  title="Être approuvé."
+                  description="Notre équipe d'agents de vérification examinera rapidement votre demande et vous fournira une validation en un rien de temps."
                 />
               </Grid>
             </Grid>
@@ -82,8 +82,8 @@ function Information() {
               <Grid item xs={12} md={6}>
                 <DefaultInfoCard
                   icon="price_change"
-                  title="Get your money"
-                  description="Once approved, your funds will be transferred to your account without any delay"
+                  title="Obtenir une décision finale"
+                  description="Une fois approuvé, vos fonds seront transférés sur votre compte sans aucun délai."
                 />
               </Grid>
             </Grid>

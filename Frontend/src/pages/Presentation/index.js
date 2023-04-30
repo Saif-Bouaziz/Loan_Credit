@@ -33,7 +33,7 @@ import Counters from "pages/Presentation/sections/Counters";
 import Information from "pages/Presentation/sections/Information";
 import Pages from "pages/Presentation/sections/Pages";
 import Download from "pages/Presentation/sections/Download";
-
+import Navbar from "../../Navbar"
 // Presentation page components
 import BuiltByDevelopers from "pages/Presentation/components/BuiltByDevelopers";
 
@@ -65,10 +65,11 @@ function Presentation() {
           backgroundSize: "cover",
           backgroundPosition: "top",
           display: "grid",
-          placeItems: "center",
+          placeItems: "center", 
+          opacity:0.8,
         }}
       >
-        <Container>
+        <Container >
           <Grid container item xs={12} lg={7} justifyContent="center" mx="auto">
             <MKTypography
               variant="h1"
@@ -81,7 +82,7 @@ function Presentation() {
                 },
               })}
             >
-              Smart finance solutions for your business{" "}
+              Solution de finance intelligente pour votre usage personnel{" "}
             </MKTypography>
             <MKTypography
               variant="body1"
@@ -90,7 +91,7 @@ function Presentation() {
               px={{ xs: 6, lg: 12 }}
               mt={1}
             >
-              Welcome to our credit loan application - the smart way to borrow money and achieve your financial goals
+              Bienvenue à notre application de prêt de crédit - la manière intelligente d'emprunter de l'argent et atteindre vos objectifs financiers
             </MKTypography>
           </Grid>
         </Container>
@@ -108,7 +109,6 @@ function Presentation() {
       >
         <Counters />
         <Information />
-        <Pages />
         <Container sx={{ mt: 6 }}>
           <BuiltByDevelopers />
         </Container>

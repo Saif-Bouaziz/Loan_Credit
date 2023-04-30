@@ -1,0 +1,39 @@
+.nav {
+    width: 100%;
+    margin-left: 10%;
+    margin-right: 50%;
+
+    height: 70px;
+
+}
+
+.title {
+    background: linear-gradient(to right, #FFBF00 50%, #333533 50%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 40px;
+    margin-top: 10px;
+
+
+}
+
+.title {
+    position: relative;
+    animation: slide-right 1s ease-in-out forwards;
+}
+
+@keyframes slide-right {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(0%);
+    }
+}
+
+img {
+
+    margin-top: 5px;
+    height: 80%
+}

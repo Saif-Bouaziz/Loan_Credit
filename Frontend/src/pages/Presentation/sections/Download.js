@@ -13,7 +13,8 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-// @mui material components
+// @mui material components  
+import { TextField } from "@mui/material";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 // Material Kit 2 React components
@@ -48,26 +49,30 @@ function Download() {
         <Container sx={{ position: "relative", zIndex: 2, py: 12 }}>
           <Grid container item xs={12} md={7} justifyContent="center" mx="auto" textAlign="center">
             <MKTypography variant="h3" color="white">
-              Do you love this awesome
+              Feedback Box 
             </MKTypography>
-            <MKTypography variant="h3" color="white" mb={1}>
-              UI Kit for ReactJS &amp; MUI?
-            </MKTypography>
+            
+            
+            
             <MKTypography variant="body2" color="white" mb={6}>
-              Cause if you do, it can be yours for FREE. Hit the button below to navigate to
-              Creative Tim where you can find the Design System in HTML. Start a new project or give
-              an old Bootstrap project a new look!
-            </MKTypography>
-            <MKButton
+            "We highly value your feedback and suggestions, as they help us improve our application and provide you with a better user experience. Please take a moment to share your thoughts with us and let us know how we can serve you better."
+             
+             
+            </MKTypography> 
+            <TextField fullWidth id="fullWidth" /> 
+            <hr /> 
+            <hr />
+            <MKButton style={{marginTop:20}}
               variant="gradient"
               color="info"
               size="large"
               component="a"
-              href="https://www.creative-tim.com/product/material-kit-react"
+              href="/SignUp"
               sx={{ mb: 2 }}
             >
               Register Now
-            </MKButton>
+            </MKButton> 
+            
           </Grid>
         </Container>
       </MKBox>

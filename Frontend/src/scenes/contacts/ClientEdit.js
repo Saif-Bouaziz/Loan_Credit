@@ -1,6 +1,7 @@
 import React, {useState, useRef } from 'react';
 import Swal from 'sweetalert2';
 import axios from 'axios'
+import emailjs from '@emailjs/browser'
 
 
 const ClientEdit = ({ selectedDemande, setIsEditing }) => {
@@ -49,7 +50,8 @@ const ClientEdit = ({ selectedDemande, setIsEditing }) => {
     })
     .catch(error => console.error(error));
   }
-    
+   
+
 
   const handleClick1 = async () => {
     const response = await axios
@@ -67,6 +69,19 @@ const ClientEdit = ({ selectedDemande, setIsEditing }) => {
       showConfirmButton: false,
       timer: 1500,
     });
+    var templateParams = {
+      email_to: `${selectedDemande.email}`,
+      message: `Cher/Chère ${selectedDemande.last_name},Nous tenons à vous informer que votre demande de crédit
+       a été bien confirmée,nous vous remercions pour votre confiance , n'oubliez pas de consulter quotidiennement 
+       votre espace personnel pour assurer le suivi de votre crédit.`
+    };
+
+    emailjs.send('service_a7ipo6k', 'template_16u38jh', templateParams, 'u0eiwSMN0Z1Wlo0Mz')
+      .then(function (response) {
+        console.log('SUCCESS!', response.status, response.text);
+      }, function (error) {
+        console.log('FAILED...', error);
+      });
 
   };
   const handleClick2 = async () => {
@@ -85,8 +100,32 @@ const ClientEdit = ({ selectedDemande, setIsEditing }) => {
       showConfirmButton: false,
       timer: 1500,
     });
+    var templateParams = {
+      email_to: `${selectedDemande.email}`,
+      message: `Cher/Chère ${selectedDemande.last_name},Nous avons bien reçu votre demande ${selectedDemande.DemandeId} et nous vous remercions de votre intérêt pour nos services. 
+      Cependant, nous regrettons de vous informer que nous n'avons pas pu accepter votre demande en raison de 
+      ne pas satisfaire les critères fondamentaux pour prendre un crédit, Nous vous invitons 
+      à rectifier les critère de votre demande pour essayer plus tard.`
+    };
+
+    emailjs.send('service_a7ipo6k', 'template_16u38jh', templateParams, 'u0eiwSMN0Z1Wlo0Mz')
+      .then(function (response) {
+        console.log('SUCCESS!', response.status, response.text);
+      }, function (error) {
+        console.log('FAILED...', error);
+      });
+
 
   };
+
+  const handleNbr = () => {
+    fetch(`http://127.0.0.1:8000/credit/update_nb_email/${selectedDemande.DemandeId}/`)
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error(error));
+  };
+
+
 
   return (
     <div style={{ fontSize: windowWidth.current * 0.01,marginLeft: '180px'  }}>
@@ -168,7 +207,10 @@ const ClientEdit = ({ selectedDemande, setIsEditing }) => {
             <button
               style={{ backgroundColor: "#BBD6B8" }}
               className="button muted-button"
-              onClick={handleClick1}
+              onClick={() => {
+                handleClick1();
+                handleNbr();
+              }}
             >
               Accepter
             </button>
@@ -178,7 +220,10 @@ const ClientEdit = ({ selectedDemande, setIsEditing }) => {
               style={{ backgroundColor: "#E96479" }}
 
               className="button muted-button"
-              onClick={handleClick2}
+              onClick={() => {
+                handleClick2();
+                handleNbr();
+              }}
             >
               Refuser
             </button>

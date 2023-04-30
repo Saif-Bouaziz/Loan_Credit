@@ -15,7 +15,7 @@ import PersonIcon from '@mui/icons-material/Person';
 
 export const mainListItems = (
   <React.Fragment> 
-<Link to="/dashboardC">    
+<Link to="/dashboardC" style={{ textDecoration: 'none', color: 'inherit' }}>    
     <ListItemButton>
       <ListItemIcon>
         <DashboardIcon />
@@ -23,7 +23,7 @@ export const mainListItems = (
       <ListItemText primary="Acceuil" />
     </ListItemButton>  
 </Link>
-
+{/*
 <Link to="/notification">    
     <ListItemButton>
       <ListItemIcon>
@@ -32,8 +32,8 @@ export const mainListItems = (
       <ListItemText primary="Notifications" />
     </ListItemButton>  
 </Link>
-
-<Link to="/liste">    
+*/}
+<Link to="/liste" style={{ textDecoration: 'none', color: 'inherit' }}>    
     <ListItemButton>
       <ListItemIcon>
         <FolderIcon/>
@@ -42,7 +42,7 @@ export const mainListItems = (
     </ListItemButton> 
 </Link>
     
-<Link to="/pages/LandingPages/LoanApplication/index">    
+<Link to="/pages/LandingPages/LoanApplication/index" style={{ textDecoration: 'none', color: 'inherit' }}>    
     <ListItemButton>
       <ListItemIcon>
         <BarChartIcon />
@@ -51,40 +51,5 @@ export const mainListItems = (
     </ListItemButton> 
 </Link> 
 
-<Link to="/profile">    
-
-    <ListItemButton>
-      <ListItemIcon>
-        <PersonIcon />
-      </ListItemIcon>
-      <ListItemText primary="Profile" />
-    </ListItemButton> 
-</Link>
-  </React.Fragment>
-);
-
-export const secondaryListItems = (
-  <React.Fragment>
-    <ListSubheader component="div" inset>
-      Liste des Credits
-    </ListSubheader>
-    <ListItemButton>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Current month" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Last quarter" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Year-end sale" />
-    </ListItemButton>
   </React.Fragment>
 );

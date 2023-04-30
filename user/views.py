@@ -27,10 +27,6 @@ class RegisterView(APIView):
             if is_banquier == 'True':
                 is_banquier = True
             else:
-<<<<<<< HEAD
-
-=======
->>>>>>> master
                 is_banquier = False  
             
             if is_agent == 'True':
@@ -118,6 +114,7 @@ from rest_framework import permissions, status
 from django.views import View
 from django.shortcuts import render 
 from django.http import JsonResponse 
+from .models import UserAccount
 
 
 """
@@ -222,6 +219,19 @@ class RegisterView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
 
 
+def upload(request,id=0):
+            if request.method=='PATCH':
+                user=UserAccount.objects.get(email=id)
+                user_serializer=UserSerializer(user,data=JSONParser().parse(request),partial=True)
+                if user_serializer.is_valid():
+                    user_serializer.save()
+                    return JsonResponse("Updated Successfully!", safe=False)
+                return JsonResponse("Failed to Update", safe=False)
 
 
-
+def userAPI(request):
+    if request.method=='GET':
+        user=UserAccount.objects.all()
+        serializer = UserSerializer(user,many=True)
+        return JsonResponse(serializer.data, safe=False )
+    

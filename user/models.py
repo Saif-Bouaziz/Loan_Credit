@@ -13,7 +13,7 @@ class UserAccountManager(BaseUserManager):
         user = self.model(
             email=email,
             name=name,
-            date_inscription=timezone.now()
+            date_inscription=timezone.now(),
         )         
         user.set_password(password)
         user.save(using=self._db)
@@ -60,6 +60,7 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     date_inscription = models.DateTimeField(default=timezone.now)
     image=models.TextField(null=True)
     picture=models.ImageField(upload_to="picture/",blank=True,null=True)
+    nb_mail=models.IntegerField(default=0)
 
     
 

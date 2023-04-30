@@ -1,9 +1,58 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Swal from 'sweetalert2';
 import axios from 'axios'
 import emailjs from '@emailjs/browser'
+import i18n from 'i18next';
+i18n.init({
+  lng: 'en',
+  resources: {
+    en: {
+      translation: {
+        'Hello': 'Hello',
+        'Welcome to my app': 'Welcome to my app',
+        'PERSONAL': 'PERSONAL',
+        'EDUCATION': 'EDUCATION',
+        'MEDICAL': 'MEDICAL',
+        'VENTURE': 'VENTURE',
+        'DEBT CONSOLIDATION': 'DEBT CONSOLIDATION',
+        'OTHER': 'OTHER',
+        'RENT': 'RENT',
+        'MORTGAGE': 'MORTGAGE',
+        'OWN': 'OWN',
+        'married': 'married',
+        'single': 'single',
+        'Refused': 'Refused'
+
+      }
+    },
+    fr: {
+      translation: {
+        'Hello': 'Bonjour',
+        'Welcome to my app': 'Bienvenue dans mon application',
+        'PERSONAL': 'PERSONNEL',
+        'EDUCATION': 'EDUCATION',
+        'MEDICAL': 'MEDICAL',
+        'VENTURE': 'ENTREPRISE',
+        'DEBT CONSOLIDATION': 'CONSOLIDATION DE DETTE',
+        'OTHER': 'AUTRE',
+        'RENT': 'LOCATION',
+        'MORTGAGE': 'HYPOTHÈQUE',
+        'OWN': 'PROPRIÉTAIRE',
+        'married': 'MARIÉ(E)',
+        'single': 'SEUL(E)',
+        'Refused': 'Non validée'
+
+
+      }
+    }
+  }
+});
+i18n.changeLanguage('fr');
+
+
 
 const Edit = ({ selectedDemande, setIsEditing }) => {
+
   const handleClick1 = async () => {
     const response = await axios
       .patch(`http://127.0.0.1:8000/credit/demandeApi/${selectedDemande.DemandeId}`, { "decision": "Accepted" })
@@ -16,7 +65,7 @@ const Edit = ({ selectedDemande, setIsEditing }) => {
     setIsEditing(false);
     Swal.fire({
       icon: 'success',
-      title: 'Accepted!',
+      title: 'Validée!',
       text: `La demande de ${selectedDemande.last_name} est accéptée.`,
       showConfirmButton: false,
       timer: 1500,
@@ -47,7 +96,7 @@ const Edit = ({ selectedDemande, setIsEditing }) => {
     setIsEditing(false);
     Swal.fire({
       icon: 'error',
-      title: 'Refused!',
+      title: 'Non Validée!',
       text: `La demande de ${selectedDemande.last_name} est refusée.`,
       showConfirmButton: false,
       timer: 1500,
@@ -67,83 +116,270 @@ const Edit = ({ selectedDemande, setIsEditing }) => {
       });
 
   };
+  const gradeA = async () => {
+    const response = await axios
+      .patch(`http://127.0.0.1:8000/credit/demandeApi/${selectedDemande.DemandeId}`, { "loan_grade": "A" })
+      .catch((error) => console.log('Error: ', error));
+    if (response && response.data) {
+      console.log(response);
+      console.log(response.data);
+    }
+    Swal.fire({
+      icon: 'success',
+      title: 'Catégorie changé',
+      text: 'Catégorie changé avec succée',
+      showConfirmButton: false,
+      timer: 1500,
+    });
+    setIsEditing(false);
 
 
+  };
+  const gradeB = async () => {
+    const response = await axios
+      .patch(`http://127.0.0.1:8000/credit/demandeApi/${selectedDemande.DemandeId}`, { "loan_grade": "B" })
+      .catch((error) => console.log('Error: ', error));
+    if (response && response.data) {
+      console.log(response);
+      console.log(response.data);
+    }
+    Swal.fire({
+      icon: 'success',
+      title: 'Catégorie changé',
+      text: 'Catégorie changé avec succée',
+      showConfirmButton: false,
+      timer: 1500,
+    });
+    setIsEditing(false);
 
+  };
+  const gradeC = async () => {
+    const response = await axios
+      .patch(`http://127.0.0.1:8000/credit/demandeApi/${selectedDemande.DemandeId}`, { "loan_grade": "C" })
+      .catch((error) => console.log('Error: ', error));
+    if (response && response.data) {
+      console.log(response);
+      console.log(response.data);
+    }
+    Swal.fire({
+      icon: 'success',
+      title: 'Catégorie changé',
+      text: 'Catégorie changé avec succée',
+      showConfirmButton: false,
+      timer: 1500,
+    });
+    setIsEditing(false);
+
+  };
+  const gradeD = async () => {
+    const response = await axios
+      .patch(`http://127.0.0.1:8000/credit/demandeApi/${selectedDemande.DemandeId}`, { "loan_grade": "D" })
+      .catch((error) => console.log('Error: ', error));
+    if (response && response.data) {
+      console.log(response);
+      console.log(response.data);
+    }
+    Swal.fire({
+      icon: 'success',
+      title: 'Catégorie changé',
+      text: 'Catégorie changé avec succée',
+      showConfirmButton: false,
+      timer: 1500,
+    });
+    setIsEditing(false);
+
+  };
+  const gradeE = async () => {
+    const response = await axios
+      .patch(`http://127.0.0.1:8000/credit/demandeApi/${selectedDemande.DemandeId}`, { "loan_grade": "E" })
+      .catch((error) => console.log('Error: ', error));
+    if (response && response.data) {
+      console.log(response);
+      console.log(response.data);
+    }
+    Swal.fire({
+      icon: 'success',
+      title: 'Catégorie changé',
+      text: 'Catégorie changé avec succée',
+      showConfirmButton: false,
+      timer: 1500,
+    });
+    setIsEditing(false);
+
+  };
+  const gradeF = async () => {
+    const response = await axios
+      .patch(`http://127.0.0.1:8000/credit/demandeApi/${selectedDemande.DemandeId}`, { "loan_grade": "F" })
+      .catch((error) => console.log('Error: ', error));
+    if (response && response.data) {
+      console.log(response);
+      console.log(response.data);
+    }
+    Swal.fire({
+      icon: 'success',
+      title: 'Catégorie changé',
+      text: 'Catégorie changé avec succée',
+      showConfirmButton: false,
+      timer: 1500,
+    });
+    setIsEditing(false);
+
+  };
+  const gradeG = async () => {
+    const response = await axios
+      .patch(`http://127.0.0.1:8000/credit/demandeApi/${selectedDemande.DemandeId}`, { "loan_grade": "G" })
+      .catch((error) => console.log('Error: ', error));
+    if (response && response.data) {
+      console.log(response);
+      console.log(response.data);
+    }
+    Swal.fire({
+      icon: 'success',
+      title: 'Catégorie changé',
+      text: 'Catégorie changé avec succée',
+      showConfirmButton: false,
+      timer: 1500,
+    });
+    setIsEditing(false);
+
+  };
   return (
     <div className="small-container">
       <div >
         <br />
         <h1>Details de Demande</h1>
         <br />
-        <div style={{ display: "inline-block", float: "left" }}>
-          <h4>Prénom</h4>
-          {selectedDemande.first_name}
-          <h4>Nom</h4>
-          {selectedDemande.last_name}
-          <h4>Email</h4>
-          {selectedDemande.email}
-          <h4>Salaire</h4>
-          {selectedDemande.person_income}($)
-          <h4>Age</h4>
-          {selectedDemande.person_age}
-          <h4>CIN</h4>
-          {selectedDemande.cin}
-          <h4>Numéro de téléphone</h4>
-          {selectedDemande.num_tel}
-          <h4>Statut matrimonial</h4>
-          {selectedDemande.marriage_status}
-          <h4>Travail</h4>
-          {selectedDemande.job}
-          <h4>Années de travail</h4>
-          {selectedDemande.person_emp_length}
-          <h4>Propriété</h4>
-          {selectedDemande.person_home_ownership}
+        <div  >
+          <table >
+
+            <thead>
+              <tr>
+                <th>Nom</th>
+                <td>{selectedDemande.last_name}</td>
+              </tr>
+              <tr>
+                <th>Prénom</th>
+                <td>{selectedDemande.first_name}</td>
+              </tr>
+              <tr>
+                <th>Age</th>
+                <td>{selectedDemande.person_age}</td>
+              </tr>
+              <tr>
+                <th>Email</th>
+                <td>{selectedDemande.email}</td>
+              </tr>
+              <tr>
+                <th>CIN</th>
+                <td>{selectedDemande.cin}</td>
+              </tr>
+              <tr>
+                <th>Addresse</th>
+                <td>{selectedDemande.adress}</td>
+              </tr>
+              <tr>
+                <th>Region</th>
+                <td>{selectedDemande.region}</td>
+              </tr>
+              <tr>
+                <th>Ville</th>
+                <td>{selectedDemande.city}</td>
+              </tr>
+              <tr>
+                <th>Code postal</th>
+                <td>{selectedDemande.code_postal}</td>
+              </tr>
+              <tr>
+                <th>Numéro de téléphone</th>
+                <td>{selectedDemande.num_tel}</td>
+              </tr>
+              <tr>
+                <th>Statut matrimonial</th>
+                <td>{i18n.t(selectedDemande.marriage_status)}</td>
+              </tr>
+
+              <tr>
+                <th>Salaire</th>
+                <td>{selectedDemande.person_income}</td>
+              </tr>
+              <tr>
+                <th>Propriété</th>
+                <td>{i18n.t(selectedDemande.person_home_ownership)}</td>
+              </tr>
+              <tr>
+                <th>Emploi</th>
+                <td>{selectedDemande.job}</td>
+              </tr>
+              <tr>
+                <th>Années de travail</th>
+                <td>{selectedDemande.person_emp_length}</td>
+              </tr>
+              <tr>
+                <th>Objectif</th>
+                <td>{i18n.t(selectedDemande.loan_intent)}</td>
+              </tr>
+
+              <tr>
+                <th>Montant</th>
+                <td>{selectedDemande.loan_amnt}</td>
+              </tr>
+              <tr>
+                <th>Durée du prêt</th>
+                <td>{selectedDemande.loan_duration}</td>
+              </tr>
+              <tr>
+                <th>Intérêt</th>
+                <td>{selectedDemande.loan_int_rate}</td>
+              </tr>
+              <tr>
+                <th>Pourcentage</th>
+                <td>{selectedDemande.loan_percent_income}</td>
+              </tr>
+              <tr>
+                <th>Justificatif d'identité</th>
+                <td><img src={`data:image/jpeg;base64,${selectedDemande.img_cin}`} /></td>
+              </tr>
+              <tr>
+                <th>Avis d'imposition</th>
+                <td><img src={`data:image/jpeg;base64,${selectedDemande.img_avis_imposition}`} /></td>
+              </tr>
+              <tr>
+                <th>Bulletins de salaire</th>
+                <td><img src={`data:image/jpeg;base64,${selectedDemande.img_bulletins_salaire}`} /></td>
+              </tr>
+              <tr>
+                <th>Relevés de compte en banque</th>
+                <td><img src={`data:image/jpeg;base64,${selectedDemande.img_Releves_compte_banque}`} /></td>
+              </tr>
+              <tr>
+                <th>Justificatif de domicile actuel</th>
+                <td><img src={`data:image/jpeg;base64,${selectedDemande.img_justificatif_domicile_actuel}`} /></td>
+              </tr>
+              <tr>
+                <th>Catégorie</th>
+                <td>{selectedDemande.loan_grade}
+                  <br />
+                  <button className="button muted-button" onClick={gradeA}>A</button>&nbsp;
+                  <button className="button muted-button" onClick={gradeB}>B</button>&nbsp;
+                  <button className="button muted-button" onClick={gradeC}>C</button>&nbsp;
+                  <button className="button muted-button" onClick={gradeD}>D</button>&nbsp;
+                  <button className="button muted-button" onClick={gradeE}>E</button>&nbsp;
+                  <button className="button muted-button" onClick={gradeF}>F</button>&nbsp;
+                  <button className="button muted-button" onClick={gradeG}>G</button>&nbsp;
+                </td>
+              </tr>
+              <tr>
+                <th>Decision</th>
+                <td>{i18n.t(selectedDemande.decision)}</td>
+              </tr>
+
+
+            </thead>
+
+          </table>
 
         </div>
-        <div style={{ display: "inline-block", float: "right" }}>
-          <h4>Addresse</h4>
-          {selectedDemande.adress}
-          <h4>Region</h4>
-          {selectedDemande.region}
-          <h4>Ville</h4>
-          {selectedDemande.city}
-          <h4>Code postal</h4>
-          {selectedDemande.code_postal}
-          <h4>Intention de prêt</h4>
-          {selectedDemande.loan_intent}
-          <h4>Montant du prêt</h4>
-          {selectedDemande.loan_amnt}
-          <h4>Durée du prêt</h4>
-          {selectedDemande.loan_duration}
-          <h4>Revenu en pourcentage</h4>
-          {selectedDemande.loan_percent_income}
-          <h4>Taux d'intérêt du prêt</h4>
-          {selectedDemande.loan_int_rate}
-          <h4>Catégorie de prêt</h4>
-          {selectedDemande.loan_grade}
-          <h4>Revenu de la personne</h4>
-          {selectedDemande.person_income}
-          <h4>Decision</h4>
-          {selectedDemande.decision}
 
-        </div>
-
-        <div style={{ display: "inline-block", float: "right" }}>
-          <br /><br /><br />
-          <h3>Pieces justificatifs : </h3>
-          <br /><br /><br />
-          <h4>Justificatif d'identité</h4>
-          <img src={`data:image/jpeg;base64,${selectedDemande.img_cin}`} />
-          <h4>Avis d'imposition</h4>
-          <img src={`data:image/jpeg;base64,${selectedDemande.img_avis_imposition}`} />
-          <h4>Bulletins de salaire</h4>
-          <img src={`data:image/jpeg;base64,${selectedDemande.img_bulletins_salaire}`} />
-          <h4>Relevés de compte en banque</h4>
-          <img src={`data:image/jpeg;base64,${selectedDemande.img_Releves_compte_banque}`} />
-          <h4>Justificatif de domicile actuel</h4>
-          <img src={`data:image/jpeg;base64,${selectedDemande.img_justificatif_domicile_actuel}`} />
-        </div>
         <div style={{ clear: "both", textAlign: "center" }}>
           <div style={{ marginTop: '30px', display: "inline-block" }}>
 
@@ -153,7 +389,7 @@ const Edit = ({ selectedDemande, setIsEditing }) => {
               className="button muted-button"
               onClick={handleClick1}
             >
-              Accept
+              Validée
             </button>
 
             &nbsp;&nbsp;&nbsp;
@@ -163,14 +399,14 @@ const Edit = ({ selectedDemande, setIsEditing }) => {
               className="button muted-button"
               onClick={handleClick2}
             >
-              Refuse
+              Non validée
             </button>
             &nbsp;&nbsp;&nbsp;
             <button
               className="button muted-button"
               onClick={() => setIsEditing(false)}
             >
-              Cancel
+              Retour
             </button>
 
           </div>
