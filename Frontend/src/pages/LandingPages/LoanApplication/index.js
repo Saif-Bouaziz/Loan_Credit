@@ -2,6 +2,7 @@
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
+import { connect } from "react-redux"; 
 
 // Material Kit 2 React components
 import MKBox from "components/MKBox";
@@ -17,23 +18,27 @@ import Checkout from "./Checkout";
 import routes from "routes";
 
 // Images
-import bgImage from "assets/images/loancredit.jpg"; 
-import { useHistory } from 'react-router-dom';
+import bgImage from "./abcde.jpg"
+import { Navigate, useHistory } from 'react-router-dom';
 
 function handleClick() {
-  window.location.href = '/register';
+  window.location.href = '/dashboardC';
 }
 
 
-function LoanApplication() {
+function LoanApplication({isAuthenticated}) {  
+  if (!isAuthenticated) {
+    return <Navigate to='/' />
+  } 
   return (
+    
     <>
       <DefaultNavbar
         routes={routes}
         action={{
-          type: "external",
-          route: "https://www.creative-tim.com/product/material-kit-react",
-          label: "Register Now",
+          type: "internal",
+          route: "/dashboardC",
+          label: "Espace Personel",
           color: "info",
         }}
         transparent
@@ -74,14 +79,14 @@ function LoanApplication() {
                 },
               })}
             >
-              Loan Application
+              Obtenir un Crédit
             </MKTypography>
             <MKTypography variant="body1" color="white" opacity={0.8} mt={1} mb={3}>
-              Loan Details {'>'} Personal Details {' >'} Documents Upload
+              Informations Personelles {'>'} Informations sur le crédit 
               
             </MKTypography>
             <MKButton color="default" sx={{ color: ({ palette: { dark } }) => dark.main }} onClick={handleClick}>
-              Register Now
+              Espace Personnel
             </MKButton>
           </Grid>
         </Container>
@@ -104,6 +109,9 @@ function LoanApplication() {
       
     </>
   );
-}
+} 
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+}); 
 
-export default LoanApplication;
+export default connect(mapStateToProps,{}) (LoanApplication);

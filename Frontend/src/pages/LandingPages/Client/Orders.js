@@ -19,7 +19,21 @@ function preventDefault(event) {
 
 export default function Orders() {  
   const [datass, setDatass] = React.useState([]);
+  const [client, setClient] = React.useState(false);
 
+  useEffect(() => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer  ${localStorage.getItem('access')}`,
+            'Accept': 'application/json'
+        }
+    };
+    axios.get('http://127.0.0.1:8000/auth/users/me', config).then((response) => {
+        console.log(response.data)
+        setClient(response.data)
+    });
+});
   useEffect(() => {
     const config = {
       headers: {
@@ -29,7 +43,7 @@ export default function Orders() {
       }
     };
     
-    axios.get('http://127.0.0.1:8000/credit/demandeApi').then((response) => {
+    axios.get('http://127.0.0.1:8000/credit/get_credits').then((response) => {
       console.log(response.data)
       setDatass(response.data)
     });
@@ -40,32 +54,32 @@ export default function Orders() {
       <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell>ID Demande</TableCell>
-            <TableCell>Prénom</TableCell>
-            <TableCell>Nom</TableCell>
-            <TableCell>Email</TableCell>
-            <TableCell align="right">Salaire</TableCell> 
-            <TableCell align="right">Objectif du pret</TableCell> 
-            <TableCell align="right">Montant</TableCell>
+            <TableCell>IdCredit</TableCell>
+            <TableCell>demande__last_name</TableCell>
+            <TableCell>demande__first_name</TableCell>
+            <TableCell>montant_principal</TableCell>
+            <TableCell align="right">montant_restant</TableCell> 
+            <TableCell align="right">taux</TableCell> 
+            <TableCell align="right">demande__loan_intent</TableCell>
 
 
           </TableRow>
         </TableHead>
         <TableBody>
-          {datass.map((datass) => (
-            <TableRow key={datass.DemandeId}>
-              <TableCell>{datass.DemandeId}</TableCell>
-              <TableCell>{datass.first_name}</TableCell>
-              <TableCell>{datass.last_name}</TableCell>
-              <TableCell>{datass.email}</TableCell> 
-              <TableCell align="right">{datass.person_income}</TableCell>
-              <TableCell align="right">{datass.loan_intent}</TableCell>
-              <TableCell align="right">{datass.loan_amnt}</TableCell>
+          {datass.filter(data => data.demande__first_name === `${client.name}`).map((datass) => (
+            <TableRow key={datass.IdCredit}>
+              <TableCell>{datass.IdCredit}</TableCell>
+              <TableCell>{datass.demande__last_name}</TableCell>
+              <TableCell>{datass.demande__first_name}</TableCell>
+              <TableCell>{datass.montant_principal}</TableCell> 
+              <TableCell align="right">{datass.montant_restant}</TableCell>
+              <TableCell align="right">{datass.taux}</TableCell>
+              <TableCell align="right">{datass.demande__loan_intent}</TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-      <Link to="/liste"  sx={{ mt: 3 }}>
+      <Link to="/liste"  sx={{ mt: 3 }} style={{ textDecoration: 'none', color: 'inherit' }}>
         Voir liste des demandes
       </Link>
     </React.Fragment>

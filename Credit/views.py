@@ -21,7 +21,7 @@ from rest_framework.permissions import BasePermission
 
 from django.shortcuts import render
 from rest_framework.parsers import JSONParser
-
+from django.core.mail import send_mail
 
 import numpy as np
 import pickle
@@ -33,7 +33,36 @@ import base64
 
 with open('final_XGBmodel.pkl', 'rb') as f:
     model = pickle.load(f)
+    
+def update_nb_email(request,id):
+    demande=Demande.objects.using('credit').get(DemandeId=id)
+    email=demande.email
+    user=UserAccount.objects.using('users').get(email=email)
+    user.nb_mail +=1
+    user.save()
+    return JsonResponse({'success': True, 'message': 'nbr mail incrémenté '})                   
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_nb_email(request):
+    user_co=request.user
+    user=UserAccount.objects.using('users').get(email=user_co.email)
+    nbr=user.nb_mail
+    return JsonResponse({'nbr':nbr})  
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def reset_nb_email(request):
+    if request.method=='POST':
+        user_co=request.user
+        user=UserAccount.objects.using('users').get(email=user_co.email) 
+        user.nb_mail=0
+        user.save()  
+        return JsonResponse({'success': True, 'message':'Pas de nouveaux mails','nbr':0})
+    return JsonResponse("Failed to Reset")
+             
+
+    
 
 def demandeApi(request,id=0):
             if request.method=='GET':
@@ -43,7 +72,6 @@ def demandeApi(request,id=0):
             elif request.method=='PATCH':
                 demande=Demande.objects.get(DemandeId=id)
                 demande_serializer=DemandeSerializer(demande,data=JSONParser().parse(request),partial=True)
-                
                 if demande_serializer.is_valid():
                     demande_serializer.save()
                     if  demande.status=='acceptée':
@@ -64,7 +92,9 @@ def demandeApi(request,id=0):
 def create_demande(request):
         if request.method == 'POST':
             #user= request.user
-            #ClientId=user.id
+            #email=user.email
+            #client=UserAccount.objects.get(email=email)
+            #ClientId=client.id
             ClientId=1
             data = json.loads(request.body)
             address_form_data = data['addressFormData']
@@ -154,7 +184,7 @@ def get_demande(request):
     data = Demande.objects.filter(decision="Accepted").values("DemandeId", "ClientId","first_name","last_name","person_age",
                                   "person_emp_length","person_home_ownership","loan_intent",
                                   "loan_amnt","loan_percent_income","loan_int_rate",
-                                  "loan_grade","person_income","status","created","prediction")
+                                  "loan_grade","person_income","status","created","prediction","email")
     return JsonResponse(list(data), safe=False)
 
 
@@ -330,7 +360,7 @@ def delete_user(request, id_user):
     
 def get_credits(request):
     data = Credit.objects.values("IdCredit","montant_principal","montant_restant","taux","mensualite","demande__last_name","demande__first_name",
-                                 "demande__person_income","demande__loan_intent","demande__loan_percent_income")
+                                 "demande__person_income","demande__loan_intent","demande__loan_percent_income","demande__email","demande__DemandeId")
     return JsonResponse(list(data), safe=False)
 
 def delete_credit(request,id_credit):
@@ -390,20 +420,26 @@ def credit_count_date(request):
         counts_dict[date_string] = count
     return JsonResponse(counts_dict)
 
-def upload_image(request):
-        image_file = request.FILES.get('image')
 
-        if not image_file:
-            return JsonResponse({'success': False, 'message': 'pas d''image lue !'})
-
-        user = UserAccount.objects.get(is_banquier=True)
-        user.image = image_file
-        user.save()
-
-        return JsonResponse({'success': True, 'message': 'opération faite avec succes','image':image_file})
+from django.core.files.storage import default_storage
+from django.conf import settings
 
 
+def upload_picture(request):
+    picture = request.FILES['picture']
+    filename = default_storage.save('picture/' + picture.name, picture)
+    picture_url = settings.MEDIA_URL + filename
+    banquier=UserAccount.objects.get(is_banquier=True)
+    banquier.image = picture_url
+    banquier.save()
+    return JsonResponse({'success': True, 'message': 'opération faite avec succes', 'picture': picture_url})
 
+def display_image(request):
+    banquier=UserAccount.objects.get(is_banquier=True)
+    image=banquier.image
+    return JsonResponse({'success': True, 'message': 'opération faite avec succes', 'image':image},safe=False)
+
+    
 
 
 

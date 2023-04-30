@@ -50,8 +50,7 @@ function BuiltByDevelopers() {
           </MKTypography>
           <MKTypography
             component="a"
-            href="https://www.creative-tim.com/learning-lab/react/overview/material-kit/"
-            target="_blank"
+            href="/SignUp"
             rel="noreferrer"
             variant="body2"
             color="white"
@@ -70,7 +69,7 @@ function BuiltByDevelopers() {
                 transform: `translateX(6px)`,
               },
             }}
-          >
+          > 
             S'inscrire <Icon sx={{ fontWeight: "bold" }}>arrow_forward</Icon>
           </MKTypography>
         </Grid>

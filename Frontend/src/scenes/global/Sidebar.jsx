@@ -22,9 +22,8 @@ import CreditScoreIcon from '@mui/icons-material/CreditScore';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import GroupsIcon from '@mui/icons-material/Groups';
 import InterpreterModeIcon from '@mui/icons-material/InterpreterMode';
-
 import axios from "axios";
-
+import userImage from '../../media/picture/ad.png';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -51,51 +50,72 @@ const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
   const [user, setUser] = useState(null);
-  const [image, setImage] = useState(null);
-
-
+  const [imageUrl, setImageUrl] = useState('');
+  const [url,setUrl]=useState('');
 
   useEffect(() => {
     axios.get('http://127.0.0.1:8000/credit/get_banquier')
     .then(response => {
       const banquierList = response.data;
       if (banquierList.length > 0) {
-        const banquier = banquierList[1];
-        const userName = banquier.name;
-        setUser(userName);
+        const banquier = banquierList[0];
+        setUser(banquier);
       }
     })
       .catch(error => console.log(error));
   });
-  const accessToken = localStorage.getItem("accessToken");
 
 
-  const handleImageUpload =(event)=> {
+  const handleImageUpload =async (event) => {
     const file = event.target.files[0];
     const formData = new FormData();
-    formData.append('image', file);
-  
-    // Send the form data to the backend API
-    fetch('http://127.0.0.1:8000/credit/upload_image', {
-      method: 'POST',
-      body: formData,
-      headers: {
-        'Authorization': `Bearer ${accessToken}`,
-      },
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-      // Update the user account with the new image URL
-      const userAccount = { ...user, image: data.image_url };
-      setUser(userAccount);
-      document.getElementById("profile-image").src = data.image_url;
-      setImage(data.image_url);
+    formData.append("picture", file);
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:8000/credit/upload_picture",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      const image = response.data["picture"];
+      setUser({ ...user, image });
+      console.log(image)
+      setImageUrl("../.."+image)
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  };
 
-    })
-    .catch(error => console.error(error));
-  }
-  
+ /* const [imageUrl, setImageUrl] = useState(false);
+
+  useEffect(() => {
+    axios.get('http://127.0.0.1:8000/credit/display_image').then((response) => {
+      setImageUrl(response.data['image'])
+      console.log(response.data['image'])
+    });
+  });
+*/
+
+
+ /* useEffect(() => {
+    async function loadImage() {
+      const image = await handleImageUpload();
+      if (image) {
+        const response = await fetch(image);
+        console.log(response);
+        const blob = await response.blob();
+        const objectUrl = URL.createObjectURL(blob);
+        setImageUrl(objectUrl);
+      }
+    }
+    if (image) {
+      loadImage();
+    }
+  }, [image]);*/
 
   return (
     <Box
@@ -155,15 +175,15 @@ const Sidebar = () => {
                   onChange={(event) => handleImageUpload(event)}
                 />
                 <img
-                  alt="taswira ken besh naamlou"
+                  alt="Profile picture"
                   id="profile-image"
-
                   width="100px"
                   height="100px"
-                  src={image ? user.image : "../../assets/user.png"}
+                  src={userImage}
                   style={{ cursor: "pointer", borderRadius: "50%" }}
                 />
               </label>
+
               </Box>
               <Box textAlign="center">
               {user && (
@@ -175,7 +195,7 @@ const Sidebar = () => {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  {user}
+                  {user.name}
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
                   Banquier

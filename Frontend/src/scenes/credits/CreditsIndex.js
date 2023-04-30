@@ -4,6 +4,7 @@ import CreditTable from './CreditTable'
 import CreditEdit from './CreditEdit'
 import Axios from 'axios'
 import Swal from 'sweetalert2';
+import emailjs from '@emailjs/browser'
 
 
 
@@ -22,6 +23,8 @@ const CreditsIndex= () => {
           demande_person_income: credit.demande__person_income,
           demande_loan_intent: credit.demande__loan_intent,
           demande_loan_percent_income: credit.demande__loan_percent_income,
+          demande_email : credit.demande__email,
+          DemandeId : credit.demande__DemandeId
         }));
         setCreditsData(updatedCreditsData);
       })
@@ -54,6 +57,19 @@ const CreditsIndex= () => {
           showConfirmButton: false,
           timer: 1500,
         });
+        var templateParams = {
+          email_to: `${selectedCredit.demande__email}`,
+          message: `Cher/Chère ${selectedCredit.demande__last_name},Nous tenons à vous informer que le montant 
+          mensuel est bien payé pour ce mois vous pouvez consulter votre espace personnel pour le suivi 
+          de votre crédit, bonne journée .`
+        };
+    
+        emailjs.send('service_a7ipo6k', 'template_16u38jh', templateParams, 'u0eiwSMN0Z1Wlo0Mz')
+          .then(function (response) {
+            console.log('SUCCESS!', response.status, response.text);
+          }, function (error) {
+            console.log('FAILED...', error);
+          });
       }
     } catch (error) {
       console.log('Error: ', error);

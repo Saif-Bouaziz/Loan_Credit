@@ -178,13 +178,7 @@ export default function AddressForm({ onFormSubmit }) {
     img_justificatif_domicile_actuel: ""
 
   });
-  const handleButtonClick = () => {
-    // Clear the value of the file input
-    inputRef.current.value = '';
-
-    // Trigger a click event on the file input
-    inputRef.current.click();
-  };
+  
   const handleInputChange = (e) => {
     const newdata = { ...formData }
     newdata[e.target.name] = e.target.value
@@ -206,7 +200,7 @@ export default function AddressForm({ onFormSubmit }) {
             onChange={(e) => handleInputChange(e)}
             id="outlined-select-currency"
             select
-            label="Type of Loan"
+            label="Objet du prêt"
             helperText="Please select your Loan Type"
           >
             {currencies.map((option) => (
@@ -219,13 +213,13 @@ export default function AddressForm({ onFormSubmit }) {
 
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth sx={{ m: 1 }}>
-            <InputLabel htmlFor="outlined-adornment-amount">Loan Amount</InputLabel>
+            <InputLabel htmlFor="outlined-adornment-amount">Montant du prêt</InputLabel>
             <OutlinedInput
               name='loan_amnt'
               value={formData.loan_amnt}
               onChange={(e) => handleInputChange(e)}
               id="outlined-adornment-amount"
-              startAdornment={<InputAdornment position="start">$</InputAdornment>}
+              startAdornment={<InputAdornment position="start">TND</InputAdornment>}
               label="Amount"
             />
           </FormControl>
@@ -234,24 +228,37 @@ export default function AddressForm({ onFormSubmit }) {
 
         <Grid item xs={12} sm={6}>
           <FormControl>
-            <FormLabel id="demo-row-radio-buttons-group-label">Loan Duration</FormLabel>
-            <RadioGroup
+            <FormLabel id="demo-row-radio-buttons-group-label">Durée du prêt</FormLabel>
+            {/*<RadioGroup
               row
               aria-labelledby="demo-row-radio-buttons-group-label"
               name="loan_duration"
               value={(e) => formData.loan_duration(e)}
               onChange={handleInputChange}
             >
-              <FormControlLabel value="12m" control={<Radio />} label="12 months" />
-              <FormControlLabel value="24m" control={<Radio />} label="24 months" />
-              <FormControlLabel value="36m" control={<Radio />} label="36 months" />
-              <FormControlLabel value="48m" control={<Radio />} label="48 months" />
-            </RadioGroup>
+              <FormControlLabel value="12m" control={<Radio />} label="12 mois" />
+              <FormControlLabel value="24m" control={<Radio />} label="24 mois" />
+              <FormControlLabel value="36m" control={<Radio />} label="36 mois" />
+              <FormControlLabel value="48m" control={<Radio />} label="48 moiss" />
+            </RadioGroup> */} 
+             <RadioGroup
+  row
+  aria-labelledby="demo-row-radio-buttons-group-label"
+  name='loan_duration'
+  value={formData.loan_duration}
+  onChange={(e)=>handleInputChange(e)}
+ >
+ <FormControlLabel value="12m" control={<Radio />} label="12 mois" />
+<FormControlLabel value="24m" control={<Radio />} label="24 mois" />
+<FormControlLabel value="36m" control={<Radio />} label="36 mois" />
+<FormControlLabel value="48m" control={<Radio />} label="48 mois" /> 
+ 
+ </RadioGroup>
           </FormControl>
         </Grid>
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth sx={{ m: 1 }}>
-            <InputLabel htmlFor="outlined-adornment-amount">Loan Percent Income</InputLabel>
+            <InputLabel htmlFor="outlined-adornment-amount">Pourcentage du revenu consacré au remboursement du prêt</InputLabel>
             <OutlinedInput
               name="loan_percent_income"
               value={formData.loan_percent_income}
@@ -264,7 +271,7 @@ export default function AddressForm({ onFormSubmit }) {
         </Grid>
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth sx={{ m: 1 }}>
-            <InputLabel htmlFor="outlined-adornment-amount">Interest Rate</InputLabel>
+            <InputLabel htmlFor="outlined-adornment-amount">Taux d'intérêt</InputLabel>
             <OutlinedInput
               name="loan_int_rate"
               value={formData.loan_int_rate}
@@ -282,7 +289,7 @@ export default function AddressForm({ onFormSubmit }) {
 
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth sx={{ m: 1 }}>
-            <InputLabel htmlFor="outlined-adornment-amount">Person Income</InputLabel>
+            <InputLabel htmlFor="outlined-adornment-amount">Revenu personnel</InputLabel>
             <OutlinedInput
               name="person_income"
               value={formData.person_income}

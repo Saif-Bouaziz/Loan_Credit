@@ -10,7 +10,8 @@ import SignIn from "layouts/pages/authentication/sign-in";
 import LoanApplication from "./pages/LandingPages/LoanApplication/index"
 
 import BanquierIndex from "pages/LandingPages/Banquier/BanquierIndex"; 
-import Dashboard from "pages/LandingPages/Client/Dashboard";
+import Dashboard from "pages/LandingPages/Client/Dashboard"; 
+import Presentation from "layouts/pages/presentation";
 
 // Sections
 // import PageHeaders from "layouts/sections/page-sections/page-headers";
@@ -35,9 +36,12 @@ const routes = [
   {
     name: "Acceuil",
     icon: <Icon>dashboard</Icon>,
-    columns: 1,
-    rowsPerColumn: 2,
-    collapse: [
+    route: "/" ,  
+    component: <Presentation />
+    
+
+    
+    /*collapse: [
       {
         name: "landing pages",
         collapse: [
@@ -58,7 +62,7 @@ const routes = [
           },
         ],
       },
-    ],
+    ],*/
   },
   {
     name: "Demande de crédit",
@@ -92,7 +96,8 @@ const routes = [
   },
   {
     name: "Simuler votre crédit",
-    route: "/pages/landing-pages/contact-us"
+    route: "/pages/landing-pages/contact-us" ,
+    component: <ContactUs/>
   },
 ];
 
