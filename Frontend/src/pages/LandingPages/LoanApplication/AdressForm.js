@@ -257,7 +257,7 @@ export default function AddressForm({ onFormSubmit }) {
             onChange={(e) => handleInputChange(e)}
             id="outlined-select-currency"
             select
-            label="Objet du prêt"
+            label="Objectif du prêt"
             helperText="Please select your Loan Type"
           >
             {currencies.map((option) => (
@@ -368,7 +368,7 @@ export default function AddressForm({ onFormSubmit }) {
 
 
         <Grid item xs={12} sm={6}>
-          <FormLabel>Les documents necessaires</FormLabel>
+          <FormLabel>Les documents nécessaires</FormLabel>
 
           <br />
           <br />

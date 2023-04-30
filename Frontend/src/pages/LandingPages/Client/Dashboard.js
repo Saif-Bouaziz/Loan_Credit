@@ -230,7 +230,7 @@ function DashboardContent() {
                       borderTopLeftRadius: '.5rem',
                       borderBottomLeftRadius: '.5rem',
                       width: '150px',
-                      background: '#C0C0C0',
+                      background: '#D3D3D3',
                       borderTopRightRadius: '.5rem',
                       borderBottomRightRadius: '.5rem'
                     }}>
@@ -253,21 +253,21 @@ function DashboardContent() {
                     justifyContent: 'center',
                     borderLeft: '3px solid white',
                     width: '500px',
-                    background: '#C0C0C0',
+                    background: '#D3D3D3',
                     borderTopLeftRadius: '.5rem',
                     borderBottomLeftRadius: '.5rem',
                     borderTopRightRadius: '.5rem',
                     borderBottomRightRadius: '.5rem'
                   }}>
                     <div >
-                      <Title> Informations Personelles </Title>
+                      <Title> Informations personelles </Title>
                       <div >
                         <div >
                           <h1><strong>Email</strong></h1>
                           <p >{client.email}</p>
                         </div>
                         <div >
-                          <h6><strong>Télèphone</strong></h6>
+                          <h6><strong>Téléphone</strong></h6>
                           <p> {datass.filter(data => data.email === `${client.email}`).map((datass) => (
                             datass.num_tel
                           ))} </p>
@@ -279,14 +279,14 @@ function DashboardContent() {
                           ))} </p>
                         </div>
                       </div>
-                      <Title> Informations Sur les demandes</Title>
+                      <Title> Informations sur les demandes</Title>
                       <div >
                         <div >
                           <h6><strong>Nombre de demandes passées</strong></h6>
                           <p >{datass.filter(data => data.email === `${client.email}`).length}</p>
                         </div>
                         <div >
-                          <h6><strong>Nombre de crédit obtenus</strong></h6>
+                          <h6><strong>Nombre de crédits obtenus</strong></h6>
                           <p >{credit.filter(data => data.demande__first_name === `${client.name}`).length}</p>
                         </div>
                       </div>
