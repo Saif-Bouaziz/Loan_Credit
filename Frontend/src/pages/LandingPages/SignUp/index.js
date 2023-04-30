@@ -33,7 +33,7 @@ import DefaultNavbar from "examples/Navbars/DefaultNavbar";
 import routes from "routes";
 
 // Images
-import bgImage from "assets/images/bg-sign-in-basic.jpeg";
+import bgImage from "assets/images/abc.jpg";
 
 function SignUp({ isAuthenticated }) {
 
@@ -116,7 +116,7 @@ function SignUp({ isAuthenticated }) {
                 textAlign="center"
               >
                 <MKTypography variant="h4" fontWeight="medium" color="white" mt={1}>
-                  Sign Up
+                  S'inscrire
                 </MKTypography>
                 <Grid container spacing={3} justifyContent="center" sx={{ mt: 1, mb: 2 }}>
                   <Grid item xs={2}>
@@ -137,7 +137,21 @@ function SignUp({ isAuthenticated }) {
                 </Grid>
               </MKBox>
               <MKBox pt={4} pb={3} px={3}>
+<<<<<<< HEAD
                 <MKBox component="form" role="form" >
+=======
+                <MKBox component="form" role="form" > 
+                <MKBox mb={2}>
+                  <MKInput type="text" label="Nom" fullWidth name='name' onChange={handleChange}
+
+                  required/>
+
+
+                </MKBox> 
+                  
+                  
+                  
+>>>>>>> master
                   <MKBox mb={2}>
                     <MKInput type="text" label="name" fullWidth name='name' onChange={handleChange}
 
@@ -149,6 +163,7 @@ function SignUp({ isAuthenticated }) {
 
 
                   <MKBox mb={2}>
+<<<<<<< HEAD
                     <MKInput type="email" label="Email" fullWidth name='email'
                       onChange={handleChange}
 
@@ -162,15 +177,22 @@ function SignUp({ isAuthenticated }) {
 
                       required />
                   </MKBox>
+=======
+                    <MKInput type="password" label="Mot de Passe" fullWidth name="password" 
+                        						onChange={handleChange}
+                                  
+                        required/>
+                  </MKBox>  
+>>>>>>> master
 
                   <MKBox mt={4} mb={1}>
                     <MKButton variant="gradient" color="info" fullWidth onClick={handleSubmit} >
-                      sign Up
+                      S'inscrire
                     </MKButton>
                   </MKBox>
                   <MKBox mt={3} mb={1} textAlign="center">
                     <MKTypography variant="button" color="text">
-                      have an account?{" "}
+                    Avez-vous un compte ?{" "}
                       <MKTypography
                         component={Link}
                         to="/register"
@@ -179,11 +201,19 @@ function SignUp({ isAuthenticated }) {
                         fontWeight="medium"
                         textGradient
                       >
+<<<<<<< HEAD
                         Sign in
                       </MKTypography>
                     </MKTypography>
                   </MKBox>
 
+=======
+                        Se connecter
+                      </MKTypography> 
+                    </MKTypography>  
+                    </MKBox> 
+                  
+>>>>>>> master
                 </MKBox>
               </MKBox>
             </Card>

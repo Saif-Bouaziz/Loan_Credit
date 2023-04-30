@@ -117,8 +117,11 @@ from django.http import JsonResponse
 from .models import UserAccount
 
 
+<<<<<<< HEAD
 from rest_framework.decorators import api_view
 from djoser.views import UserViewSet
+=======
+>>>>>>> master
 """
 class RegisterView(APIView):
     permission_classes = (permissions.AllowAny, )
@@ -231,9 +234,13 @@ def upload(request,id=0):
                 return JsonResponse("Failed to Update", safe=False)
 
 
+<<<<<<< HEAD
 def userAPI(request):
     if request.method=='GET':
         user=UserAccount.objects.all()
         serializer = UserSerializer(user,many=True)
         return JsonResponse(serializer.data, safe=False )
     
+=======
+
+>>>>>>> master

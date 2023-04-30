@@ -21,6 +21,7 @@ import InterpreterModeIcon from '@mui/icons-material/InterpreterMode';
 import PriceCheckIcon from '@mui/icons-material/PriceCheck';
 import CreditScoreIcon from '@mui/icons-material/CreditScore';
 import Card from "scenes/cards/Card";
+import Mail from "scenes/cards/mail";
 
 
 
@@ -77,6 +78,7 @@ const Dashboard = () => {
         <Header title="Tableau de bord" subtitle="Bienvenue Admin" />
       </Box>
       <Card />
+      <Mail />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       {/* GRID & CHARTS */}
       <Box

@@ -59,3 +59,8 @@ def update_client_counts_date(sender, instance, **kwargs):
 @receiver(post_delete, sender=UserAccount)
 def update_agent_counts_date(sender, instance, **kwargs):
     agent_count_date()
+    
+@receiver(post_save, sender=UserAccount)
+@receiver(post_delete, sender=UserAccount)
+def update_nb_mail_counts(sender, instance, **kwargs):
+    get_nb_email()

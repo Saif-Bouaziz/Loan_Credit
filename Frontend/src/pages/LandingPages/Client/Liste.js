@@ -15,7 +15,7 @@ import Grid from '@mui/material/Grid';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { mainListItems, secondaryListItems } from './listItems'; 
+import { mainListItems } from './listItems'; 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
@@ -106,7 +106,21 @@ function DashboardContent() {
   const toggleDrawer = () => {
     setOpen(!open);
   }; 
-  const [datass, setDatass] = React.useState([]);
+  const [datass, setDatass] = React.useState([]); 
+  const [client, setClient] = React.useState(false);
+  useEffect(() => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer  ${localStorage.getItem('access')}`,
+            'Accept': 'application/json'
+        }
+    };
+    axios.get('http://127.0.0.1:8000/auth/users/me', config).then((response) => {
+        console.log(response.data)
+        setClient(response.data)
+    });
+});
 useEffect(() => {
   const config = {
     headers: {
@@ -186,7 +200,7 @@ Parcourez votre liste de demandes en toute simplicité
           <List component="nav">
             {mainListItems}
             <Divider sx={{ my: 1 }} />
-            {secondaryListItems}
+            
           </List>
         </Drawer>
         <Box
@@ -220,7 +234,7 @@ Parcourez votre liste de demandes en toute simplicité
           </TableRow>
         </TableHead>
         <TableBody>
-          {datass.map((datass) => (
+          {datass.filter(data => data.email === `${client.email}`).map((datass) => (
             <StyledTableRow key={datass.DemandeId}>
               <StyledTableCell component="th" scope="row">
                 {datass.email}

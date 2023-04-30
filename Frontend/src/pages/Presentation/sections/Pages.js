@@ -61,7 +61,7 @@ function Pages() {
             sx={{ mb: 2 }}
           />
           <MKTypography variant="h2" fontWeight="bold">
-           Our better services
+          Nos meilleurs services
 
           </MKTypography>
           <MKTypography variant="body1" color="text">
