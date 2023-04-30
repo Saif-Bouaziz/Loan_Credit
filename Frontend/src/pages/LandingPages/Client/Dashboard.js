@@ -19,19 +19,6 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems } from './listItems';
 import Chart from './Chart';
 import Deposits from './Deposits';
-<<<<<<< HEAD
-import Orders from './Orders'; 
-import { Link } from 'react-router-dom'; 
-import { useEffect, useState } from 'react'; 
-import axios from 'axios'; 
-import Title from './Title'; 
-import Depositss from './Depositss'; 
-import Demo from './Graphe'; 
-import DefaultNavbar from 'examples/Navbars/DefaultNavbar'; 
-import routes from 'routes'; 
-import { connect } from "react-redux";  
-import { Graphee } from './graphee';
-=======
 import Orders from './Orders';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -44,9 +31,8 @@ import routes from 'routes';
 import App from './graphee';
 import { connect } from "react-redux";
 import Mail from 'scenes/cards/mail';
->>>>>>> master
 
-
+import { Graphee } from './graphee';
 
 const drawerWidth = 240;
 
@@ -230,32 +216,11 @@ function DashboardContent() {
             overflow: 'auto',
           }}
         >
-<<<<<<< HEAD
-          <Toolbar />  
-          <div style={{ display: 'flex',flexDirection:'row'}}> 
-          <div style={{ width: '700px'}}>
-          <section  style={{ backgroundColor: '#f4f5f7'}}>
-      <div className="container py-5 "style={{ marginLeft: '10px'}}>
-              
-                <div 
-                  style={{display: 'flex', 
-                  alignItems: 'center', 
-                  justifyContent: 'center', 
-                  borderTopLeftRadius: '.5rem', 
-                  borderBottomLeftRadius: '.5rem', 
-                  width:'150px' , 
-                  background: '#C0C0C0', 
-                  borderTopRightRadius: '.5rem', 
-                  borderBottomRightRadius: '.5rem' }}>
-                  <div> 
-                  <img src="./nermine.jpg" alt="avatar" />
-=======
           <Toolbar />
           <div style={{ display: 'flex', flexDirection: 'row', marginTop: "20px" }}>
             <div style={{ width: '700px' }}>
               <section style={{ backgroundColor: '#f4f5f7' }}>
                 <div className="container py-5 " style={{ marginLeft: '10px' }}>
->>>>>>> master
 
                   <div
                     style={{
@@ -337,11 +302,6 @@ function DashboardContent() {
               </div>
               <div style={{ flex: 1, marginLeft: 20 }}>
 
-<<<<<<< HEAD
-    </div>  
-    <hr />
-    <Graphee />
-=======
                 <Grid item xs={12} md={4} lg={5}>
                   <Paper
                     sx={{
@@ -362,8 +322,7 @@ function DashboardContent() {
           </div>
 
           <hr />
-          <Demo />
->>>>>>> master
+          <Graphee />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
               {/* <h1>hello {client.name}</h1> */}
