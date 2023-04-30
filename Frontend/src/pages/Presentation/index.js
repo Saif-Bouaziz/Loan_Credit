@@ -49,12 +49,6 @@ function Presentation() {
     <>
       <DefaultNavbar
         routes={routes}
-        action={{
-          type: "external",
-          route: "https://www.creative-tim.com/product/material-kit-react",
-          label: "Get Started Now",
-          color: "info",
-        }}
         sticky
       />
       <MKBox
@@ -119,12 +113,15 @@ function Presentation() {
                 variant="gradient"
                 color="info"
                 icon="flag"
-                title="Vérifier votre éligibilité"
-                description="Sélectionnez le montant de votre crédit, répondez à quelques questions et obtenez instantanément le montant du prêt. Découvrez  les fichiers nécessaires pour construire votre propre dossier de crédit."
+                title="Simuler votre crédit"
+                description="Ce calculateur de prêt simple vous permet de déterminer le montant de vos paiements mensuels ainsi que le coût total de votre prêt.
+                Il vous suffit d'entrer le montant du prêt, le taux d'intérêt annuel et la durée du prêt en années.
+                
+                "
                 action={{
-                  type: "external",
-                  route: "https://www.creative-tim.com/learning-lab/react/overview/material-kit/",
-                  label: "C'est parti",
+                  type: "internal",
+                  route: "/pages/landing-pages/contact-us",
+                  label: "Essayer Simulation",
                 }}
               />
             </Grid>
@@ -132,13 +129,8 @@ function Presentation() {
               <FilledInfoCard
                 color="info"
                 icon="precision_manufacturing"
-                title="Soumettre les documents"
-                description="Partagez les documents requis avec notre représentant sans tracas"
-                action={{
-                  type: "external",
-                  route: "https://www.creative-tim.com/learning-lab/react/overview/datepicker/",
-                  label: "Lire plus",
-                }}
+                title="Vérifier votre éligibilité"
+                description="Sélectionnez le montant de votre crédit, répondez à quelques questions et obtenez instantanément le montant du prêt. Découvrez  les fichiers nécessaires pour construire votre propre dossier de crédit."
               />
             </Grid>
             <Grid item xs={12} lg={4}>
@@ -147,11 +139,6 @@ function Presentation() {
                 icon="apps"
                 title="Accord de principe"
                 description="Sélectionnez l'offre finale de prêt sanctionné avec les modalités qui vous conviennent le mieux"
-                action={{
-                  type: "external",
-                  route: "https://www.creative-tim.com/learning-lab/react/alerts/material-kit/",
-                  label: "Lire plus ",
-                }}
               />
             </Grid>
           </Grid>

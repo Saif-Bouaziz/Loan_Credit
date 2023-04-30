@@ -28,8 +28,8 @@ import Depositss from './Depositss';
 import Demo from './Graphe'; 
 import DefaultNavbar from 'examples/Navbars/DefaultNavbar'; 
 import routes from 'routes'; 
-import App from './graphee'; 
-import { connect } from "react-redux"; 
+import { connect } from "react-redux";  
+import { Graphee } from './graphee';
 
 
 
@@ -232,7 +232,7 @@ useEffect(() => {
                   borderTopRightRadius: '.5rem', 
                   borderBottomRightRadius: '.5rem' }}>
                   <div> 
-                  <img src={`data:image/jpg;base64,${datass.img_cin}`} alt="Avatar"   />
+                  <img src="./nermine.jpg" alt="avatar" />
 
                 
                   <h5>{client.name}</h5>
@@ -309,7 +309,7 @@ useEffect(() => {
 
     </div>  
     <hr />
-    <Demo />
+    <Graphee />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}> 
               {/* <h1>hello {client.name}</h1> */}
