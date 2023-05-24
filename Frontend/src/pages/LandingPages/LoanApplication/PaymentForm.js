@@ -217,7 +217,7 @@ export default function PaymentForm({ onFormSubmit }) {
           </FormControl>
         </Grid>
 
-        <Grid item xs={12} md={6}>
+       {/* <Grid item xs={12} md={6}>
           <TextField fullWidth label="Travail actuel" id="fullWidth" name='job'
             value={formData.job} onChange={(e) => handleInputChange(e)}
             InputProps={{
@@ -228,7 +228,7 @@ export default function PaymentForm({ onFormSubmit }) {
               ),
             }}
           />
-        </Grid>
+          </Grid>*/}
 
 
         <TextField
