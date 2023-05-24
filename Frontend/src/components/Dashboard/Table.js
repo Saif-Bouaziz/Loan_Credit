@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import i18n from 'i18next';
 i18n.init({
   lng: 'en',

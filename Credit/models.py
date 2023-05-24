@@ -21,7 +21,7 @@ class Demande(models.Model):
         
     )
     LOAN_DURATION_CHOICES=(
-        ('12m', '12 months'),
+    ('12m', '12 months'),
         ('24m', '24 months'),
         ('36m', '36 months'),
         ('48m', '48 months'),
@@ -64,6 +64,7 @@ class Demande(models.Model):
     prediction=models.IntegerField(null=True)
     AgentId=models.IntegerField(null=True)
     AgentMail=models.CharField(max_length=50,null=True)
+    agent_associé=models.IntegerField(null=True,default=0)
 
 
     
