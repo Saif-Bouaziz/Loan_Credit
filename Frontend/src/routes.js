@@ -90,7 +90,7 @@ const routes = [
       {
         name: "Espace Banquier",
         route: "/Dashboard", 
-        component: <BanquierIndex />,
+        component:<BanquierIndex />
       },
     ],
   },

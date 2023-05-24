@@ -64,6 +64,7 @@ class Demande(models.Model):
     prediction=models.IntegerField(null=True)
     AgentId=models.IntegerField(null=True)
     AgentMail=models.CharField(max_length=50,null=True)
+    agent_associé=models.IntegerField(null=True,default=0)
 
 
     

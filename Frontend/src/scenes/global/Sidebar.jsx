@@ -24,6 +24,7 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import InterpreterModeIcon from '@mui/icons-material/InterpreterMode';
 import axios from "axios";
 import userImage from '../../media/picture/ad.png';
+import banker from'./banker.jpg'
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -179,7 +180,7 @@ const Sidebar = () => {
                   id="profile-image"
                   width="100px"
                   height="100px"
-                  src={userImage}
+                  src={banker}
                   style={{ cursor: "pointer", borderRadius: "50%" }}
                 />
               </label>
