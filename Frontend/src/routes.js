@@ -32,11 +32,14 @@ import ProgressBars from "layouts/sections/elements/progress-bars";
 import Toggles from "layouts/sections/elements/toggles";
 import Typography from "layouts/sections/elements/typography"; */
 const routes = [
-  {
+ /*{
     name: "Acceuil",
     icon: <Icon>dashboard</Icon>,
     route: "/",
     component: <Presentation />
+<<<<<<< HEAD
+  }, */
+=======
 
 
 
@@ -63,6 +66,7 @@ const routes = [
       },
     ],*/
   },
+>>>>>>> master
   {
     name: "Demande de crédit",
     icon: <Icon>view_day</Icon>,

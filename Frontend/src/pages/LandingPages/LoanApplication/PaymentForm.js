@@ -217,6 +217,10 @@ export default function PaymentForm({ onFormSubmit }) {
           </FormControl>
         </Grid>
 
+<<<<<<< HEAD
+        <Grid item xs={12} md={6}>
+        
+=======
        {/* <Grid item xs={12} md={6}>
           <TextField fullWidth label="Travail actuel" id="fullWidth" name='job'
             value={formData.job} onChange={(e) => handleInputChange(e)}
@@ -229,6 +233,7 @@ export default function PaymentForm({ onFormSubmit }) {
             }}
           />
           </Grid>*/}
+>>>>>>> master
 
 
         <TextField
@@ -276,7 +281,8 @@ export default function PaymentForm({ onFormSubmit }) {
               </InputAdornment>
             ),
           }}
-        />
+        /> 
+        </Grid>
       </Grid>
     </React.Fragment >
   );

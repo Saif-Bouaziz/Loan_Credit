@@ -7,7 +7,7 @@
 
 }
 
-.title {
+.titlee {
     background: linear-gradient(to right, #FFBF00 50%, #333533 50%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -17,7 +17,7 @@
 
 }
 
-.title {
+.titlee {
     position: relative;
     animation: slide-right 1s ease-in-out forwards;
 }
