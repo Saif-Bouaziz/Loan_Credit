@@ -21,7 +21,7 @@ class Demande(models.Model):
         
     )
     LOAN_DURATION_CHOICES=(
-        ('12m', '12 months'),
+    ('12m', '12 months'),
         ('24m', '24 months'),
         ('36m', '36 months'),
         ('48m', '48 months'),

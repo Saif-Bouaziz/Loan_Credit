@@ -6,11 +6,10 @@ import Icon from "@mui/material/Icon";
 
 import ContactUs from "layouts/pages/landing-pages/contact-us";
 import Agent from "./pages/LandingPages/Agent/index"
-import SignIn from "layouts/pages/authentication/sign-in";
 import LoanApplication from "./pages/LandingPages/LoanApplication/index"
 
-import BanquierIndex from "pages/LandingPages/Banquier/BanquierIndex"; 
-import Dashboard from "pages/LandingPages/Client/Dashboard"; 
+import BanquierIndex from "pages/LandingPages/Banquier/BanquierIndex";
+import Dashboard from "pages/LandingPages/Client/Dashboard";
 import Presentation from "layouts/pages/presentation";
 
 // Sections
@@ -36,11 +35,11 @@ const routes = [
   {
     name: "Acceuil",
     icon: <Icon>dashboard</Icon>,
-    route: "/" ,  
+    route: "/",
     component: <Presentation />
-    
 
-    
+
+
     /*collapse: [
       {
         name: "landing pages",
@@ -66,20 +65,20 @@ const routes = [
   },
   {
     name: "Demande de crédit",
-    icon: <Icon>view_day</Icon>, 
-    route: "/pages/LandingPages/LoanApplication/index", 
-    component: <LoanApplication/>,
- 
+    icon: <Icon>view_day</Icon>,
+    route: "/pages/LandingPages/LoanApplication/index",
+    component: <LoanApplication />,
+
   },
   {
     name: "Se connecter",
     icon: <Icon>article</Icon>,
     collapse: [
       {
-        name: "Espace Client", 
+        name: "Espace Client",
         route: "/dashboardC",
         component: <Dashboard />,
-        
+
       },
       {
         name: "Espace Agent",
@@ -89,15 +88,15 @@ const routes = [
       },
       {
         name: "Espace Banquier",
-        route: "/Dashboard", 
+        route: "/Dashboard",
         component: <BanquierIndex />,
       },
     ],
   },
   {
     name: "Simuler votre crédit",
-    route: "/pages/landing-pages/contact-us" ,
-    component: <ContactUs/>
+    route: "/pages/landing-pages/contact-us",
+    component: <ContactUs />
   },
 ];
 
