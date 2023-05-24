@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Table from './Table';
 import Edit from './Edit';
 import Axios from 'axios'
-import emailjs from '@emailjs/browser'
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
-  const [datas, setDatas] = React.useState([]);
-  const [agent, setAgent] = React.useState(false);
+  const [datas, setDatas] = useState([]);
+  const [agent, setAgent] = useState();
 
   const [selectedDemande, setSelectedDemande] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
+  const navigate = useNavigate();
+
   useEffect(() => {
 
 
@@ -41,7 +44,22 @@ const Dashboard = () => {
 
  
 
+<<<<<<< HEAD
   }, [localStorage.getItem('access')]);
+=======
+    });
+    if (agent == false) {
+      Swal.fire({
+        icon: 'error',
+        title: "Erreur",
+        text: "Vous n'etes pas un agent !",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+
+      navigate('/')
+    }
+>>>>>>> master
 
 
 
@@ -54,11 +72,7 @@ const Dashboard = () => {
 
   return (
     <div className="container">
-      {!agent && (
-        <div>
-          <h1>Vous n'êtes pas un agent</h1>
-        </div>
-      )}
+
       {agent && !isEditing && (
         <div>
           <br />
