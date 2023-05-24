@@ -120,7 +120,7 @@ def create_demande(request):
             loan_int_rate=address_form_data.get('loan_int_rate')
             person_income=address_form_data.get('person_income')
             image4=address_form_data.get('image4')
-            
+            AgentMail=address_form_data.get('AgentMail')
             img_cin=address_form_data.get('img_cin')
             img_avis_imposition=address_form_data.get('img_avis_imposition')
             img_bulletins_salaire=address_form_data.get('img_bulletins_salaire')
@@ -135,7 +135,7 @@ def create_demande(request):
                         loan_duration=loan_duration,loan_percent_income=loan_percent_income,
                         loan_int_rate=loan_int_rate,person_income=person_income,image4=image4,
                         img_cin=img_cin,img_avis_imposition=img_avis_imposition,img_bulletins_salaire=img_bulletins_salaire,
-                        img_Releves_compte_banque=img_Releves_compte_banque,img_justificatif_domicile_actuel=img_justificatif_domicile_actuel                     )
+                        img_Releves_compte_banque=img_Releves_compte_banque,img_justificatif_domicile_actuel=img_justificatif_domicile_actuel,AgentMail=AgentMail                     )
         
             return JsonResponse({'success': True})
         return JsonResponse({'error': 'Invalid request method'})
