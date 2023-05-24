@@ -87,15 +87,24 @@ def demandeApi(request,id=0):
                     return JsonResponse("Updated Successfully!", safe=False)
                 return JsonResponse("Failed to Update", safe=False)
 
+import random
+def generate_agent(request):
+        agents=UserAccount.objects.filter(is_agent=True)
+        list_id=[]
+        for agent in agents:
+            list_id.append(agent.id)
+        if len(list_id)==0:
+            return JsonResponse("there is no agents", safe=False)
+        agent_associe = random.choice(list_id)
+        return agent_associe
 
-
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def create_demande(request):
         if request.method == 'POST':
-            #user= request.user
-            #email=user.email
-            #client=UserAccount.objects.get(email=email)
-            #ClientId=client.id
-            ClientId=1
+            user= request.user
+            client=UserAccount.objects.get(email=user.email)
+            ClientId=client.id
             data = json.loads(request.body)
             address_form_data = data['addressFormData']
             payment_form_data = data['paymentFormData']
@@ -120,12 +129,14 @@ def create_demande(request):
             loan_int_rate=address_form_data.get('loan_int_rate')
             person_income=address_form_data.get('person_income')
             image4=address_form_data.get('image4')
-            
+            AgentMail=address_form_data.get('AgentMail')
             img_cin=address_form_data.get('img_cin')
             img_avis_imposition=address_form_data.get('img_avis_imposition')
             img_bulletins_salaire=address_form_data.get('img_bulletins_salaire')
             img_Releves_compte_banque=address_form_data.get('img_Releves_compte_banque')
             img_justificatif_domicile_actuel=address_form_data.get('img_justificatif_domicile_actuel')
+            agent_associe = generate_agent(request)
+
             demande=Demande.objects.using('credit').create(   
                 ClientId=ClientId, first_name=first_name, last_name=last_name,
                         email=email, person_age=person_age, cin=cin, num_tel=num_tel,
@@ -135,11 +146,23 @@ def create_demande(request):
                         loan_duration=loan_duration,loan_percent_income=loan_percent_income,
                         loan_int_rate=loan_int_rate,person_income=person_income,image4=image4,
                         img_cin=img_cin,img_avis_imposition=img_avis_imposition,img_bulletins_salaire=img_bulletins_salaire,
-                        img_Releves_compte_banque=img_Releves_compte_banque,img_justificatif_domicile_actuel=img_justificatif_domicile_actuel                     )
+                        img_Releves_compte_banque=img_Releves_compte_banque,img_justificatif_domicile_actuel=img_justificatif_domicile_actuel,
+                        agent_associé=agent_associe)
         
-            return JsonResponse({'success': True})
+            return JsonResponse({'success': True,'agent':demande.agent_associé})
         return JsonResponse({'error': 'Invalid request method'})
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_agent_demande(request):
+    user_co=request.user
+    agent=UserAccount.objects.using('users').get(email=user_co.email) 
+    demande_agent = Demande.objects.filter(agent_associé=agent.id).values("DemandeId","first_name","last_name","email",
+                                        "person_income","loan_intent","loan_amnt","decision")
+    demande_associe=list(demande_agent)
+    if demande_agent.exists():
+        return JsonResponse({'success': True,'demande_agent':demande_associe},safe=False)
+    return JsonResponse({'message': 'there is no demand for you oopsie'})
 
 
 from rest_framework.permissions import BasePermission
@@ -295,6 +318,7 @@ def demande_count_date(request):
         counts_dict[date_string] = count
     return JsonResponse(counts_dict)
        
+from django.contrib.auth.hashers import make_password
 
 def add_agent(request): 
     if request.method == 'POST':
@@ -302,9 +326,8 @@ def add_agent(request):
         name=data['name']
         email=data['email']
         password=data['password']
-        is_agent=data['is_agent']
-        agent=UserAccount.objects.using('users').create(name=name, email=email,password=password)
-        agent.is_agent=is_agent
+        hashed_password = make_password(password)
+        agent=UserAccount.objects.using('users').create(name=name, email=email,password=hashed_password,is_active=True,is_agent=True)
         agent.save()
         return JsonResponse({'success': True})
     return JsonResponse({'error': 'Invalid request method'})
@@ -349,6 +372,17 @@ def get_banquier(request):
     banquier_list = list(banquier)
 
     return JsonResponse(banquier_list, safe=False)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def acces_dashboard(request):
+    user_co=request.user
+    banquier_email=UserAccount.objects.filter(is_banquier=True).values_list("email", flat=True).first()
+    if user_co.email ==banquier_email:
+        return JsonResponse({'succes':True,'message':'you have the acces to the dashboard'})
+    return JsonResponse({'message':'taarafha niniiiniiiii'})
+
+    
 
 def delete_user(request, id_user):
     try:

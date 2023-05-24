@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { useState, useEffect } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -6,11 +5,10 @@ import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import axios from "axios"
-import Button from '@mui/material/Button';
-
+import skander from "./Skander.jpg"
 
 function ResponsiveAppBar() {
-    const [agent, setAgent] = useState(false);
+    const [agent, setAgent] = useState([]);
     useEffect(() => {
 
 
@@ -26,7 +24,7 @@ function ResponsiveAppBar() {
             setAgent(response.data)
         });
 
-    });
+    }, []);
 
     return (
         <AppBar position="static">
@@ -41,7 +39,7 @@ function ResponsiveAppBar() {
                     <input id="image" style={{ display: 'none' }} type="file" />
                     <label htmlFor='image'>
                         <Avatar
-                            src={`data:image/jpeg;base64,${agent.image4}`} sx={{ width: 56, height: 56 }}
+                            src={skander} sx={{ width: 56, height: 56 }}
                         />
                     </label>
                 </Toolbar>

@@ -1,43 +1,29 @@
 import * as React from 'react';
-import ReactDOM from 'react-dom';
-import Typography from '@mui/material/Typography';
+
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
-import Checkbox from '@mui/material/Checkbox';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-import Box from '@mui/material/Box';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import InputAdornment from '@mui/material/InputAdornment';
 import EmailIcon from '@mui/icons-material/Email';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
-import HomeIcon from '@mui/icons-material/Home';
 import WorkIcon from '@mui/icons-material/Work';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
-import PasswordIcon from '@mui/icons-material/Password';
 import AddLocationIcon from '@mui/icons-material/AddLocation';
 import MarkAsUnreadIcon from '@mui/icons-material/MarkAsUnread';
 import SouthAmericaIcon from '@mui/icons-material/SouthAmerica';
 import { useTheme } from '@mui/material/styles';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
+
 import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-import Axios from 'axios'
+
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
+
 
 const currencies = [
   {
@@ -58,28 +44,9 @@ const currencies = [
   },
 ];
 
-function getStyles(name, personName, theme) {
-  return {
-    fontWeight:
-      personName.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
-}
 
 export default function PaymentForm({ onFormSubmit }) {
-  const theme = useTheme();
-  //const [personName, setPersonName] = React.useState([]);
 
-  /*const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
-    );
-  };*/
   const [formData, setFormData] = React.useState({
     first_name: "",
     last_name: "",
@@ -251,17 +218,7 @@ export default function PaymentForm({ onFormSubmit }) {
         </Grid>
 
         <Grid item xs={12} md={6}>
-          <TextField fullWidth label="Travail actuel" id="fullWidth" name='job'
-            value={formData.job} onChange={(e) => handleInputChange(e)}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <WorkIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
-        </Grid>
+        
 
 
         <TextField
@@ -309,7 +266,8 @@ export default function PaymentForm({ onFormSubmit }) {
               </InputAdornment>
             ),
           }}
-        />
+        /> 
+        </Grid>
       </Grid>
     </React.Fragment >
   );

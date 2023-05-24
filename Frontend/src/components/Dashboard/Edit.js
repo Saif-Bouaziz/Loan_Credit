@@ -1,4 +1,3 @@
-import React from 'react';
 import Swal from 'sweetalert2';
 import axios from 'axios'
 import emailjs from '@emailjs/browser'
