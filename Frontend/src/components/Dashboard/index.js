@@ -44,22 +44,7 @@ const Dashboard = () => {
 
  
 
-<<<<<<< HEAD
   }, [localStorage.getItem('access')]);
-=======
-    });
-    if (agent == false) {
-      Swal.fire({
-        icon: 'error',
-        title: "Erreur",
-        text: "Vous n'etes pas un agent !",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-
-      navigate('/')
-    }
->>>>>>> master
 
 
 
