@@ -2,6 +2,12 @@ import React, { Fragment, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logout } from './actions/auth';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import "./Navbar.css"
+import image from "./le-logo3.png"
+
+
 
 const Navbar = ({ logout, isAuthenticated }) => {
     const [redirect, setRedirect] = useState(false);
@@ -13,44 +19,53 @@ const Navbar = ({ logout, isAuthenticated }) => {
 
     const guestLinks = () => (
         <Fragment>
-            <li className='nav-item'>
-                <Link className='nav-link' to='/register'>Login</Link>
-            </li>
-            <li className='nav-item'>
-                <Link className='nav-link' to='/signup'>Sign Up</Link>
-            </li>
+            <Button style={{ backgroundColor: "#E8EDDF" }} variant="contained" color="success" href="/register">
+                Se connecter
+            </Button>
+            <Button variant="contained" color="success" href="/signup">
+                Créer un compte
+            </Button>
         </Fragment>
     );
 
     const authLinks = () => (
-        <li className='nav-item'>
-            <a className='nav-link' href='/' onClick={logout_user}>Logout</a>
-        </li>
+        <Button variant="contained" color="success" href="/" onClick={logout_user}>Se deconnecter
+        </Button>
     );
 
     return (
-            <nav className='navbar navbar-expand-lg navbar-light bg-light'>
-                <Link className='navbar-brand' to='/'>Auth System</Link>
-                <button 
-                    className='navbar-toggler' 
-                    type='button' 
-                    data-toggle='collapse' 
-                    data-target='#navbarNav' 
-                    aria-controls='navbarNav' 
-                    aria-expanded='false' 
-                    aria-label='Toggle navigation'
-                >
-                    <span className='navbar-toggler-icon'></span>
-                </button>
-                <div className='collapse navbar-collapse' id='navbarNav'>
-                    <ul className='navbar-nav'>
-                        <li className='nav-item active'>
-                            <Link className='nav-link' to='/'>Home <span className='sr-only'>(current)</span></Link>
-                        </li>
-                        {isAuthenticated ? authLinks() : guestLinks()}
-                    </ul>
-                </div>
-            </nav>
+        <div className='nav' style={{ display: "flex", flexDirection: "row" }}>
+            <img src={image} />
+            &nbsp;&nbsp;&nbsp;
+
+            <div className='title' >
+                LendEase
+            </div>
+            &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
+
+            <div style={{ marginTop: "15px" }}>
+                <Stack spacing={5} direction="row">
+                    <Button style={{ backgroundColor: "#F5CB5C", color: "white" }} variant="contained" color="success" href="/">Accueil</Button>
+                    {isAuthenticated ? authLinks() : guestLinks()}
+                </Stack>
+            </div>
+
+        </div>
     );
 };
 

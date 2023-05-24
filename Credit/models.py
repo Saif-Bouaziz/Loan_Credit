@@ -62,6 +62,9 @@ class Demande(models.Model):
     img_justificatif_domicile_actuel = models.TextField(null=True)
     created = models.DateTimeField(auto_now_add=True)
     prediction=models.IntegerField(null=True)
+    AgentId=models.IntegerField(null=True)
+    AgentMail=models.CharField(max_length=50,null=True)
+
 
     
     

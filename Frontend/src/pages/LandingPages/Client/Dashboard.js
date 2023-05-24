@@ -19,20 +19,20 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems } from './listItems';
 import Chart from './Chart';
 import Deposits from './Deposits';
-import Orders from './Orders'; 
-import { Link } from 'react-router-dom'; 
-import { useEffect, useState } from 'react'; 
-import axios from 'axios'; 
-import Title from './Title'; 
-import Depositss from './Depositss'; 
-import Demo from './Graphe'; 
-import DefaultNavbar from 'examples/Navbars/DefaultNavbar'; 
-import routes from 'routes'; 
-import App from './graphee'; 
-import { connect } from "react-redux"; 
+import Orders from './Orders';
+import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import Title from './Title';
+import Depositss from './Depositss';
+import Demo from './Graphe';
+import DefaultNavbar from 'examples/Navbars/DefaultNavbar';
+import routes from 'routes';
+import App from './graphee';
+import { connect } from "react-redux";
 import Mail from 'scenes/cards/mail';
 
-
+import { Graphee } from './graphee';
 
 const drawerWidth = 240;
 
@@ -94,65 +94,65 @@ function DashboardContent() {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
-  };  
-  const [client, setClient] = React.useState(false); 
-  const [datass, setDatass] = React.useState([]);  
+  };
+  const [client, setClient] = React.useState(false);
+  const [datass, setDatass] = React.useState([]);
   const [credit, setCredit] = React.useState([]);
 
 
 
   useEffect(() => {
     const config = {
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer  ${localStorage.getItem('access')}`,
-            'Accept': 'application/json'
-        }
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer  ${localStorage.getItem('access')}`,
+        'Accept': 'application/json'
+      }
     };
     axios.get('http://127.0.0.1:8000/auth/users/me', config).then((response) => {
-        console.log(response.data)
-        setClient(response.data)
+      console.log(response.data)
+      setClient(response.data)
     });
-}); 
-useEffect(() => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer  ${localStorage.getItem('access')}`,
-      'Accept': 'application/json'
-    }
-  };
-  
-  axios.get('http://127.0.0.1:8000/credit/demandeApi').then((response) => {
-    console.log(response.data)
-    setDatass(response.data)
   });
-});
-useEffect(() => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer  ${localStorage.getItem('access')}`,
-      'Accept': 'application/json'
-    }
-  };
-  
-  axios.get('http://127.0.0.1:8000/credit/get_credits').then((response) => {
-    console.log(response.data)
-    setCredit(response.data)
+  useEffect(() => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer  ${localStorage.getItem('access')}`,
+        'Accept': 'application/json'
+      }
+    };
+
+    axios.get('http://127.0.0.1:8000/credit/demandeApi').then((response) => {
+      console.log(response.data)
+      setDatass(response.data)
+    });
   });
-}); 
-  return ( 
-    
-    <ThemeProvider theme={mdTheme}>  
-    
+  useEffect(() => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer  ${localStorage.getItem('access')}`,
+        'Accept': 'application/json'
+      }
+    };
+
+    axios.get('http://127.0.0.1:8000/credit/get_credits').then((response) => {
+      console.log(response.data)
+      setCredit(response.data)
+    });
+  });
+  return (
+
+    <ThemeProvider theme={mdTheme}>
+
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <AppBar position="absolute" open={open}>
+        <AppBar style={{ marginTop: "70px" }} position="absolute" open={open}>
           <Toolbar
-           
-           // keep right padding when drawer closed
-           
+
+          // keep right padding when drawer closed
+
           >
             <IconButton
               edge="start"
@@ -165,22 +165,22 @@ useEffect(() => {
               }}
             >
               <MenuIcon />
-            </IconButton> 
+            </IconButton>
             <IconButton onClick={toggleDrawer}>
-   <ChevronLeftIcon />
- </IconButton>
+              <ChevronLeftIcon />
+            </IconButton>
             <Typography
-            component="h1"
-            variant="h6"
-            color="inherit"
-            noWrap
-            sx={{ flexGrow: 1 }}
+              component="h1"
+              variant="h6"
+              color="inherit"
+              noWrap
+              sx={{ flexGrow: 1 }}
             >
-          Bienvenue dans votre espace personnel {client.name}
-          </Typography>   
-          
+              Bienvenue dans votre espace personnel {client.name}
+            </Typography>
 
-          {/*<Link to="/notification">
+
+            {/*<Link to="/notification">
             <IconButton color="secondary">
               <Badge badgeContent={4} color="primary">
                 <NotificationsIcon />
@@ -195,7 +195,7 @@ useEffect(() => {
             sx={{
               display: 'flex',
               alignItems: 'center',
-              
+
               px: [1],
             }}
           >
@@ -216,111 +216,115 @@ useEffect(() => {
             overflow: 'auto',
           }}
         >
-          <Toolbar />  
-          <div style={{ display: 'flex',flexDirection:'row'}}> 
-          <div style={{ width: '700px'}}>
-          <section  style={{ backgroundColor: '#f4f5f7'}}>
-      <div className="container py-5 "style={{ marginLeft: '10px'}}>
-              
-                <div 
-                  style={{display: 'flex', 
-                  alignItems: 'center', 
-                  justifyContent: 'center', 
-                  borderTopLeftRadius: '.5rem', 
-                  borderBottomLeftRadius: '.5rem', 
-                  width:'150px' , 
-                  background: '#C0C0C0', 
-                  borderTopRightRadius: '.5rem', 
-                  borderBottomRightRadius: '.5rem' }}>
-                  <div> 
-                  <img src={`data:image/jpg;base64,${datass.img_cin}`} alt="Avatar"   />
+          <Toolbar />
+          <div style={{ display: 'flex', flexDirection: 'row', marginTop: "20px" }}>
+            <div style={{ width: '700px' }}>
+              <section style={{ backgroundColor: '#f4f5f7' }}>
+                <div className="container py-5 " style={{ marginLeft: '10px' }}>
 
-                
-                  <h5>{client.name}</h5>
-                  <p> {datass.filter(data => data.email === `${client.email}`).map((datass) => (
-                     datass.job
-                  ))} </p>
-                  <i className="far fa-edit mb-5"></i> 
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      borderTopLeftRadius: '.5rem',
+                      borderBottomLeftRadius: '.5rem',
+                      width: '150px',
+                      background: '#D3D3D3',
+                      borderTopRightRadius: '.5rem',
+                      borderBottomRightRadius: '.5rem'
+                    }}>
+                    <div>
+                      <img src={`data:image/jpg;base64,${datass.img_cin}`} alt="Avatar" />
+
+
+                      <h5>{client.name}</h5>
+                      <p> {datass.filter(data => data.email === `${client.email}`).map((datass) => (
+                        datass.job
+                      ))} </p>
+                      <i className="far fa-edit mb-5"></i>
+                    </div>
                   </div>
-                </div>
-                
-                
-                <div style={{ display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'center',
-                borderLeft: '3px solid white', 
-                width: '500px', 
-                background: '#C0C0C0', 
-                borderTopLeftRadius: '.5rem',  
-                borderBottomLeftRadius: '.5rem', 
-                borderTopRightRadius: '.5rem', 
-                borderBottomRightRadius: '.5rem'}}>
-                  <div >
-                    <Title> Informations Personelles </Title>
+
+
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderLeft: '3px solid white',
+                    width: '500px',
+                    background: '#D3D3D3',
+                    borderTopLeftRadius: '.5rem',
+                    borderBottomLeftRadius: '.5rem',
+                    borderTopRightRadius: '.5rem',
+                    borderBottomRightRadius: '.5rem'
+                  }}>
                     <div >
+                      <Title> Informations personelles </Title>
                       <div >
-                        <h1><strong>Email</strong></h1>
-                        <p >{client.email}</p>
-                      </div>
-                      <div >
-                        <h6><strong>Télèphone</strong></h6>
-                        <p> {datass.filter(data => data.email === `${client.email}`).map((datass) => (
+                        <div >
+                          <h1><strong>Email</strong></h1>
+                          <p >{client.email}</p>
+                        </div>
+                        <div >
+                          <h6><strong>Téléphone</strong></h6>
+                          <p> {datass.filter(data => data.email === `${client.email}`).map((datass) => (
                             datass.num_tel
-                         ))} </p>
-                      </div> 
-                      <div >
-                        <h6><strong>Adresse</strong></h6>
-                        <p> {datass.filter(data => data.email === `${client.email}`).map((datass) => (
+                          ))} </p>
+                        </div>
+                        <div >
+                          <h6><strong>Adresse</strong></h6>
+                          <p> {datass.filter(data => data.email === `${client.email}`).map((datass) => (
                             datass.adress
-                         ))} </p>
+                          ))} </p>
+                        </div>
                       </div>
-                    </div>
-                    <Title> Informations Sur les demandes</Title>
-                    <div >
+                      <Title> Informations sur les demandes</Title>
                       <div >
-                        <h6><strong>Nombre de demandes passées</strong></h6>
-                        <p >{datass.filter(data => data.email === `${client.email}`).length}</p>
+                        <div >
+                          <h6><strong>Nombre de demandes passées</strong></h6>
+                          <p >{datass.filter(data => data.email === `${client.email}`).length}</p>
+                        </div>
+                        <div >
+                          <h6><strong>Nombre de crédits obtenus</strong></h6>
+                          <p >{credit.filter(data => data.demande__first_name === `${client.name}`).length}</p>
+                        </div>
                       </div>
-                      <div >
-                        <h6><strong>Nombre de crédit obtenus</strong></h6>
-                        <p >{credit.filter(data => data.demande__first_name === `${client.name}`).length}</p>
-                      </div>
-                    </div>
 
+                    </div>
                   </div>
                 </div>
-      </div>
-    </section>    
-    </div>  
-    <div style={{ display: 'flex',flexDirection: 'row', marginTop:'30px', justifyContent: 'space-between'}} >
-    <div style={{ flex: 1 }}>
-        <Mail />
-      </div>
-      <div style={{ flex: 1 , marginLeft: 20 }}>
+              </section>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'row', marginTop: '30px', justifyContent: 'space-between' }} >
+              <div style={{ flex: 1 }}>
+                <Mail />
+              </div>
+              <div style={{ flex: 1, marginLeft: 20 }}>
 
-    <Grid item xs={12} md={4} lg={5}>
-      <Paper
-        sx={{
-          p: 2,
-          display: 'flex', 
-          flexDirection: 'column',
-          height: 240,
-          width:200,
-        }}
-      >
-        <Depositss />
-           
+                <Grid item xs={12} md={4} lg={5}>
+                  <Paper
+                    sx={{
+                      p: 2,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      height: 240,
+                      width: 200,
+                    }}
+                  >
+                    <Depositss />
 
-      </Paper>
-    </Grid>
-    </div>
-    </div>
-  </div> 
 
-    <hr />
-    <Demo />
+                  </Paper>
+                </Grid>
+              </div>
+            </div>
+          </div>
+
+          <hr />
+          <Graphee />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <Grid container spacing={3}> 
+            <Grid container spacing={3}>
               {/* <h1>hello {client.name}</h1> */}
               {/* Chart */}
               {/* Recent Deposits 
@@ -348,7 +352,7 @@ useEffect(() => {
                   <Depositss />
                 </Paper>
                 </Grid> */}
-           {/*   <Grid item xs={12} md={4} lg={3}>
+              {/*   <Grid item xs={12} md={4} lg={3}>
                 <Paper
                   sx={{
                     p: 2,
@@ -365,9 +369,9 @@ useEffect(() => {
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
                   <Orders />
                 </Paper>
-              </Grid>  
+              </Grid>
 
-              
+
             </Grid>
           </Container>
         </Box>
@@ -376,6 +380,6 @@ useEffect(() => {
   );
 }
 
-export default function Dashboard() { 
+export default function Dashboard() {
   return <DashboardContent />;
 }

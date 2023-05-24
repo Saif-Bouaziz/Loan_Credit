@@ -1,17 +1,20 @@
-import * as React from 'react';
-import Paper from '@mui/material/Paper'; 
-import {
-  Chart,
-  PieSeries,
-  Title, 
-  Legend,
-} from '@devexpress/dx-react-chart-material-ui';
-import { Animation } from '@devexpress/dx-react-chart'; 
+import React from "react";
+import { Chart } from "react-google-charts";
 import axios from 'axios'; 
 import { useEffect, useState } from 'react';
-import colors from 'assets/theme/base/colors'; 
 
-export default function App() {
+
+
+
+
+
+
+export const options = {
+  title: "Suivi de votre crédit", 
+  colors: ['#F5CB5C','#C0C0C0'],
+};
+
+export function Graphee() { 
   const [datass, setDatass] = useState([]);
   const [client, setClient] = useState(false);
 
@@ -52,29 +55,20 @@ export default function App() {
 
     const totalDifference = datass
   .filter(data => data.demande__first_name === client.name)
-  .reduce((total, data) => total + (data.montant_principal - data.montant_restant), 0);
-
+  .reduce((total, data) => total + (data.montant_principal - data.montant_restant), 0); 
   const data = [ 
-    ["aa", "bb"],
-    [`${"Montant des crédits ("}${datass.filter(data => data.demande__first_name === client.name).reduce((total, data) => total + data.montant_principal, 0)}Dt${")"}`, totalMontantPrincipal],
-    [`${"Montant déja payé ("}${datass.filter(data => data.demande__first_name === client.name).reduce((total, data) => total + (data.montant_principal - data.montant_restant), 0)}Dt${")"}`, totalDifference],
-  ];
   
-  const options = {
-    title: "My Daily Activities",
-  };
- 
-  return ( 
-          <Chart
-            data={data}
-            options={options}
-            width={"100%"}
-            height={"400px"}
-          />
-    
-      
-
+    ["Task", "Hours per Day"],
+    [`Montant des crédits (${datass.filter(data => data.demande__first_name === client.name).reduce((total, data) => total + data.montant_principal, 0)}Dt)`, totalMontantPrincipal],
+    [`Montant déja payé (${datass.filter(data => data.demande__first_name === client.name).reduce((total, data) => total + (data.montant_principal - data.montant_restant), 0)}Dt)`, totalDifference],
+  ];
+  return (
+    <Chart style={{ marginLeft:100 }}
+      chartType="PieChart"
+      data={data}
+      options={options}
+      width={"80%"}
+      height={"400px"}
+    />
   );
 }
-
-
