@@ -217,23 +217,8 @@ export default function PaymentForm({ onFormSubmit }) {
           </FormControl>
         </Grid>
 
-<<<<<<< HEAD
         <Grid item xs={12} md={6}>
         
-=======
-       {/* <Grid item xs={12} md={6}>
-          <TextField fullWidth label="Travail actuel" id="fullWidth" name='job'
-            value={formData.job} onChange={(e) => handleInputChange(e)}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <WorkIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
-          </Grid>*/}
->>>>>>> master
 
 
         <TextField

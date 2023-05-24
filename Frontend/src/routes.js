@@ -37,36 +37,7 @@ const routes = [
     icon: <Icon>dashboard</Icon>,
     route: "/",
     component: <Presentation />
-<<<<<<< HEAD
   }, */
-=======
-
-
-
-    /*collapse: [
-      {
-        name: "landing pages",
-        collapse: [
-          {
-            name: "contact us",
-            route: "/pages/landing-pages/contact-us",
-            component: <ContactUs />,
-          },
-        ],
-      },
-      {
-        name: "account",
-        collapse: [
-          {
-            name: "sign in",
-            route: "/pages/authentication/sign-in",
-            component: <SignIn />,
-          },
-        ],
-      },
-    ],*/
-  },
->>>>>>> master
   {
     name: "Demande de crédit",
     icon: <Icon>view_day</Icon>,
