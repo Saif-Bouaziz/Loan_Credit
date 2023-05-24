@@ -95,12 +95,6 @@ function ContactUs() {
     
     <DefaultNavbar
       routes={routes}
-      action={{
-      type: "external",
-      route: "https://www.creative-tim.com/product/material-kit-react",
-      label: "Get Started Now",
-      color: "info", 
-      }}
       sticky
     />  
 
@@ -232,7 +226,7 @@ function ContactUs() {
           <div class="column is-12-tablet is-6-desktop is-3-widescreen">
             <div class="notification  has-text" style={{backgroundColor: '#cfdbd5'}}>
               <p id="totalPayment" class="title is-1" style={{color: '#ffffff'}}>TND</p>
-              <p class="subtitle is-4" style={{color: '#ffffff'}}>Total Amount</p> 
+              <p class="subtitle is-4" style={{color: '#ffffff'}}>Montant Total</p> 
               <span id="totalPayment"style={{color: '#ffffff'}}>{totalPayment}</span>
             </div>
           </div>

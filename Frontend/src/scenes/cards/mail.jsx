@@ -24,8 +24,8 @@ const Mail = () => {
     {
     title: "Nombre de mails non lus",
     color: {
-      backGround: "linear-gradient(180deg, #C0C0C0 0%, #C0C0C0 100%)",
-      boxShadow: "0px 10px 20px 0px #C0C0C0",
+      backGround: "linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 100%)",
+      boxShadow: "0px 10px 20px 0px #FFFFFF",
     },
     number:mailCount,
   }
