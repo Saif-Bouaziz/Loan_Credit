@@ -32,7 +32,10 @@ import App from './graphee';
 import { connect } from "react-redux";
 import Mail from 'scenes/cards/mail';
 
-import { Graphee } from './graphee';
+import { Graphee } from './graphee'; 
+import saif from './saif.jpg' 
+import Avatar from '@mui/material/Avatar';
+
 
 const drawerWidth = 240;
 
@@ -235,13 +238,17 @@ function DashboardContent() {
                       borderBottomRightRadius: '.5rem'
                     }}>
                     <div>
-                      <img src={`data:image/jpg;base64,${datass.img_cin}`} alt="Avatar" />
-
-
+                    <Avatar
+                            src={saif} sx={{ width: 100, height: 100 }}
+                        />
+<br />
                       <h5>{client.name}</h5>
-                      <p> {datass.filter(data => data.email === `${client.email}`).map((datass) => (
-                        datass.job
-                      ))} </p>
+                      <p> {datass.filter(data => data.email === `${client.email}`).map((datass, index) => (
+  index === 0 ? datass.job : null
+))} </p>
+
+                     
+                     
                       <i className="far fa-edit mb-5"></i>
                     </div>
                   </div>
@@ -268,15 +275,23 @@ function DashboardContent() {
                         </div>
                         <div >
                           <h6><strong>Téléphone</strong></h6>
-                          <p> {datass.filter(data => data.email === `${client.email}`).map((datass) => (
-                            datass.num_tel
-                          ))} </p>
+                          
+                          
+                          
+                          <p> {datass.filter(data => data.email === `${client.email}`).map((datass, index) => (
+  index === 0 ? datass.num_tel : null
+))} </p>
+
                         </div>
                         <div >
                           <h6><strong>Adresse</strong></h6>
-                          <p> {datass.filter(data => data.email === `${client.email}`).map((datass) => (
-                            datass.adress
-                          ))} </p>
+                          
+                          
+                          
+                          <p> {datass.filter(data => data.email === `${client.email}`).map((datass, index) => (
+  index === 0 ? datass.adress : null
+))} </p>
+
                         </div>
                       </div>
                       <Title> Informations sur les demandes</Title>

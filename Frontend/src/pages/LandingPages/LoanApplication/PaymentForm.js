@@ -218,17 +218,7 @@ export default function PaymentForm({ onFormSubmit }) {
         </Grid>
 
         <Grid item xs={12} md={6}>
-          <TextField fullWidth label="Travail actuel" id="fullWidth" name='job'
-            value={formData.job} onChange={(e) => handleInputChange(e)}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <WorkIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
-        </Grid>
+        
 
 
         <TextField
@@ -276,7 +266,8 @@ export default function PaymentForm({ onFormSubmit }) {
               </InputAdornment>
             ),
           }}
-        />
+        /> 
+        </Grid>
       </Grid>
     </React.Fragment >
   );

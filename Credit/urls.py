@@ -41,12 +41,8 @@ urlpatterns = [
     path('update_nb_email/<int:id>/',views.update_nb_email,name='update'),
     path('get_nb_email',views.get_nb_email,name='get_email'),
     path('reset_nb_email',views.reset_nb_email,name='reset_email'),
-
-
-
-
-
-
-    
+    path('generate_agent',views.generate_agent,name='generate_agent'),
+    path('get_agent_demande',views.get_agent_demande,name='get_agent_demande'),
+    path('acces_dashboard',views.acces_dashboard,name='acces_dashboard'),
 
 ]

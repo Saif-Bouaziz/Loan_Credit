@@ -134,7 +134,7 @@ function SignUp({ isAuthenticated }) {
                   
                   
                   <MKBox mb={2}>
-                    <MKInput type="text" label="name" fullWidth name='name' onChange={handleChange}
+                    <MKInput type="text" label="email" fullWidth name='email' onChange={handleChange}
 
                       required />
 

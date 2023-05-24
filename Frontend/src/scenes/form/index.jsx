@@ -4,6 +4,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 import { useState } from "react";
 import Swal from 'sweetalert2';
+import emailjs from '@emailjs/browser'
 
 import axios from 'axios'
 
@@ -16,7 +17,6 @@ const Form = () => {
     name:"",
     email:"",
     password :"",
-    is_agent:"",
   });
 
   const handleFormSubmit = () => { 
@@ -30,6 +30,18 @@ const Form = () => {
         showConfirmButton: false,
         timer: 1500,
       });
+      var templateParams = {
+        email_to: `${formData.email}`,
+        message: `Cher/Chère ${formData.name},Votre compte a été créé avec succés ! Vous trouverez ci-joint les
+        informations nécessaires pour votre identification. Email :${formData.email}, Mot de passe: ${formData.password} `
+      };
+  
+      emailjs.send('service_a7ipo6k', 'template_16u38jh', templateParams, 'u0eiwSMN0Z1Wlo0Mz')
+        .then(function (response) {
+          console.log('SUCCESS!', response.status, response.text);
+        }, function (error) {
+          console.log('FAILED...', error);
+        });
     })
     .catch(error => {
       console.error(error);
@@ -111,20 +123,6 @@ const Form = () => {
                 sx={{ gridColumn: "span 2",
               
                 "& .MuiFilledInput-input": { color: "black" }}}
-              />
-              <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label="Type Utilisateur"
-                onChange={(e)=>handleInputChange(e)}
-                InputLabelProps={{shrink: true, style: { color: "black" } }}
-    
-                value={values.is_agent}
-                name="is_agent"
-                error={!!touched.contact && !!errors.contact}
-                helperText={touched.contact && errors.contact}
-                sx={{ gridColumn: "span 2", "& .MuiFilledInput-input": { color: "black" } }}
               />
 
             </Box>

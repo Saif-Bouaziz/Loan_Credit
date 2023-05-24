@@ -109,7 +109,6 @@ const handleDelete = (id_agent) => {
               <th>Id utilisateur</th>
               <th>Nom et Prénom</th>
               <th>Email</th>
-              <th>Mot de passe</th>
               <th colSpan={2} className="text-center">
                 Actions
               </th>
@@ -139,7 +138,6 @@ const handleDelete = (id_agent) => {
                           val.email
                         )}
                   </td>
-                  <td>{val.password}</td>
                   <td>
                   {editMode && currentAgent.id === val.id ? (
                     <button className="button muted-button" onClick={() => handleSave(currentAgent.id,currentAgent.email)}>

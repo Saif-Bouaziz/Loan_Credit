@@ -28,25 +28,24 @@ const Dashboard = () => {
       console.log(response.data.is_agent)
       setAgent(response.data.is_agent)
     });
-
-
-    Axios.get('http://127.0.0.1:8000/credit/demandeApi').then((response) => {
-      setDatas(response.data)
-
-    });
-    if (agent == false) {
-      Swal.fire({
-        icon: 'error',
-        title: "Erreur",
-        text: "Vous n'etes pas un agent !",
-        showConfirmButton: false,
-        timer: 1500,
+    async function fetchDemandes() {
+      const response = await fetch("http://127.0.0.1:8000/credit/get_agent_demande", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('access')}`, // include JWT token in the request header
+        }
       });
-
-      navigate('/')
+      const data = await response.json();
+      console.log(data['demande_agent'])
+      setDatas(data['demande_agent']);
     }
+  
+    fetchDemandes();
 
-  });
+
+ 
+
+  }, [localStorage.getItem('access')]);
+
 
 
   const handleEdit = id => {
