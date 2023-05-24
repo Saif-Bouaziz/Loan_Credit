@@ -55,37 +55,25 @@ export default function Demo() {
 
 
   const data = [
-<<<<<<< HEAD
     { region: `Montant des crédits (${datass.filter(data => data.demande__first_name === client.name).reduce((total, data) => total + data.montant_principal, 0)}Dt)`, val: totalMontantPrincipal },
     {
       region: `Montant déja payé (${datass.filter(data => data.demande__first_name === client.name).reduce((total, data) => total + (data.montant_principal - data.montant_restant), 0)}Dt)`
       , val: totalDifference
     },
   ];
-  const colors = ['#0088FE', '#00C49F'];
-=======
-    { region: `Montant des crédits (${datass.filter(data => data.demande__first_name === client.name).reduce((total, data) => total + data.montant_principal, 0)}Dt)`, val: totalMontantPrincipal},
-    { region: `Montant déja payé (${datass.filter(data => data.demande__first_name === client.name).reduce((total, data) => total + (data.montant_principal - data.montant_restant), 0)}Dt)`
-    , val: totalDifference},
-  ];   
-  
->>>>>>> master
 
-  
+
+
   return (
     <Paper>
       <Chart
-        data={data}  
+        data={data}
 
       >
         <PieSeries
           valueField="val"
           argumentField="region"
-<<<<<<< HEAD
           innerRadius={0.6}
-=======
-          innerRadius={0.6}     
->>>>>>> master
 
         />
         <Title
