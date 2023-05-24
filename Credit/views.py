@@ -146,12 +146,8 @@ def create_demande(request):
                         loan_duration=loan_duration,loan_percent_income=loan_percent_income,
                         loan_int_rate=loan_int_rate,person_income=person_income,image4=image4,
                         img_cin=img_cin,img_avis_imposition=img_avis_imposition,img_bulletins_salaire=img_bulletins_salaire,
-<<<<<<< HEAD
                         img_Releves_compte_banque=img_Releves_compte_banque,img_justificatif_domicile_actuel=img_justificatif_domicile_actuel,
                         agent_associé=agent_associe)
-=======
-                        img_Releves_compte_banque=img_Releves_compte_banque,img_justificatif_domicile_actuel=img_justificatif_domicile_actuel,AgentMail=AgentMail                     )
->>>>>>> master
         
             return JsonResponse({'success': True,'agent':demande.agent_associé})
         return JsonResponse({'error': 'Invalid request method'})

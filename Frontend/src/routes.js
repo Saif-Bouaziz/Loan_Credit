@@ -88,13 +88,8 @@ const routes = [
       },
       {
         name: "Espace Banquier",
-<<<<<<< HEAD
         route: "/Dashboard", 
         component:<BanquierIndex />
-=======
-        route: "/Dashboard",
-        component: <BanquierIndex />,
->>>>>>> master
       },
     ],
   },
