@@ -56,7 +56,7 @@ function Information() {
                 action={{
                   type: "internal",
                   route: "/sections/page-sections/page-headers",
-                  label: "Apply Now",
+                  label: "Postulez maintenant",
                 }}
               />
             </RotatingCard>

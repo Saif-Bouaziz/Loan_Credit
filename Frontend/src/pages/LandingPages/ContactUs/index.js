@@ -78,9 +78,9 @@ function ContactUs() {
 
     const x = Math.pow(1 + calculatedInterest, calculatedPayments);
     const monthly = (principal * x * calculatedInterest) / (x - 1);
-    const formattedMonthlyPayment = '$' + monthly.toFixed(2);
-    const formattedTotalInterest = '$' + (monthly * calculatedPayments - principal).toFixed(2);
-    const formattedTotalPayment = '$' + (monthly * calculatedPayments).toFixed(2);
+    const formattedMonthlyPayment = 'TND' + monthly.toFixed(2);
+    const formattedTotalInterest = 'TND' + (monthly * calculatedPayments - principal).toFixed(2);
+    const formattedTotalPayment = 'TND' + (monthly * calculatedPayments).toFixed(2);
 
     setMonthlyPayment(formattedMonthlyPayment);
     setTotalInterest(formattedTotalInterest);
@@ -104,7 +104,7 @@ function ContactUs() {
       <div>
       <div className="content"  >
 
-          <h1>Similateur de Crédit</h1>
+          <h1>Simulateur de Crédit</h1>
           <p>
           Ce calculateur de prêt simple vous permet de déterminer le montant de vos paiements mensuels ainsi que le coût total de votre prêt. <br /> Il vous suffit d'entrer le montant du prêt, le taux d'intérêt annuel et la durée du prêt en années.
           </p>
@@ -209,7 +209,7 @@ function ContactUs() {
 
           <div class="column is-12-tablet is-6-desktop is-3-widescreen">
             <div class="notification  has-text " style={{backgroundColor: '#f5cb5c'}}> 
-              <p id="monthlyPayment" class="title is-1"style={{color: '#ffffff'}}>TND</p>
+              <p id="monthlyPayment" class="title is-1"style={{color: 'white'}}>TND</p>
               <p class="subtitle is-4"style={{color: '#ffffff'}}>Paiements mensuels</p> 
               <span id="monthlyPayment"style={{color: '#ffffff'}}>{monthlyPayment}</span>
             </div>

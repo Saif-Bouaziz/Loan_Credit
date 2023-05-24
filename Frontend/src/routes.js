@@ -33,37 +33,12 @@ import ProgressBars from "layouts/sections/elements/progress-bars";
 import Toggles from "layouts/sections/elements/toggles";
 import Typography from "layouts/sections/elements/typography"; */
 const routes = [
-  {
+ /*{
     name: "Acceuil",
     icon: <Icon>dashboard</Icon>,
     route: "/" ,  
     component: <Presentation />
-    
-
-    
-    /*collapse: [
-      {
-        name: "landing pages",
-        collapse: [
-          {
-            name: "contact us",
-            route: "/pages/landing-pages/contact-us",
-            component: <ContactUs />,
-          },
-        ],
-      },
-      {
-        name: "account",
-        collapse: [
-          {
-            name: "sign in",
-            route: "/pages/authentication/sign-in",
-            component: <SignIn />,
-          },
-        ],
-      },
-    ],*/
-  },
+  }, */
   {
     name: "Demande de crédit",
     icon: <Icon>view_day</Icon>, 

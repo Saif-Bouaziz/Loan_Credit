@@ -59,7 +59,7 @@ export function Graphee() {
   const data = [ 
   
     ["Task", "Hours per Day"],
-    [`Montant des crédits (${datass.filter(data => data.demande__first_name === client.name).reduce((total, data) => total + data.montant_principal, 0)}Dt)`, totalMontantPrincipal],
+    [`Montant du crédit (${datass.filter(data => data.demande__first_name === client.name).reduce((total, data) => total + data.montant_principal, 0)}Dt)`, totalMontantPrincipal],
     [`Montant déja payé (${datass.filter(data => data.demande__first_name === client.name).reduce((total, data) => total + (data.montant_principal - data.montant_restant), 0)}Dt)`, totalDifference],
   ];
   return (

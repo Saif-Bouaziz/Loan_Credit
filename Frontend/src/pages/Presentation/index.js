@@ -60,14 +60,13 @@ function Presentation() {
           backgroundPosition: "top",
           display: "grid",
           placeItems: "center", 
-          opacity:0.8,
         }}
       >
         <Container >
           <Grid container item xs={12} lg={7} justifyContent="center" mx="auto">
-            <MKTypography
+            <MKTypography style={{color:'white'}}
               variant="h1"
-              color="white"
+              
               mt={-6}
               mb={1}
               sx={({ breakpoints, typography: { size } }) => ({
@@ -76,9 +75,8 @@ function Presentation() {
                 },
               })}
             >
-              Solution de finance intelligente pour votre usage personnel{" "}
             </MKTypography>
-            <MKTypography
+            {/*<MKTypography
               variant="body1"
               color="white"
               textAlign="center"
@@ -86,7 +84,7 @@ function Presentation() {
               mt={1}
             >
               Bienvenue à notre application de prêt de crédit - la manière intelligente d'emprunter de l'argent et atteindre vos objectifs financiers
-            </MKTypography>
+            </MKTypography> */}
           </Grid>
         </Container>
       </MKBox>
@@ -143,7 +141,6 @@ function Presentation() {
             </Grid>
           </Grid>
         </Container>
-        <Download />
       </Card>
     </>
   );
